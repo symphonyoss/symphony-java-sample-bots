@@ -6,8 +6,12 @@ The java command runs and exit, there is no daemon running and waiting for incom
 
 ## Example
 ```
+export CERTS=~/certs
+
+git clone https://github.com/symphonyoss/symphony-rss-bot.git
+cd symphony-rss-bot
 mvn clean package
-export FOUNDATION_CERTS=~/w/infra/foundation-certs
+
 java \
 -Dkeystore.password=changeit \
 -Dtruststore.password=changeit \
@@ -17,10 +21,10 @@ java \
 -Dagent.url=https://foundation-api.symphony.com/agent \
 -Drss.url=http://bit.ly/28T2riT \
 -Drss.limit=10 \
--Dcerts.dir=$FOUNDATION_CERTS/ \
--Dtruststore.file=$FOUNDATION_CERTS/server.truststore \
+-Dcerts.dir=$FCERTS/ \
+-Dtruststore.file=$CERTS/server.truststore \
 -Dbot.user.name=bot.user1 \
--Dreceiver.user.email=maoo@symphony.foundation \
+-Dreceiver.user.email=user@symphony.foundation \
 -Dbot.user.email=botuser1@symphony.foundation \
 -jar target/symphony-rss-bot-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
