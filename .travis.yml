@@ -25,9 +25,6 @@ cache:
 
 language: java
 script: mvn clean install
-before_install:
-install:
-before_script:
 
 jdk:
   - oraclejdk8
@@ -46,4 +43,4 @@ addons:
     notification_email: maoo@symphony.foundation
     build_command_prepend: "mvn clean"
     build_command: "mvn compile"
-    branch_pattern: coverity_scan
+    branch_pattern: master
