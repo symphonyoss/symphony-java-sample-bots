@@ -34,7 +34,7 @@ java \
 
 ## Libraries
 - [Symphony Java Client](https://github.com/symphonyoss/symphony-java-client)
-- [Rome](https://rometools.github.io/rome/)
+- [Rome](https://rometools.github.io/rome/) (a Java framework for RSS and Atom feeds)
 
 ## Roadmap
 - Exception handling
