@@ -25,6 +25,10 @@ cache:
 
 language: java
 script: mvn clean install
+before_install:
+install:
+before_script:
+
 jdk:
   - oraclejdk8
 
