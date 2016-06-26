@@ -1,5 +1,6 @@
 # Symphony RSS Bot
 
+[![Dependencies](https://www.versioneye.com/user/projects/577067cd6718940036449100/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/577067cd6718940036449100)
 [![Build Status](https://travis-ci.org/symphonyoss/symphony-rss-bot.svg)](https://travis-ci.org/symphonyoss/symphony-rss-bot)
 [![Validation Status](https://scan.coverity.com/projects/9269/badge.svg?flat=1)](https://scan.coverity.com/projects/symphonyoss-symphony-rss-bot)
 
