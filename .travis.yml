@@ -21,7 +21,9 @@
 #
 
 language: java
-script: mvn clean install -Pversioneye
+# script: mvn clean install -Pversioneye
+install: false
+script: curl -L https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/mvn-ssf-profiles.sh | bash
 
 jdk:
   - oraclejdk8
