@@ -30,8 +30,6 @@ jdk:
 
 env:
   global:
-   - MVN_MASTER_PROFILES=testmaster
-   - MVN_ALLBRANCHES_PROFILES=testallbranch
    # Need to "gem install travis" first
    # Generated using command "travis encrypt COVERITY_SCAN_TOKEN=blah"
    - secure: "m+WDRB+Ow/+cIXs4y+8pMNRYV8vLK6L5RZjDjk3ayy3OVl8TTf7ViCNk3e/JCKoy/OVABGOL2Ntm7MrtD6I5B2v7x2OUEfwaaLvWAJfZaKnhLp9Hag8GaLC106aedyK8jNOIIRba9vjG9pPBhTiA8HoWWhYd46ECUI7lUMkz8ux5NEpgX5VXLH0d2gkBlwTqc1hog9RCbuEDA+uXlQENTlHDMSRaxH8bC1yHfJr3D0sIRNuhJMb6xu7n7O1kyI50Sy8N/ZV3EOiY7oPrssZ0ghUfmWUtCL9ciVYjk3pAWd533zsvsNTde+dRS3w+a/Wvw6mHueDgflDlxASUPhb6z0o7mT3v+N+99bh5UfSap69bwUsJ027Elntnrznp7U3DgUcD195sSPObR5m5ivl/eFFziEo50/fEnThyjN+n8nnDORuYKXGIDit79dwwZTK+l7zG0gacbMuSj6rftHXLhEejZimBI2C2qawmTADHxGLUhk1MRgMInlPUorekVTPMpnBRQD1+uoAJuz7IgeOXv0qq3hq/LIPHuEmCdiAANLV4PyppyN+w/RHeMCNQK7qnF3BCg19rlpGFRSKnxBHkzmexmNgmEXtKqYj8j1tJuo+QEFfbuqxU54WySbsehNnYnKA0ifILC230rpsTNUrsH0ZqIKqNWRkuj4iGGV7YJgo="
