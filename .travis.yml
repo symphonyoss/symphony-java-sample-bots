@@ -25,6 +25,10 @@ language: java
 install: true
 script: curl -L https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/mvn-ssf-profiles.sh | bash
 
+env:
+- MVN_MASTER_PROFILES=testmaster
+- MVN_ALLBRANCHES_PROFILES=testallbranch
+
 jdk:
   - oraclejdk8
 
