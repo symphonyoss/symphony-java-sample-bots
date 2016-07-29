@@ -30,7 +30,7 @@
     <version>1.0-SNAPSHOT</version>
     <name>Symphony RSS Bot</name>
     <description>Symphony RSS Bot</description>
-    <url>http://</url>
+    <url>https://github.com/symphonyoss/symphony-rss-bot</url>
 
     <parent>
       <groupId>org.symphonyoss</groupId>
@@ -46,25 +46,12 @@
     </licenses>
 
     <scm>
-      <connection>scm:git:git://github.com/symphonyoss/symphony-java-client.git</connection>
-      <developerConnection>scm:git:git@github.com:symphonyoss/symphony-java-client.git</developerConnection>
-      <url>https://github.com/symphonyoss/symphony-java-client</url>
+      <connection>scm:git:git://github.com/symphonyoss/symphony-rss-bot.git</connection>
+      <developerConnection>scm:git:git@github.com:symphonyoss/symphony-rss-bot.git</developerConnection>
+      <url>https://github.com/symphonyoss/symphony-rss-bot</url>
     </scm>
 
     <developers>
-      <developer>
-          <id>ftarsillo</id>
-          <name>Frank Tarsillo</name>
-          <email></email>
-          <url>http://github.com/ftarsillo</url>
-          <organization>Symphony Software Foundation</organization>
-          <organizationUrl>http://symphony.foundation</organizationUrl>
-          <timezone></timezone>
-          <roles>
-              <role>Architect</role>
-              <role>Developer</role>
-          </roles>
-      </developer>
       <developer>
           <id>maoo</id>
           <name>Maurizio Pillitu</name>
