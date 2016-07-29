@@ -19,22 +19,22 @@
 # specific language governing permissions and limitations
 # under the License.
 #
-cache:
-  directories:
-  - $HOME/.m2
 
 language: java
-script: mvn clean install
+# script: mvn clean install -Pversioneye
+install: true
+script: curl -L https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/mvn-ssf-profiles.sh | bash
 
 jdk:
   - oraclejdk8
 
 env:
   global:
-   # Secure is generated using command "travis encrypt COVERITY_SCAN_TOKEN=blah"
    # Need to "gem install travis" first
+   # Generated using command "travis encrypt COVERITY_SCAN_TOKEN=blah"
    - secure: "m+WDRB+Ow/+cIXs4y+8pMNRYV8vLK6L5RZjDjk3ayy3OVl8TTf7ViCNk3e/JCKoy/OVABGOL2Ntm7MrtD6I5B2v7x2OUEfwaaLvWAJfZaKnhLp9Hag8GaLC106aedyK8jNOIIRba9vjG9pPBhTiA8HoWWhYd46ECUI7lUMkz8ux5NEpgX5VXLH0d2gkBlwTqc1hog9RCbuEDA+uXlQENTlHDMSRaxH8bC1yHfJr3D0sIRNuhJMb6xu7n7O1kyI50Sy8N/ZV3EOiY7oPrssZ0ghUfmWUtCL9ciVYjk3pAWd533zsvsNTde+dRS3w+a/Wvw6mHueDgflDlxASUPhb6z0o7mT3v+N+99bh5UfSap69bwUsJ027Elntnrznp7U3DgUcD195sSPObR5m5ivl/eFFziEo50/fEnThyjN+n8nnDORuYKXGIDit79dwwZTK+l7zG0gacbMuSj6rftHXLhEejZimBI2C2qawmTADHxGLUhk1MRgMInlPUorekVTPMpnBRQD1+uoAJuz7IgeOXv0qq3hq/LIPHuEmCdiAANLV4PyppyN+w/RHeMCNQK7qnF3BCg19rlpGFRSKnxBHkzmexmNgmEXtKqYj8j1tJuo+QEFfbuqxU54WySbsehNnYnKA0ifILC230rpsTNUrsH0ZqIKqNWRkuj4iGGV7YJgo="
-
+   # Generated using command "travis encrypt VERSIONEYE_API_KEY=blah"
+   - secure: "G/5nYf5iCCee7nptAc2ne4DICw9MBVB1TlGeUL31a8R1fQE8HG7yfcTSyYoRrTYZo2zwle9IYnvwLXKtHZLc3DBDQhTTA+nucGHgaEeG/93l+TrBa61TuGrpyRjn9TWrTEF3w79C/kcoAbUhJgYpWyQwcS43HDNTWii6w1XmeZD5/4UQyPsA73EF3R2cTefXKLV45XEMfWfhJ+T43r5AX3hQxKAM/JTTuppocnbmC1QrlX7jc0yl6dRLyMe+gtC4f1qHgdrPkOR9AOgoFDtwCjnKTbwpuOzuWFYBEzumImGoY2mm97OLlRPq5QhlO8RGnFQrP3slBjfS2QTrf1vkTJ04j+pPVsunXbS8Cpvw9uqv7rnmIaPnJD3Q1V1+8/NYi9cGGyrVHj0Oy0ZjI/58tjPV9dK+s5G1GOudAqzOPgEccicDb5+exPbcMAkiOd/2W2Ls0v7PTc76zrCGlAHvwRZr82UimRnRwtN3ADs2lRuGBY5p6qO+1XlDsT/OILAuDch9emVjztdb00JocFBMKe7OiowGI1okgnEz0c02COVKYC63uRqtdLVWseVuKEUYmQDGgQllnAZ3LIB6j9r4BLWiRlmg3PqRfj/hAOgTLAurxIo1d2Up1FgB3M4xdK03t4Pefj4zsu1xMZnDWd/QHnKk9HIPtm3IQPELreV1Pjs="
 addons:
   coverity_scan:
     project:
