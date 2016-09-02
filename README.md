@@ -13,7 +13,7 @@ This bot says hello world to a given Symphony user (specified via `-Dreceiver.us
 This bot initiates a chat with a given Symphony user (specified via `-Dreceiver.user.email`), and echoes back every message in that chat.  Terminates automatically after 5 minutes.
 
 ## Stock Info Bot
-This bot initiates a chat with a given Symphony user (specified via `-Dreceiver.user.email`), and echoes back every message in that chat.  Terminates automatically after 5 minutes.
+This bot initiates a chat with a given Symphony user (specified via `-Dreceiver.user.email`), looks for cashtags in any messages in that chat, then responds with a message containing information on those stocks (obtained from the free Yahoo Finance API, which is 20 minutes delayed).  Terminates automatically after 5 minutes.
 
 ## RSS Bot
 This bot fetches feed items from given url (`-Drss.url`) and sends an X amount (`-Drss.limit`) of them to a given Symphony user (`-Dreceiver.user.email`); check the other parameters needed in the following example.
