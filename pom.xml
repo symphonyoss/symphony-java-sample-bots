@@ -24,94 +24,135 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>symphony-rss-bot</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>Symphony RSS Bot</name>
-    <description>Symphony RSS Bot</description>
-    <url>https://github.com/symphonyoss/symphony-rss-bot</url>
+  <artifactId>symphony-sample-java-bots</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Symphony RSS Bot</name>
+  <description>Symphony RSS Bot</description>
+  <url>https://github.com/symphonyoss/symphony-sample-java-bots</url>
 
-    <parent>
-      <groupId>org.symphonyoss</groupId>
-      <artifactId>symphonyoss</artifactId>
-      <version>2</version>
-    </parent>
+  <parent>
+    <groupId>org.symphonyoss</groupId>
+    <artifactId>symphonyoss</artifactId>
+    <version>2</version>
+  </parent>
 
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
 
-    <scm>
-      <connection>scm:git:git://github.com/symphonyoss/symphony-rss-bot.git</connection>
-      <developerConnection>scm:git:git@github.com:symphonyoss/symphony-rss-bot.git</developerConnection>
-      <url>https://github.com/symphonyoss/symphony-rss-bot</url>
-    </scm>
+  <scm>
+    <connection>scm:git:git://github.com/symphonyoss/symphony-sample-java-bots.git</connection>
+    <developerConnection>scm:git:git@github.com:symphonyoss/symphony-sample-java-bots.git</developerConnection>
+    <url>https://github.com/symphonyoss/symphony-sample-java-bots</url>
+  </scm>
 
-    <developers>
-      <developer>
-          <id>maoo</id>
-          <name>Maurizio Pillitu</name>
-          <email>maoo@symphony.foundation</email>
-          <url>http://github.com/maoo</url>
-          <organization>Symphony Software Foundation</organization>
-          <organizationUrl>http://symphony.foundation</organizationUrl>
-          <timezone>+1</timezone>
-          <roles>
-              <role>Developer</role>
-          </roles>
-      </developer>
-    </developers>
+  <developers>
+    <developer>
+        <id>maoo</id>
+        <name>Maurizio Pillitu</name>
+        <email>maoo@symphony.foundation</email>
+        <url>http://github.com/maoo</url>
+        <organization>Symphony Software Foundation</organization>
+        <organizationUrl>http://symphony.foundation</organizationUrl>
+        <timezone>+1</timezone>
+        <roles>
+            <role>Developer</role>
+        </roles>
+    </developer>
+    <developer>
+      <id>pmonks</id>
+      <name>Peter Monks</name>
+      <email>peter@symphony.foundation</email>
+      <url>http://github.com/pmonks</url>
+      <organization>Symphony Software Foundation</organization>
+      <organizationUrl>http://symphony.foundation</organizationUrl>
+      <timezone>-8</timezone>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+  </developers>
 
-    <repositories>
-      <repository>
-        <id>ossrh</id>
-        <name>OSSRH Public Group</name>
-        <url>https://oss.sonatype.org/content/groups/public</url>
-        <snapshots><enabled>true</enabled></snapshots>
-      </repository>
-    </repositories>
+  <repositories>
+    <repository>
+      <id>ossrh</id>
+      <name>OSSRH Public Group</name>
+      <url>https://oss.sonatype.org/content/groups/public</url>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+  </repositories>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.symphonyoss.symphony</groupId>
-            <artifactId>symphony-client</artifactId>
-            <version>0.9.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.rometools</groupId>
-            <artifactId>rome</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-    </dependencies>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>attached</goal>
-                        </goals>
-                        <phase>package</phase>
-                        <configuration>
-                            <archive>
-                                <manifest>
-                                    <mainClass>org.symphonyoss.simplebot.RssBot</mainClass>
-                                </manifest>
-                            </archive>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.symphonyoss.symphony</groupId>
+      <artifactId>symphony-client</artifactId>
+      <version>0.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.rometools</groupId>
+      <artifactId>rome</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.yahoofinance-api</groupId>
+      <artifactId>YahooFinanceAPI</artifactId>
+      <version>3.5.0</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.symphonyoss.simplebot.HelloWorldBot</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>attached</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <archive>
+                <manifest>
+                  <mainClass>org.symphonyoss.simplebot.HelloWorldBot</mainClass>
+                </manifest>
+              </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
