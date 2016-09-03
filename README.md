@@ -1,7 +1,7 @@
 # Symphony RSS Bot
 
 [![Dependencies](https://www.versioneye.com/user/projects/577067cd6718940036449100/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/577067cd6718940036449100)
-[![Build Status](https://travis-ci.org/symphonyoss/symphony-rss-bot.svg)](https://travis-ci.org/symphonyoss/symphony-rss-bot)
+[![Build Status](https://travis-ci.org/symphonyoss/symphony-java-sample-bots.svg)](https://travis-ci.org/symphonyoss/symphony-java-sample-bots)
 [![Validation Status](https://scan.coverity.com/projects/9269/badge.svg?flat=1)](https://scan.coverity.com/projects/symphonyoss-symphony-rss-bot)
 
 This bot fetches feed items from given url (`-Drss.url`) and sends an X amount (`-Drss.limit`) of them to a given Symphony user (`-Dreceiver.user.email`); check the other parameters needed in the following example.
