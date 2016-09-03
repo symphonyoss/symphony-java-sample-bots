@@ -28,8 +28,8 @@ export CERTS=~/certs
 # The address to the Symphony Agent API and Key Manager endpoints prefix (see -Dsessionauth.url, -Dkeyauth.url, -Dpod.url and -Dagent.url below)
 export FOUNDATION_URL=https://foundation-api.symphony.com
 
-git clone https://github.com/symphonyoss/symphony-sample-java-bots.git
-cd symphony-sample-java-bots
+git clone https://github.com/symphonyoss/symphony-java-sample-bots.git
+cd symphony-java-sample-bots
 mvn clean package
 
 # Please replace user@symphony.foundation with an email address that matches an account on the Symphony Pod being used
@@ -44,7 +44,7 @@ java \
 -Dagent.url=$FOUNDATION_URL/agent \
 -Dreceiver.user.email=user@symphony.foundation \
 -Dbot.user.email=botuser1@symphony.foundation \
--jar target/symphony-sample-java-bots-0.9.0-SNAPSHOT-jar-with-dependencies.jar
+-jar target/symphony-java-sample-bots-0.9.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ## Libraries
