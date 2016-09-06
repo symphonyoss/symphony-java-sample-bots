@@ -1,8 +1,8 @@
-# Symphony Sample Java Bots
+# Symphony Java Sample Bots
 
-[![Dependencies](https://www.versioneye.com/user/projects/577067cd6718940036449100/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/577067cd6718940036449100)
-[![Build Status](https://travis-ci.org/symphonyoss/symphony-rss-bot.svg)](https://travis-ci.org/symphonyoss/symphony-rss-bot)
-[![Validation Status](https://scan.coverity.com/projects/9269/badge.svg?flat=1)](https://scan.coverity.com/projects/symphonyoss-symphony-rss-bot)
+[![Dependencies](https://www.versioneye.com/user/projects/57cada12939fc60037ebd03c/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57cada12939fc60037ebd03c)
+[![Build Status](https://travis-ci.org/symphonyoss/symphony-java-sample-bots.svg)](https://travis-ci.org/symphonyoss/symphony-java-sample-bots)
+[![Validation Status](https://scan.coverity.com/projects/10072/badge.svg)](https://scan.coverity.com/projects/symphonyoss-symphony-java-sample-bots)
 
 A series of sample Java bots that use the [symphony-java-client](https://github.com/symphonyoss/symphony-java-client/) to interact with the Symphony platform.
 
@@ -22,27 +22,29 @@ The java command runs and exit, there is no daemon running and waiting for incom
 
 ## Example
 ```
+# This folder must include a p12 certificate file (see -Dbot.user.cert.file) and a server.truststore (see -Dtruststore.file below)
 export CERTS=~/certs
+
+# The address to the Symphony Agent API and Key Manager endpoints prefix (see -Dsessionauth.url, -Dkeyauth.url, -Dpod.url and -Dagent.url below)
+export FOUNDATION_URL=https://foundation-api.symphony.com
 
 git clone https://github.com/symphonyoss/symphony-java-sample-bots.git
 cd symphony-java-sample-bots
 mvn clean package
 
+# Please replace user@symphony.foundation with an email address that matches an account on the Symphony Pod being used
 java \
--Dkeystore.password=changeit \
--Dtruststore.password=changeit \
--Dsessionauth.url=https://foundation-api.symphony.com/sessionauth \
--Dkeyauth.url=https://foundation-api.symphony.com/keyauth \
--Dpod.url=https://foundation-api.symphony.com/pod \
--Dagent.url=https://foundation-api.symphony.com/agent \
--Drss.url=http://bit.ly/28T2riT \
--Drss.limit=10 \
--Dcerts.dir=$CERTS/ \
+-Dbot.user.cert.file=$CERTS/bot.user1.p12 \
+-Dbot.user.cert.password=changeit \
 -Dtruststore.file=$CERTS/server.truststore \
--Dbot.user.name=bot.user1 \
+-Dtruststore.password=changeit \
+-Dsessionauth.url=$FOUNDATION_URL/sessionauth \
+-Dkeyauth.url=$FOUNDATION_URL/keyauth \
+-Dpod.url=$FOUNDATION_URL/pod \
+-Dagent.url=$FOUNDATION_URL/agent \
 -Dreceiver.user.email=user@symphony.foundation \
 -Dbot.user.email=botuser1@symphony.foundation \
--jar target/symphony-java-sample-bots-1.0-SNAPSHOT-jar-with-dependencies.jar
+-jar target/symphony-java-sample-bots-0.9.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ## Libraries
@@ -51,6 +53,6 @@ java \
 - [Quotes API for Yahoo Finance](http://financequotes-api.com/)
 
 ## Roadmap
-[ ] Separate out main() function and parameter handling from individual bot classes, and allow bot impl to be specified via command line arg - HIGH PRIORITY
-[ ] Exception handling
-[ ] Busy wait logic and command-based bot interaction (check symphony-java-client listeners)
+- [ ] Separate out main() function and parameter handling from individual bot classes, and allow bot impl to be specified via command line arg - HIGH PRIORITY
+- [ ] Exception handling
+- [ ] Busy wait logic and command-based bot interaction (check symphony-java-client listeners)
