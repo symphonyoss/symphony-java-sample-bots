@@ -30,9 +30,15 @@ import org.symphonyoss.client.SymphonyClientFactory;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.client.model.SymAuth;
 import org.symphonyoss.client.services.ChatListener;
+import org.symphonyoss.exceptions.AuthorizationException;
+import org.symphonyoss.exceptions.InitException;
+import org.symphonyoss.exceptions.MessagesException;
+import org.symphonyoss.exceptions.SymException;
 import org.symphonyoss.symphony.agent.model.Message;
 import org.symphonyoss.symphony.agent.model.MessageSubmission;
 import org.symphonyoss.symphony.clients.AuthorizationClient;
+import org.symphonyoss.symphony.clients.model.SymMessage;
+import org.symphonyoss.symphony.clients.model.SymUser;
 import org.symphonyoss.symphony.pod.model.User;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
@@ -151,11 +157,11 @@ public class StockInfoBot
     }
 
     private void initChat()
-        throws Exception
+        throws SymException
     {
         this.chat = new Chat();
         chat.setLocalUser(symClient.getLocalUser());
-        Set<User> remoteUsers = new HashSet<>();
+        Set<SymUser> remoteUsers = new HashSet<>();
 
         remoteUsers.add(symClient.getUsersClient().getUserFromEmail(initParams.get("receiver.user.email")));
         chat.setRemoteUsers(remoteUsers);
@@ -165,10 +171,10 @@ public class StockInfoBot
         symClient.getChatService().addChat(chat);
     }
 
-    private void sendMessage(String message, MessageSubmission.FormatEnum messageFormat)
-        throws Exception
+    private void sendMessage(String message, SymMessage.Format messageFormat)
+        throws MessagesException
     {
-        MessageSubmission messageSubmission = new MessageSubmission();
+        SymMessage messageSubmission = new SymMessage();
         messageSubmission.setFormat(messageFormat);
         messageSubmission.setMessage(message);
 
@@ -214,7 +220,7 @@ public class StockInfoBot
     }
 
     @Override
-    public void onChatMessage(Message message)
+    public void onChatMessage(SymMessage message)
     {
         try
         {
@@ -233,7 +239,7 @@ public class StockInfoBot
 
                 }
 
-                sendMessage(stockMessage.toString(), MessageSubmission.FormatEnum.TEXT);
+                sendMessage(stockMessage.toString(), SymMessage.Format.TEXT);
             }
         }
         catch (Exception e)
