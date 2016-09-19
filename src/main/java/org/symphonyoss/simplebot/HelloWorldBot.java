@@ -32,9 +32,15 @@ import org.symphonyoss.client.model.SymAuth;
 import org.symphonyoss.client.services.ChatListener;
 import org.symphonyoss.client.services.ChatService;
 import org.symphonyoss.client.services.ChatServiceListener;
+import org.symphonyoss.exceptions.AuthorizationException;
+import org.symphonyoss.exceptions.InitException;
+import org.symphonyoss.exceptions.StreamsException;
+import org.symphonyoss.exceptions.SymException;
 import org.symphonyoss.symphony.agent.model.Message;
 import org.symphonyoss.symphony.agent.model.MessageSubmission;
 import org.symphonyoss.symphony.clients.AuthorizationClient;
+import org.symphonyoss.symphony.clients.model.SymMessage;
+import org.symphonyoss.symphony.clients.model.SymUser;
 import org.symphonyoss.symphony.pod.model.Stream;
 import org.symphonyoss.symphony.pod.model.User;
 
@@ -115,7 +121,7 @@ public class HelloWorldBot
     }
 
     private void initAuth()
-        throws Exception
+        throws AuthorizationException, InitException
     {
         symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
 
@@ -143,11 +149,11 @@ public class HelloWorldBot
     }
 
     private void initChat()
-        throws Exception
+        throws SymException
     {
         this.chat = new Chat();
         chat.setLocalUser(symClient.getLocalUser());
-        Set<User> remoteUsers = new HashSet<>();
+        Set<SymUser> remoteUsers = new HashSet<>();
 
         remoteUsers.add(symClient.getUsersClient().getUserFromEmail(initParams.get("receiver.user.email")));
         chat.setRemoteUsers(remoteUsers);
@@ -155,10 +161,10 @@ public class HelloWorldBot
     }
 
     private void sendMessage(String message)
-        throws Exception
+        throws SymException
     {
-        MessageSubmission messageSubmission = new MessageSubmission();
-        messageSubmission.setFormat(MessageSubmission.FormatEnum.TEXT);
+        SymMessage messageSubmission = new SymMessage();
+        messageSubmission.setFormat(SymMessage.Format.TEXT);
         messageSubmission.setMessage(message);
 
         symClient.getMessageService().sendMessage(chat, messageSubmission);

@@ -30,8 +30,11 @@ import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientFactory;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.client.model.SymAuth;
+import org.symphonyoss.exceptions.MessagesException;
 import org.symphonyoss.symphony.agent.model.MessageSubmission;
 import org.symphonyoss.symphony.clients.AuthorizationClient;
+import org.symphonyoss.symphony.clients.model.SymMessage;
+import org.symphonyoss.symphony.clients.model.SymUser;
 import org.symphonyoss.symphony.pod.model.User;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
@@ -127,7 +130,7 @@ public class RssBot {
     private void initChat() {
         this.chat = new Chat();
         chat.setLocalUser(symClient.getLocalUser());
-        Set<User> remoteUsers = new HashSet<User>();
+        Set<SymUser> remoteUsers = new HashSet<>();
 
         try {
             remoteUsers.add(symClient.getUsersClient().getUserFromEmail(initParams.get("receiver.user.email")));
@@ -138,22 +141,25 @@ public class RssBot {
         }
     }
 
-    private MessageSubmission getMessage(String message) {
-        MessageSubmission aMessage = new MessageSubmission();
-        aMessage.setFormat(MessageSubmission.FormatEnum.TEXT);
+    private SymMessage getMessage(String message) {
+        SymMessage aMessage = new SymMessage();
+        aMessage.setFormat(SymMessage.Format.TEXT);
         aMessage.setMessage(message);
         return aMessage;
     }
 
     private void sendMessage(String message) {
-        MessageSubmission messageSubmission = getMessage(message);
+        SymMessage messageSubmission = getMessage(message);
+
         try {
             symClient.getMessageService().sendMessage(this.chat, messageSubmission);
             logger.info("[MESSAGE] - "+message);
             System.out.println("[MESSAGE] - "+message);
-        } catch (Exception e) {
+        } catch (MessagesException e) {
             e.printStackTrace();
         }
+
+
     }
 
     private void sendRssFeeds() {

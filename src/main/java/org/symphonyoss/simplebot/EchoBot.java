@@ -30,11 +30,12 @@ import org.symphonyoss.client.SymphonyClientFactory;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.client.model.SymAuth;
 import org.symphonyoss.client.services.ChatListener;
-import org.symphonyoss.client.services.ChatService;
-import org.symphonyoss.client.services.ChatServiceListener;
+import org.symphonyoss.exceptions.*;
 import org.symphonyoss.symphony.agent.model.Message;
 import org.symphonyoss.symphony.agent.model.MessageSubmission;
 import org.symphonyoss.symphony.clients.AuthorizationClient;
+import org.symphonyoss.symphony.clients.model.SymMessage;
+import org.symphonyoss.symphony.clients.model.SymUser;
 import org.symphonyoss.symphony.pod.model.Stream;
 import org.symphonyoss.symphony.pod.model.User;
 
@@ -116,7 +117,7 @@ public class EchoBot
     }
 
     private void initAuth()
-        throws Exception
+        throws AuthorizationException, InitException
     {
         symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
 
@@ -144,11 +145,11 @@ public class EchoBot
     }
 
     private void initChat()
-        throws Exception
+        throws SymException
     {
         this.chat = new Chat();
         chat.setLocalUser(symClient.getLocalUser());
-        Set<User> remoteUsers = new HashSet<>();
+        Set<SymUser> remoteUsers = new HashSet<>();
 
         remoteUsers.add(symClient.getUsersClient().getUserFromEmail(initParams.get("receiver.user.email")));
         chat.setRemoteUsers(remoteUsers);
@@ -158,10 +159,10 @@ public class EchoBot
         symClient.getChatService().addChat(chat);
     }
 
-    private void sendMessage(String message, MessageSubmission.FormatEnum messageFormat)
-        throws Exception
+    private void sendMessage(String message, SymMessage.Format messageFormat)
+        throws MessagesException
     {
-        MessageSubmission messageSubmission = new MessageSubmission();
+        SymMessage messageSubmission = new SymMessage();
         messageSubmission.setFormat(messageFormat);
         messageSubmission.setMessage(message);
 
@@ -169,12 +170,12 @@ public class EchoBot
     }
 
     @Override
-    public void onChatMessage(Message message)
+    public void onChatMessage(SymMessage message)
     {
         try
         {
             String messageText = message.getMessage();
-            sendMessage(messageText, MessageSubmission.FormatEnum.MESSAGEML);
+            sendMessage(messageText, SymMessage.Format.MESSAGEML);
         }
         catch (Exception e)
         {
