@@ -20,31 +20,17 @@ This bot fetches feed items from given url (`-Drss.url`) and sends an X amount (
 
 The java command runs and exit, there is no daemon running and waiting for incoming messages; for more complex bots, checkout the [symphony-java-client-examples](https://github.com/symphonyoss/symphony-java-client/tree/develop/symphony-client-examples)
 
-## Example
+## Running the HelloWorldBot
+- Checkout and build the project
 ```
-# This folder must include a p12 certificate file (see -Dbot.user.cert.file) and a server.truststore (see -Dtruststore.file below)
-export CERTS=~/certs
-
-# The address to the Symphony Agent API and Key Manager endpoints prefix (see -Dsessionauth.url, -Dkeyauth.url, -Dpod.url and -Dagent.url below)
-export FOUNDATION_URL=https://foundation-api.symphony.com
-
 git clone https://github.com/symphonyoss/symphony-java-sample-bots.git
 cd symphony-java-sample-bots
 mvn clean package
-
-# Please replace user@symphony.foundation with an email address that matches an account on the Symphony Pod being used
-java \
--Dbot.user.cert.file=$CERTS/bot.user1.p12 \
--Dbot.user.cert.password=changeit \
--Dtruststore.file=$CERTS/server.truststore \
--Dtruststore.password=changeit \
--Dsessionauth.url=$FOUNDATION_URL/sessionauth \
--Dkeyauth.url=$FOUNDATION_URL/keyauth \
--Dpod.url=$FOUNDATION_URL/pod \
--Dagent.url=$FOUNDATION_URL/agent \
--Dreceiver.user.email=user@symphony.foundation \
--Dbot.user.email=botuser1@symphony.foundation \
--jar target/symphony-java-sample-bots-0.9.0-SNAPSHOT-jar-with-dependencies.jar
+```
+- Edit the (`run-bot.sh` variables)[run-bot.sh#L9-L14] locally
+- Run the bash script
+```
+./run-bot.sh org.symphonyoss.simplebot.HelloWorldBot
 ```
 
 ## Libraries
