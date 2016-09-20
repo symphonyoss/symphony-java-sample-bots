@@ -6,9 +6,9 @@ FOUNDATION_API_URL=https://foundation-dev-api.symphony.com
 # The address to the Symphony Pod endpoint prefix (see -Dpod.url below)
 FOUNDATION_POD_URL=https://foundation-dev.symphony.com
 
-RECEIVER_USER_EMAIL=maoo@symphony.foundation
-BOT_USER_EMAIL=testbot@symphony.foundation
-BOT_CERT_PATH=./certs/testbot.p12
+RECEIVER_USER_EMAIL=receiver@mycompany.com
+BOT_USER_EMAIL=userbot@mycompany.com
+BOT_CERT_PATH=./certs/userbot.p12
 BOT_CERT_PASSWORD=changeit
 TRUSTSTORE_PATH=./certs/server.truststore
 TRUSTSTORE_PASSWORD=changeit
