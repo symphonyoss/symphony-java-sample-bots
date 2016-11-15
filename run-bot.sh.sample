@@ -22,16 +22,14 @@ if [ -z "$1" ]; then
   exit -1
 fi
 
-if [ -f $BOT_CERT_PATH ]; then
-  echo "Found bot cert file $BOT_CERT_PATH"
-else
+if [ ! -f $BOT_CERT_PATH ]; then
   echo "Bot cert file is missing: $BOT_CERT_PATH"
+  exit -1
 fi
 
-if [ -f $TRUSTSTORE_PATH ]; then
-  echo "Found truststore file $TRUSTSTORE_PATH"
-else
+if [ ! -f $TRUSTSTORE_PATH ]; then
   echo "truststore file is missing: $TRUSTSTORE_PATH"
+  exit -1
 fi
 
 java \
