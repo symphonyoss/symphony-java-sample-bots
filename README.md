@@ -20,20 +20,37 @@ This bot fetches feed items from given url (`-Drss.url`) and sends an X amount (
 
 The java command runs and exit, there is no daemon running and waiting for incoming messages; for more complex bots, checkout the [symphony-java-client-examples](https://github.com/symphonyoss/symphony-java-client/tree/develop/symphony-client-examples)
 
-## Running the HelloWorldBot
-- Checkout and build the project
+## Running the Bots
+- Obtain the coordinates (URLs) of your Symphony pod and agent from your Symphony administrator.  If you wish to use the Foundation's Open Developer Platform (ODP) instead, see [this link](https://symphonyoss.atlassian.net/wiki/display/FM/Foundation+Open+Developer+Platform)
+- Obtain a service account certificate from your Symphony administrator (you should have already received this from the Foundation if using the ODP).
+- Generate an "empty" Java truststore ([this StackOverflow post](http://stackoverflow.com/questions/6340918/trust-store-vs-key-store-creating-with-keytool) may help with this step).
+  - Note that Java doesn't support empty truststores - they have to contain at least one public certificate.  This could be a dummy certificate, one from your own organisation, or one from a certificate authority you trust, for example.
+- Checkout and build the project:
 ```
 git clone https://github.com/symphonyoss/symphony-java-sample-bots.git
 cd symphony-java-sample-bots
 mvn clean package
 ```
-- Edit the [`run-bot.sh` variables](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/run-bot.sh.sample#L9-L14) locally
-- Run the bash script
+- Copy [`run-bot.sh.sample`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/run-bot.sh.sample) to `run-bot.sh`
+- Make `run-bot.sh` executable
+```
+chmod u+x run-bot.sh
+```
+- Edit the [configuration in `run-bot.sh`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/run-bot.sh.sample#L3-L14) to match the information and certificates obtained above.
+  - `RECEIVER_USER_EMAIL` should be set to your email address, as it is registered in the pod you're using (all of the sample bots initiate a conversation with the user identified by this email address)
+- Run `run-bot.sh`, providing the fully qualified classname of the bot you wish to run. e.g.
 ```
 ./run-bot.sh org.symphonyoss.simplebot.HelloWorldBot
 ```
 
-## Libraries
+The available sample bots are:
+- Hello World Bot: `org.symphonyoss.simplebot.HelloWorldBot`
+- Echo Bot: `org.symphonyoss.simplebot.EchoBot`
+- Stock Info Bot: `org.symphonyoss.simplebot.StockInfoBot`
+- RSS Bot: `org.symphonyoss.simplebot.RssBot`
+
+## Dependencies
+This project uses the following libraries:
 - [Symphony Java Client](https://github.com/symphonyoss/symphony-java-client)
 - [Rome](https://rometools.github.io/rome/) (a Java framework for RSS and Atom feeds)
 - [Quotes API for Yahoo Finance](http://financequotes-api.com/)
