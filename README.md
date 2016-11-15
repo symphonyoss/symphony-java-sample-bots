@@ -27,7 +27,7 @@ git clone https://github.com/symphonyoss/symphony-java-sample-bots.git
 cd symphony-java-sample-bots
 mvn clean package
 ```
-- Edit the [`run-bot.sh` variables](run-bot.sh#L9-L14) locally
+- Edit the [`run-bot.sh` variables](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/run-bot.sh.sample#L9-L14) locally
 - Run the bash script
 ```
 ./run-bot.sh org.symphonyoss.simplebot.HelloWorldBot
