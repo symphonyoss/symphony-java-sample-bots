@@ -25,6 +25,7 @@ The java command runs and exit, there is no daemon running and waiting for incom
 - Obtain a service account certificate from your Symphony administrator (you should have already received this from the Foundation if using the ODP).
 - Generate an "empty" Java truststore ([this StackOverflow post](http://stackoverflow.com/questions/6340918/trust-store-vs-key-store-creating-with-keytool) may help with this step).
   - Note that Java doesn't support empty truststores - they have to contain at least one public certificate.  This could be a dummy certificate, one from your own organisation, or one from a certificate authority you trust, for example.
+  - You can also copy the default Java truststore (`$JAVA_HOME/jre/lib/security/cacerts`, password `changeit`) and use that as the base truststore for these bots.
 - Checkout and build the project:
 ```
 git clone https://github.com/symphonyoss/symphony-java-sample-bots.git
