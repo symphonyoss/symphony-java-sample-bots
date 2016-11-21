@@ -104,20 +104,69 @@
 
   <build>
     <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>appassembler-maven-plugin</artifactId>
+        <version>2.0.0</version>
+        <executions>
+          <execution>
+            <id>build-assembled-folder</id>
+            <phase>package</phase>
+            <goals>
+              <goal>assemble</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <configuration>
+            <repositoryName>lib</repositoryName>
+            <repositoryLayout>flat</repositoryLayout>
+            <useWildcardClassPath>true</useWildcardClassPath>
+            <!-- Set the target configuration directory to be used in the bin scripts -->
+            <configurationDirectory>conf</configurationDirectory>
+            <logsDirectory>logs</logsDirectory>
+            <!-- Copy the contents from "/src/main/config" to the target
+                 configuration directory in the assembled application -->
+            <copyConfigurationDirectory>true</copyConfigurationDirectory>
+            <!-- Include the target configuration directory in the beginning of
+                 the classpath declaration in the bin scripts -->
+            <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+            <!-- set alternative assemble directory -->
+            <assembleDirectory>${project.build.directory}/${project.artifactId}-${project.version}</assembleDirectory>
+            <!-- Extra JVM arguments that will be included in the bin scripts -->
+            <extraJvmArguments>-Xmx1024m -Dsessionauth.url=$SESSIONAUTH_URL -Dkeyauth.url=$KEYAUTH_URL -Dpod.url=$POD_URL -Dagent.url=$AGENT_URL -Dtruststore.file=$TRUSTSTORE_FILE -Dtruststore.password=$TRUSTSTORE_PASSWORD -Dbot.user.cert.file=$BOT_USER_CERT_FILE -Dbot.user.cert.password=$BOT_USER_CERT_PASSWORD -Dbot.user.email=$BOT_USER_EMAIL -Dreceiver.user.email=$RECEIVER_USER_EMAIL -Drss.url=$RSS_URL -Drss.limit=$RSS_LIMIT</extraJvmArguments>
+
+            <!-- Generate bin scripts for windows and unix pr default -->
+            <!-- <platforms>
+                <platform>unix</platform>
+            </platforms> -->
+            <programs>
+                <program>
+                    <mainClass>org.symphonyoss.simplebot.RunBot</mainClass>
+                    <id>RunBot</id>
+                    <platforms>
+                        <platform>unix</platform>
+                    </platforms>
+                </program>
+            </programs>
+        </configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.6</version>
+        <configuration>
+          <descriptors>
+            <descriptor>src/main/assembly/appassembler.xml</descriptor>
+          </descriptors>
+        </configuration>
         <executions>
           <execution>
-            <goals>
-              <goal>attached</goal>
-            </goals>
+            <id>build-assembled-zip</id>
             <phase>package</phase>
-            <configuration>
-              <descriptorRefs>
-                <descriptorRef>jar-with-dependencies</descriptorRef>
-              </descriptorRefs>
-            </configuration>
+            <goals>
+              <goal>single</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
