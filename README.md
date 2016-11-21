@@ -37,7 +37,7 @@ mvn clean package
 ```
 chmod u+x run-bot.sh
 ```
-- Edit the [configuration in `run-bot.sh`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/run-bot.sh.sample#L3-L14) to match the information and certificates obtained above.
+- Review and edit the [relevant configuration settings in `run-bot.sh`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/run-bot.sh.sample#L3-L26) to match the information and certificates obtained above.
   - `RECEIVER_USER_EMAIL` should be set to your email address as registered in the pod you're using (all of the sample bots initiate a conversation with the user identified by this email address - you won't see anything if this is not your registered email address)
 - Run `run-bot.sh`, providing the fully qualified classname of the bot you wish to run. e.g.
 ```
