@@ -1,6 +1,6 @@
 node {
   // git url: 'https://github.com/symphonyoss/symphony-java-sample-bots.git'
-  checkout scm
+  //checkout scm
 
   def mvnHome = tool 'M3'
 
