@@ -79,14 +79,14 @@ public class EchoBotTest {
                 Chat chat = createChat(senderBot, echoBot.getUserEmail());
 
                 //A MessageMatcher will listen to the responses on the chat just created
-                MessageMatcher messageMatcher = new MessageMatcher(chat, TEST_MESSAGE);
+                MessageMatcher messageMatcher = new MessageMatcher(TEST_MESSAGE);
                 chat.registerListener(messageMatcher);
 
                 //The sender sends a message to the chat
                 utils.sendMessage(senderBot, chat, TEST_MESSAGE, SymMessage.Format.MESSAGEML);
 
                 //We ask the MessageMatcher if something have arrived every half second, until timeout hits
-                waitForMessage(messageMatcher);
+                waitForMessage(messageMatcher, TIMEOUT_MS);
 
                 //We expect the MessageMatcher to have found the match
                 assertTrue(messageMatcher.hasMatched());
@@ -112,8 +112,8 @@ public class EchoBotTest {
         return chat;
     }
 
-    private void waitForMessage(MessageMatcher messageMatcher) {
-        long endTimeMillis = System.currentTimeMillis() + TIMEOUT_MS;
+    private void waitForMessage(MessageMatcher messageMatcher, long timeout) {
+        long endTimeMillis = System.currentTimeMillis() + timeout;
         while (true) {
             if (System.currentTimeMillis() > endTimeMillis || messageMatcher.hasMatched()) {
                 break;
@@ -147,7 +147,7 @@ public class EchoBotTest {
             }
         }
 
-        public MessageMatcher(Chat chat, String messageTest) {
+        public MessageMatcher(String messageTest) {
             this.messageTest = messageTest;
         }
 
