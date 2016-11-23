@@ -10,7 +10,7 @@ A series of sample Java bots that use the [symphony-java-client](https://github.
 This bot says hello world to a given Symphony user (specified via `-Dreceiver.user.email`), then terminates.
 
 ## Echo Bot
-This bot initiates a chat with a given Symphony user (specified via `-Dreceiver.user.email`), and echoes back every message in that chat.  Terminates automatically after 5 minutes.
+This bot initiates a chat with a given Symphony user (specified via `-sender.user.email`), and echoes back every message in that chat.  Terminates automatically after 5 minutes.
 
 ## Stock Info Bot
 This bot initiates a chat with a given Symphony user (specified via `-Dreceiver.user.email`), looks for cashtags in any messages in that chat, then responds with a message containing information on those stocks (obtained from the free [Yahoo Finance API](http://financequotes-api.com/), which is 20 minutes delayed).  Terminates automatically after 5 minutes.
