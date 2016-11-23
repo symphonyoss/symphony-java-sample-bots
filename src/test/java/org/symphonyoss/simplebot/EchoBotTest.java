@@ -60,7 +60,8 @@ public class EchoBotTest {
         senderParamNames.add("sender.user.email");
     }
 
-    @Test
+    // TODO - still work in progress
+    // @Test
     public void sendAndReceiveEcho() {
         try {
             //Creating and running the EchoBot
