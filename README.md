@@ -27,11 +27,30 @@ git clone https://github.com/symphonyoss/symphony-java-sample-bots.git
 cd symphony-java-sample-bots
 mvn clean package
 ```
-- Edit the (`run-bot.sh` variables)[run-bot.sh#L9-L14] locally
+- `cp env.sh.sample env.sh`
+- Edit the [`env.sh` variables](env.sh) locally
 - Run the bash script
 ```
 ./run-bot.sh org.symphonyoss.simplebot.HelloWorldBot
 ```
+Type `./run-bot.sh` to check how to run the other bot samples.
+
+## Running integration testing
+This project ships with [EchoBotIT](src/test/java/org/symphonyoss/simplebot/EchoBotIT.java), a simple example of integration testing using the Symphony Java client.
+
+The test runs through the following steps:
+1. instanciates the [EchoBot](src/main/java/org/symphonyoss/simplebot/EchoBot.java) using one `SymphonyClient` instance (the bot user)
+2. sends a message from another `SymphonyClient` (the sender user), to the bot user (email)
+3. registers a `ChatListener` on the sender user `SymphonyClient` and waits 10 seconds for the message to come back (as effect of the echo)
+4. asserts that the message have been received back and is the same message previously sent
+
+### Prerequisites
+To run this test, you must:
+1. Create `./certs` folder containing `server.truststore`, a `bot.p12` and a `sender.p12` file
+2. Edit `env.sh` and adjust Symphony endpoints and certificate file locations
+
+### Run
+Just run `./run-it.sh` from the project root; the script will invoke Maven, specifically the Maven Failsafe Plugin
 
 ## Libraries
 - [Symphony Java Client](https://github.com/symphonyoss/symphony-java-client)

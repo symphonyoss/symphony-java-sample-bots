@@ -4,4 +4,4 @@
 *.log
 /certs/
 /target/
-run-bot.sh
+env.sh

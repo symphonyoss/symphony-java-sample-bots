@@ -34,10 +34,7 @@ import org.symphonyoss.exceptions.UsersClientException;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 import org.symphonyoss.symphony.clients.model.SymUser;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.assertTrue;
 
@@ -60,13 +57,12 @@ public class EchoBotIT {
         senderParamNames.add("sender.user.email");
     }
 
-    // TODO - still work in progress
     @Test
     public void sendAndReceiveEcho() {
         try {
             //Creating and running the EchoBot
             EchoBot echoBot = new EchoBot();
-            echoBot.start();
+            //echoBot.start();
 
             // Reading sender user credentials and getting the SymphonyClient
             Utils utils = new Utils();
@@ -83,7 +79,7 @@ public class EchoBotIT {
                 chat.registerListener(messageMatcher);
 
                 //The sender sends a message to the chat
-                utils.sendMessage(senderBot, chat, TEST_MESSAGE, SymMessage.Format.MESSAGEML);
+                utils.sendMessage(senderBot, chat, TEST_MESSAGE, SymMessage.Format.TEXT);
 
                 //We ask the MessageMatcher if something have arrived every half second, until timeout hits
                 waitForMessage(messageMatcher, TIMEOUT_MS);
@@ -126,13 +122,13 @@ public class EchoBotIT {
     }
 
     private Map<String, String> adaptSenderParams(Map<String, String> senderBotParams) {
-        Map<String, String> ret = senderBotParams;
-        for(Iterator<Map.Entry<String, String>> it = ret.entrySet().iterator(); it.hasNext(); ) {
-            Map.Entry<String, String> entry = it.next();
-            if (entry.getKey().startsWith("bot.user")) {
-                ret.put(entry.getKey().replace("sender.user","bot.user"), entry.getValue());
+        Map<String,String> ret = new HashMap<>();
+        for (String key : senderBotParams.keySet()) {
+            if (key.startsWith("sender.user")) {
+                ret.put(key.replace("sender.user","bot.user"), senderBotParams.get(key));
             }
         }
+        ret.putAll(senderBotParams);
         return ret;
     }
 
@@ -142,7 +138,7 @@ public class EchoBotIT {
 
         @Override
         public void onChatMessage(SymMessage symMessage) {
-            if (symMessage.equals(messageTest)) {
+            if (symMessage.getMessage().equals("<messageML>"+messageTest+"</messageML>")) {
                 this.matched = true;
             }
         }

@@ -113,6 +113,7 @@ public class EchoBot
 
         chat.registerListener(this);
         symClient.getChatService().addChat(chat);
+        System.out.println("chat initialised");
     }
 
     @Override
@@ -120,6 +121,7 @@ public class EchoBot
     {
         try
         {
+            System.out.println("on chat message");
             String messageText = message.getMessage();
             utils.sendMessage(symClient, chat, messageText, SymMessage.Format.MESSAGEML);
         }
