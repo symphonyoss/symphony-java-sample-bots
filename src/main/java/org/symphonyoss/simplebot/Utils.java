@@ -1,24 +1,3 @@
-package org.symphonyoss.simplebot;
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.symphonyoss.client.SymphonyClient;
-import org.symphonyoss.client.SymphonyClientFactory;
-import org.symphonyoss.client.model.Chat;
-import org.symphonyoss.client.model.SymAuth;
-import org.symphonyoss.exceptions.AuthorizationException;
-import org.symphonyoss.exceptions.InitException;
-import org.symphonyoss.exceptions.MessagesException;
-import org.symphonyoss.symphony.clients.AuthorizationClient;
-import org.symphonyoss.symphony.clients.model.SymMessage;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
 /*
  *
  * Copyright 2016 The Symphony Software Foundation
@@ -40,6 +19,26 @@ import java.util.concurrent.TimeUnit;
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.symphonyoss.simplebot;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.symphonyoss.client.SymphonyClient;
+import org.symphonyoss.client.SymphonyClientFactory;
+import org.symphonyoss.client.model.Chat;
+import org.symphonyoss.client.model.SymAuth;
+import org.symphonyoss.exceptions.AuthorizationException;
+import org.symphonyoss.exceptions.InitException;
+import org.symphonyoss.exceptions.MessagesException;
+import org.symphonyoss.symphony.clients.AuthorizationClient;
+import org.symphonyoss.symphony.clients.model.SymMessage;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
 public class Utils {
 
     private final static Logger log = LoggerFactory.getLogger(Utils.class);

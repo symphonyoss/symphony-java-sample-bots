@@ -41,7 +41,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
-public class EchoBotTest {
+public class EchoBotIT {
 
     private static final long TIMEOUT_MS = 10000;
     private static Set<String> senderParamNames = new HashSet<>();
@@ -61,7 +61,7 @@ public class EchoBotTest {
     }
 
     // TODO - still work in progress
-    // @Test
+    @Test
     public void sendAndReceiveEcho() {
         try {
             //Creating and running the EchoBot
