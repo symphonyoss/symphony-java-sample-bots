@@ -62,9 +62,8 @@ public class RssBot {
         initParamNames.add("rss.limit");
         initParamNames.add("truststore.file");
         initParamNames.add("truststore.password");
-        initParamNames.add("keystore.password");
-        initParamNames.add("certs.dir");
-        initParamNames.add("bot.user.name");
+        initParamNames.add("bot.user.cert.file");
+        initParamNames.add("bot.user.cert.password");
         initParamNames.add("bot.user.email");
         initParamNames.add("receiver.user.email");
     }
@@ -110,8 +109,8 @@ public class RssBot {
             authClient.setKeystores(
                     initParams.get("truststore.file"),
                     initParams.get("truststore.password"),
-                    initParams.get("certs.dir") + initParams.get("bot.user.name") + ".p12",
-                    initParams.get("keystore.password"));
+                    initParams.get("bot.user.cert.file"),
+                    initParams.get("bot.user.cert.password"));
 
             SymAuth symAuth = authClient.authenticate();
 

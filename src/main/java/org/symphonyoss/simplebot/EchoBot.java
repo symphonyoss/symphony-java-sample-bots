@@ -50,6 +50,7 @@ public class EchoBot
     private SymphonyClient     symClient;
     private Map<String,String> initParams = new HashMap<>();
     private Chat               chat;
+    private Utils              utils = new Utils();
 
     private static Set<String> initParamNames = new HashSet<>();
 
@@ -64,7 +65,7 @@ public class EchoBot
         initParamNames.add("bot.user.cert.file");
         initParamNames.add("bot.user.cert.password");
         initParamNames.add("bot.user.email");
-        initParamNames.add("receiver.user.email");
+        initParamNames.add("sender.user.email");
     }
 
     public static void main(String[] args)
@@ -88,8 +89,8 @@ public class EchoBot
     public EchoBot()
         throws Exception
     {
-        initParams();
-        initAuth();
+        initParams = utils.readInitParams(initParamNames);
+        symClient = utils.getSymphonyClient(initParams);
         initChat();
     }
 
@@ -99,51 +100,6 @@ public class EchoBot
         Thread.sleep(TimeUnit.MILLISECONDS.convert(5, TimeUnit.MINUTES));
     }
 
-    private void initParams()
-    {
-        for (String initParam : initParamNames)
-        {
-            String initParamValue = System.getProperty(initParam);
-
-            if (initParamValue == null)
-            {
-                throw new IllegalArgumentException("Cannot find required property; make sure you're using -D" + initParam + " to run HelloWorldBot");
-            }
-            else
-            {
-                initParams.put(initParam, initParamValue);
-            }
-        }
-    }
-
-    private void initAuth()
-        throws AuthorizationException, InitException
-    {
-        symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
-
-        log.debug("{} {}", System.getProperty("sessionauth.url"),
-                           System.getProperty("keyauth.url"));
-
-        AuthorizationClient authClient = new AuthorizationClient(
-                initParams.get("sessionauth.url"),
-                initParams.get("keyauth.url"));
-
-        authClient.setKeystores(
-                initParams.get("truststore.file"),
-                initParams.get("truststore.password"),
-                initParams.get("bot.user.cert.file"),
-                initParams.get("bot.user.cert.password"));
-
-        SymAuth symAuth = authClient.authenticate();
-
-        symClient.init(
-                symAuth,
-                initParams.get("bot.user.email"),
-                initParams.get("agent.url"),
-                initParams.get("pod.url")
-        );
-    }
-
     private void initChat()
         throws SymException
     {
@@ -151,22 +107,13 @@ public class EchoBot
         chat.setLocalUser(symClient.getLocalUser());
         Set<SymUser> remoteUsers = new HashSet<>();
 
-        remoteUsers.add(symClient.getUsersClient().getUserFromEmail(initParams.get("receiver.user.email")));
+        remoteUsers.add(symClient.getUsersClient().getUserFromEmail(initParams.get("sender.user.email")));
         chat.setRemoteUsers(remoteUsers);
         chat.setStream(symClient.getStreamsClient().getStream(remoteUsers));
 
         chat.registerListener(this);
         symClient.getChatService().addChat(chat);
-    }
-
-    private void sendMessage(String message, SymMessage.Format messageFormat)
-        throws MessagesException
-    {
-        SymMessage messageSubmission = new SymMessage();
-        messageSubmission.setFormat(messageFormat);
-        messageSubmission.setMessage(message);
-
-        symClient.getMessageService().sendMessage(chat, messageSubmission);
+        System.out.println("chat initialised");
     }
 
     @Override
@@ -174,8 +121,9 @@ public class EchoBot
     {
         try
         {
+            System.out.println("on chat message");
             String messageText = message.getMessage();
-            sendMessage(messageText, SymMessage.Format.MESSAGEML);
+            utils.sendMessage(symClient, chat, messageText, SymMessage.Format.MESSAGEML);
         }
         catch (Exception e)
         {
@@ -183,4 +131,7 @@ public class EchoBot
         }
     }
 
+    public String getUserEmail() {
+        return initParams.get("sender.user.email");
+    }
 }

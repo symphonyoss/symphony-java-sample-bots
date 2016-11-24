@@ -2,6 +2,7 @@
 *.iml
 *.jar
 *.log
-/certs/
-/target/
-run-bot.sh
+certs/
+target/
+env.sh
+src/test/resources

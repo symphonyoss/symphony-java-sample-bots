@@ -10,7 +10,7 @@ A series of sample Java bots that use the [symphony-java-client](https://github.
 This bot says hello world to a given Symphony user (specified via `-Dreceiver.user.email`), then terminates.
 
 ## Echo Bot
-This bot initiates a chat with a given Symphony user (specified via `-Dreceiver.user.email`), and echoes back every message in that chat.  Terminates automatically after 5 minutes.
+This bot initiates a chat with a given Symphony user (specified via `-sender.user.email`), and echoes back every message in that chat.  Terminates automatically after 5 minutes.
 
 ## Stock Info Bot
 This bot initiates a chat with a given Symphony user (specified via `-Dreceiver.user.email`), looks for cashtags in any messages in that chat, then responds with a message containing information on those stocks (obtained from the free [Yahoo Finance API](http://financequotes-api.com/), which is 20 minutes delayed).  Terminates automatically after 5 minutes.
@@ -32,17 +32,35 @@ git clone https://github.com/symphonyoss/symphony-java-sample-bots.git
 cd symphony-java-sample-bots
 mvn clean package
 ```
-- Copy [`run-bot.sh.sample`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/run-bot.sh.sample) to `run-bot.sh`
-- Make `run-bot.sh` executable
+- Copy [`run-bot.sh.sample`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/run-bot.sh.sample) to `env.sh`
+- Make `env.sh` executable
 ```
-chmod u+x run-bot.sh
+chmod u+x env.sh
 ```
-- Review and edit the [relevant configuration settings in `run-bot.sh`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/run-bot.sh.sample#L3-L26) to match the information and certificates obtained above.
+- Review and edit the [relevant configuration settings in `env.sh`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/env.sh.sample) to match the information and certificates obtained above.
   - `RECEIVER_USER_EMAIL` should be set to your email address as registered in the pod you're using (all of the sample bots initiate a conversation with the user identified by this email address - you won't see anything if this is not your registered email address)
 - Run `run-bot.sh`, providing the fully qualified classname of the bot you wish to run. e.g.
 ```
 ./run-bot.sh org.symphonyoss.simplebot.HelloWorldBot
 ```
+Type `./run-bot.sh` to check how to run the other bot samples.
+
+## Running integration testing
+This project ships with [EchoBotIT](src/test/java/org/symphonyoss/simplebot/EchoBotIT.java), a simple example of integration testing using the Symphony Java client.
+
+The test runs through the following steps:
+1. instanciates the [EchoBot](src/main/java/org/symphonyoss/simplebot/EchoBot.java) using one `SymphonyClient` instance (the bot user)
+2. sends a message from another `SymphonyClient` (the sender user), to the bot user (email)
+3. registers a `ChatListener` on the sender user `SymphonyClient` and waits 10 seconds for the message to come back (as effect of the echo)
+4. asserts that the message have been received back and is the same message previously sent
+
+### Prerequisites
+To run this test, you must:
+1. Create `./certs` folder containing `server.truststore`, a `bot.p12` and a `sender.p12` file
+2. Edit `env.sh` and adjust Symphony endpoints and certificate file locations
+
+### Run
+Just run `./run-it.sh` from the project root; the script will invoke Maven, specifically the Maven Failsafe Plugin
 
 The available sample bots are:
 - Hello World Bot: `org.symphonyoss.simplebot.HelloWorldBot`

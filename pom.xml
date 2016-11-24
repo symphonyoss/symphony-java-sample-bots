@@ -82,13 +82,28 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <jvm.args>-Xmx1024m -Dsessionauth.url=$SESSIONAUTH_URL -Dkeyauth.url=$KEYAUTH_URL -Dpod.url=$POD_URL -Dagent.url=$AGENT_URL -Dtruststore.file=$TRUSTSTORE_FILE -Dtruststore.password=$TRUSTSTORE_PASSWORD -Dbot.user.cert.file=$BOT_USER_CERT_FILE -Dbot.user.cert.password=$BOT_USER_CERT_PASSWORD -Dbot.user.email=$BOT_USER_EMAIL -Dsender.user.email=$SENDER_USER_EMAIL -Dreceiver.user.email=$RECEIVER_USER_EMAIL -Drss.url=$RSS_URL -Drss.limit=$RSS_LIMIT</jvm.args>
+    <failsafe.jvm.args>-Xmx1024m -Dsessionauth.url=${env.SESSIONAUTH_URL} -Dkeyauth.url=${env.KEYAUTH_URL} -Dpod.url=${env.POD_URL} -Dagent.url=${env.AGENT_URL} -Dtruststore.file=${env.TRUSTSTORE_FILE} -Dtruststore.password=${env.TRUSTSTORE_PASSWORD} -Dbot.user.cert.file=${env.BOT_USER_CERT_FILE} -Dbot.user.cert.password=${env.BOT_USER_CERT_PASSWORD} -Dbot.user.email=${env.BOT_USER_EMAIL} -Dsender.user.email=${env.SENDER_USER_EMAIL} -Dsender.user.cert.file=${env.SENDER_USER_CERT_FILE} -Dsender.user.cert.password=${env.SENDER_USER_CERT_PASSWORD} -Dreceiver.user.email=${env.RECEIVER_USER_EMAIL} -Drss.url=${env.RSS_URL} -Drss.limit=${env.RSS_LIMIT}</failsafe.jvm.args>
   </properties>
+
+    <repositories>
+        <repository>
+            <id>sonatype-oss-public</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
   <dependencies>
     <dependency>
       <groupId>org.symphonyoss.symphony</groupId>
       <artifactId>symphony-client</artifactId>
-      <version>0.9.1</version>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.rometools</groupId>
@@ -105,16 +120,63 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>appassembler-maven-plugin</artifactId>
+        <version>2.0.0</version>
+        <executions>
+          <execution>
+            <id>build-assembled-folder</id>
+            <phase>package</phase>
+            <goals>
+              <goal>assemble</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <configuration>
+            <repositoryName>lib</repositoryName>
+            <repositoryLayout>flat</repositoryLayout>
+            <useWildcardClassPath>true</useWildcardClassPath>
+            <!-- Set the target configuration directory to be used in the bin scripts -->
+            <configurationDirectory>conf</configurationDirectory>
+            <logsDirectory>logs</logsDirectory>
+            <!-- Copy the contents from "/src/main/config" to the target
+                 configuration directory in the assembled application -->
+            <copyConfigurationDirectory>true</copyConfigurationDirectory>
+            <!-- Include the target configuration directory in the beginning of
+                 the classpath declaration in the bin scripts -->
+            <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+            <!-- set alternative assemble directory -->
+            <assembleDirectory>${project.build.directory}/${project.artifactId}-${project.version}</assembleDirectory>
+            <!-- Extra JVM arguments that will be included in the bin scripts -->
+            <extraJvmArguments>${jvm.args}</extraJvmArguments>
+
+            <!-- Generate bin scripts for windows and unix pr default -->
+            <!-- <platforms>
+                <platform>unix</platform>
+            </platforms> -->
+            <programs>
+                <program>
+                    <mainClass>org.symphonyoss.simplebot.RunBot</mainClass>
+                    <id>RunBot</id>
+                    <platforms>
+                        <platform>unix</platform>
+                    </platforms>
+                </program>
+            </programs>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
+          <descriptors>
+            <descriptor>src/main/assembly/appassembler.xml</descriptor>
+          </descriptors>
         </configuration>
         <executions>
           <execution>
-            <id>make-assembly</id>
+            <id>build-assembled-zip</id>
             <phase>package</phase>
             <goals>
               <goal>single</goal>
@@ -125,4 +187,29 @@
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>integration-testing</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>2.19.1</version>
+            <configuration>
+              <argLine>${failsafe.jvm.args}</argLine>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
