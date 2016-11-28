@@ -32,7 +32,7 @@ git clone https://github.com/symphonyoss/symphony-java-sample-bots.git
 cd symphony-java-sample-bots
 mvn clean package
 ```
-- Copy [`run-bot.sh.sample`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/run-bot.sh.sample) to `env.sh`
+- Copy [`env.sh.sample`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/env.sh.sample) to `env.sh`
 - Make `env.sh` executable
 ```
 chmod u+x env.sh
