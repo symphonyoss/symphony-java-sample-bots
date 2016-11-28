@@ -11,5 +11,6 @@ if [ -z "$1" ]; then
   exit -1
 fi
 
+mvn package
 cd target/symphony-java-sample-bots-0.9.0-SNAPSHOT
 ./bin/RunBot $1
