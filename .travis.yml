@@ -20,6 +20,8 @@
 # under the License.
 #
 
+before_script: "curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash"
+
 language: java
 # script: mvn clean install -Pversioneye
 install: true
@@ -35,6 +37,16 @@ env:
    - secure: "TowBNPUOs/0hWq4myoZ/l99r3wjuwHdUhXFFm8YJ44eWQLojKXNKYIX6+L0byTGGEXjNS01HNb2hnMqNHZOJpe/ZtLu4k4NOIiPV/wfRfKC+kW3fftBEZEIAKoamqxF7gy7o4nz6zroPqKNq+y3Ug7qUCp2gcgGyLiQVB7o79l402QWtaxuUSyulJUc/cYR9bz/r810oSebGnrjM6KtKhdeQLNSQjwdw2+sztgehOkDO/Yc4Y5dMEgT4qo7wqPgp0Ti0riqivf5MGMnbhGTS2hJf8dmUMODrXh7q7nW2ThfPquE9ffBxHxW+zhXmnEr0UhTo6nEAveLVqPN1LD9la1m1dI4bIEKlMntCvpYTOsYjQl9MN+z1TYMU3EeZo4DBLyQ0SGRISSecNMAn21OMTY7t8hVAYeIJR4Y4P8b6vWElU3H3+29JOIXOraUqPiGDRhq9rnXDISHvQV7QIWV2uiwYkTCQgBSzgzIdWl3jVkfDnB3s6KrnVPyS1zEpj99EtNmEfHnEY3LSlKyd2W8P07djYftyQVVU3JQ//y4jbbh1mExlEU0d1Ja1LMOylOFHZ5adW64TNVi8CuxaQ9W0mqRDGOcWX1JfFk/MgJP48EndT0wI82d+BcBXPuYaC8DHUMAp//KwBeMxoUefvnm5q8XspEP8OIBoxXseRsBzFpg="
    # Generated using command "travis encrypt VERSIONEYE_API_KEY=blah"
    - secure: "G/5nYf5iCCee7nptAc2ne4DICw9MBVB1TlGeUL31a8R1fQE8HG7yfcTSyYoRrTYZo2zwle9IYnvwLXKtHZLc3DBDQhTTA+nucGHgaEeG/93l+TrBa61TuGrpyRjn9TWrTEF3w79C/kcoAbUhJgYpWyQwcS43HDNTWii6w1XmeZD5/4UQyPsA73EF3R2cTefXKLV45XEMfWfhJ+T43r5AX3hQxKAM/JTTuppocnbmC1QrlX7jc0yl6dRLyMe+gtC4f1qHgdrPkOR9AOgoFDtwCjnKTbwpuOzuWFYBEzumImGoY2mm97OLlRPq5QhlO8RGnFQrP3slBjfS2QTrf1vkTJ04j+pPVsunXbS8Cpvw9uqv7rnmIaPnJD3Q1V1+8/NYi9cGGyrVHj0Oy0ZjI/58tjPV9dK+s5G1GOudAqzOPgEccicDb5+exPbcMAkiOd/2W2Ls0v7PTc76zrCGlAHvwRZr82UimRnRwtN3ADs2lRuGBY5p6qO+1XlDsT/OILAuDch9emVjztdb00JocFBMKe7OiowGI1okgnEz0c02COVKYC63uRqtdLVWseVuKEUYmQDGgQllnAZ3LIB6j9r4BLWiRlmg3PqRfj/hAOgTLAurxIo1d2Up1FgB3M4xdK03t4Pefj4zsu1xMZnDWd/QHnKk9HIPtm3IQPELreV1Pjs="
+   # Basic Foundation Dev Pod endpoints (used below)
+   - FOUNDATION_API_URL=https://foundation-dev-api.symphony.com
+   - FOUNDATION_POD_URL=https://foundation-dev.symphony.com
+   - KEYAUTH_URL=$FOUNDATION_API_URL/keyauth
+   - POD_URL=$FOUNDATION_POD_URL/pod
+   - AGENT_URL=$FOUNDATION_API_URL/agent
+   # Used by RssBot
+   - RSS_URL=https://twitrss.me/twitter_user_to_rss/?user=symphonyoss
+   - RSS_LIMIT=3
+
 addons:
   coverity_scan:
     project:
