@@ -32,6 +32,8 @@ jdk:
 
 env:
   global:
+   # Run integration tests against the Foundation Dev Pod
+   - MVN_ALLBRANCHES_PROFILES=integration-testing
    # Need to "gem install travis" first
    # Generated using command "travis encrypt COVERITY_SCAN_TOKEN=blah"
    - secure: "TowBNPUOs/0hWq4myoZ/l99r3wjuwHdUhXFFm8YJ44eWQLojKXNKYIX6+L0byTGGEXjNS01HNb2hnMqNHZOJpe/ZtLu4k4NOIiPV/wfRfKC+kW3fftBEZEIAKoamqxF7gy7o4nz6zroPqKNq+y3Ug7qUCp2gcgGyLiQVB7o79l402QWtaxuUSyulJUc/cYR9bz/r810oSebGnrjM6KtKhdeQLNSQjwdw2+sztgehOkDO/Yc4Y5dMEgT4qo7wqPgp0Ti0riqivf5MGMnbhGTS2hJf8dmUMODrXh7q7nW2ThfPquE9ffBxHxW+zhXmnEr0UhTo6nEAveLVqPN1LD9la1m1dI4bIEKlMntCvpYTOsYjQl9MN+z1TYMU3EeZo4DBLyQ0SGRISSecNMAn21OMTY7t8hVAYeIJR4Y4P8b6vWElU3H3+29JOIXOraUqPiGDRhq9rnXDISHvQV7QIWV2uiwYkTCQgBSzgzIdWl3jVkfDnB3s6KrnVPyS1zEpj99EtNmEfHnEY3LSlKyd2W8P07djYftyQVVU3JQ//y4jbbh1mExlEU0d1Ja1LMOylOFHZ5adW64TNVi8CuxaQ9W0mqRDGOcWX1JfFk/MgJP48EndT0wI82d+BcBXPuYaC8DHUMAp//KwBeMxoUefvnm5q8XspEP8OIBoxXseRsBzFpg="
