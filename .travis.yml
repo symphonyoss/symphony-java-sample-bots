@@ -44,6 +44,7 @@ env:
    # Basic Foundation Dev Pod endpoints (used below)
    - FOUNDATION_API_URL=https://foundation-dev-api.symphony.com
    - FOUNDATION_POD_URL=https://foundation-dev.symphony.com
+   - SESSIONAUTH_URL=$FOUNDATION_API_URL/sessionauth
    - KEYAUTH_URL=$FOUNDATION_API_URL/keyauth
    - POD_URL=$FOUNDATION_POD_URL/pod
    - AGENT_URL=$FOUNDATION_API_URL/agent
