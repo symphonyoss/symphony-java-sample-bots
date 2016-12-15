@@ -23,9 +23,11 @@
 before_script: "curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash"
 
 language: java
-# script: mvn clean install -Pversioneye
+
 install: true
-script: curl -L https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/mvn-ssf-profiles.sh | bash
+script: mvn clean install -Pintegration-testing
+# script: mvn clean install -Pversioneye
+# script: curl -L https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/mvn-ssf-profiles.sh | bash
 
 jdk:
   - oraclejdk8
