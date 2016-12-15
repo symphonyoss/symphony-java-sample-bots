@@ -25,7 +25,7 @@ before_script: "curl -s https://raw.githubusercontent.com/symphonyoss/contrib-to
 language: java
 
 install: true
-script: ls -la ./certs ; openssl pkcs12 -info -in ./certs/symphony-java-sample-bots.p12 ; mvn clean install -Pintegration-testing
+script: mvn clean install -Pintegration-testing
 # script: mvn clean install -Pversioneye
 # script: curl -L https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/mvn-ssf-profiles.sh | bash
 
