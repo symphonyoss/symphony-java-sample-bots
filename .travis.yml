@@ -25,7 +25,7 @@ before_script: "curl -s https://raw.githubusercontent.com/symphonyoss/contrib-to
 language: java
 
 install: true
-script: mvn clean install -Pintegration-testing
+script: mvn clean deploy -Pintegration-testing --settings settings.xml
 # script: mvn clean install -Pversioneye
 # script: curl -L https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/mvn-ssf-profiles.sh | bash
 
