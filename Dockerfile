@@ -1,6 +1,6 @@
 # This Dockerfile creates a sample Docker image, using the EchoBot class as entry point; it expects that:
-# - a certs folder is present at the root project folder (you can use download-files.sh script in contrib-toolbox project to populate it)
-# - a ZIP file created by the Maven appassembler plugin in the target folder; the name is expected to be "${project_path}-appassembler.zip"
+# - a certs folder is present at the root project folder; you can use download-files.sh script in contrib-toolbox project to populate it
+# - a ZIP file created by the Maven appassembler plugin in the target folder; invoke "mvn package" and check the target folder for "${project_path}-appassembler.zip" file
 
 FROM openjdk:8-jdk
 
