@@ -46,7 +46,7 @@ chmod u+x env.sh
 ```
 Type `./run-bot.sh` to check how to run the other bot samples.
 
-## Running integration testing
+## Integration testing
 This project ships with [EchoBotIT](src/test/java/org/symphonyoss/simplebot/EchoBotIT.java), a simple example of integration testing using the Symphony Java client.
 
 The test runs through the following steps:
@@ -60,7 +60,7 @@ To run this test, you must:
 1. Create `./certs` folder containing `server.truststore`, a `bot.p12` and a `sender.p12` file
 2. Edit `env.sh` and adjust Symphony endpoints and certificate file locations
 
-### Run
+### Run IT
 Just run `./run-it.sh` from the project root; the script will invoke Maven, specifically the Maven Failsafe Plugin
 
 The available sample bots are:
@@ -68,6 +68,11 @@ The available sample bots are:
 - Echo Bot: `org.symphonyoss.simplebot.EchoBot`
 - Stock Info Bot: `org.symphonyoss.simplebot.StockInfoBot`
 - RSS Bot: `org.symphonyoss.simplebot.RssBot`
+
+## Build a Docker image
+The Maven build ships with a `-Pdocker` profile that creates a Docker image called `symphony-echobot`, described by a [`Dockerfile`](Dockerfile).
+
+To create the image, simply invoke `mvn package -Pdocker`; read more on [`docker-maven-plugin` homepage](https://github.com/spotify/docker-maven-plugin)
 
 ## Dependencies
 This project uses the following libraries:
