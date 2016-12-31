@@ -74,6 +74,32 @@ The Maven build ships with a `-Pdocker` profile that creates a Docker image call
 
 To create the image, simply invoke `mvn package -Pdocker`; read more on [`docker-maven-plugin` homepage](https://github.com/spotify/docker-maven-plugin)
 
+To run the image:
+```
+# Set secret variables and create a env.list file.
+# Alternatively, you can set them via your CI environment
+
+. ./env.sh
+
+cat << EOF > env.list
+TRUSTSTORE_FILE=$TRUSTSTORE_FILE
+TRUSTSTORE_PASSWORD=$TRUSTSTORE_PASSWORD
+BOT_USER_EMAIL=$BOT_USER_EMAIL
+BOT_USER_CERT_FILE=$BOT_USER_CERT_FILE
+BOT_USER_CERT_PASSWORD=$BOT_USER_CERT_PASSWORD
+RECEIVER_USER_EMAIL=$RECEIVER_USER_EMAIL
+SENDER_USER_EMAIL=$SENDER_USER_EMAIL
+SENDER_USER_CERT_FILE=$SENDER_USER_CERT_FILE
+SENDER_USER_CERT_PASSWORD=$SENDER_USER_CERT_PASSWORD
+EOF
+
+# Run and attach the container
+docker run -i -t --entrypoint /bin/bash --env-file ./env.list symphony-echobot
+
+# Invoke the bot
+./bin/RunBot org.symphonyoss.simplebot.EchoBot
+```
+
 ## Dependencies
 This project uses the following libraries:
 - [Symphony Java Client](https://github.com/symphonyoss/symphony-java-client)
