@@ -51,7 +51,7 @@ void withMavenEnv(List envVars = [], def body) {
     List mvnEnv = ["PATH+MVN=${mvntool}/bin", "PATH+JDK=${jdktool}/bin", "JAVA_HOME=${jdktool}", "MAVEN_HOME=${mvntool}"]
 
     // Add any additional environment variables.
-    mvnEnv.addAll(envVars)
+    //mvnEnv.addAll(envVars)
 
     // Invoke the body closure we're passed within the environment we've created.
     withEnv(mvnEnv) {
