@@ -56,7 +56,7 @@ void withMavenEnv(List envVars = [], def body) {
     //mvnEnv.addAll(envVars)
 
     // Invoke the body closure we're passed within the environment we've created.
-    withEnv(mvnEnv) {
+    //withEnv(mvnEnv) {
         body.call()
-    }
+    //}
 }
