@@ -1,4 +1,4 @@
-node('maven') {
+node {
    // Define Maven coordinates
    def pomVersion = version()
    def artifactId = "symphony-java-sample-bots"
