@@ -14,10 +14,11 @@ node {
    stage 'Build'
    git branch: 'dev', url: 'https://github.com/symphonyoss/symphony-java-sample-bots.git'
 
-   withMavenEnv() {
-       sh "echo JAVA_HOME is '$JAVA_HOME'"
-       sh "${mvnCmd} clean package -DskipTests=true"
-   }
+   String jdktool = tool name: "oracle-jdk8", type: 'hudson.model.JDK'
+   env.JAVA_HOME = "${jdktool}"
+
+   sh "echo JAVA_HOME is '$JAVA_HOME'"
+   sh "${mvnCmd} clean package -DskipTests=true"
 
    stage 'Deploy'
    sh "${ocCmd} delete bc,dc,svc,route -l app=${artifactId} -n ${projectName}"
@@ -45,7 +46,6 @@ void withMavenEnv(List envVars = [], def body) {
     // node.
     //String mvntool = tool name: "M3", type: 'hudson.tasks.Maven$MavenInstallation'
     String jdktool = tool name: "oracle-jdk8", type: 'hudson.model.JDK'
-
     env.JAVA_HOME = "${jdktool}"
 
     // Set JAVA_HOME, MAVEN_HOME and special PATH variables for the tools we're
