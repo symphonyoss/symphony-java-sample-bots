@@ -13,6 +13,7 @@ node('maven') {
 
    stage 'Build'
    git branch: 'dev', url: 'https://github.com/symphonyoss/symphony-java-sample-bots.git'
+   sh "echo JAVA_HOME is '$JAVA_HOME'"
    sh "${mvnCmd} clean package -DskipTests=true"
 
    stage 'Deploy'
