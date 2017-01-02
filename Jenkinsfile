@@ -43,12 +43,14 @@ void withMavenEnv(List envVars = [], def body) {
     // to be made more flexible.
     // Using the "tool" Workflow call automatically installs those tools on the
     // node.
-    String mvntool = tool name: "M3", type: 'hudson.tasks.Maven$MavenInstallation'
+    //String mvntool = tool name: "M3", type: 'hudson.tasks.Maven$MavenInstallation'
     String jdktool = tool name: "oracle-jdk8", type: 'hudson.model.JDK'
+
+    env.JAVA_HOME = "${jdktool}"
 
     // Set JAVA_HOME, MAVEN_HOME and special PATH variables for the tools we're
     // using.
-    List mvnEnv = ["PATH+MVN=${mvntool}/bin", "PATH+JDK=${jdktool}/bin", "JAVA_HOME=${jdktool}", "MAVEN_HOME=${mvntool}"]
+    //List mvnEnv = ["PATH+MVN=${mvntool}/bin", "PATH+JDK=${jdktool}/bin", "JAVA_HOME=${jdktool}", "MAVEN_HOME=${mvntool}"]
 
     // Add any additional environment variables.
     //mvnEnv.addAll(envVars)
