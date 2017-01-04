@@ -17,13 +17,13 @@ ENV KEYAUTH_URL https://foundation-dev-api.symphony.com/keyauth
 ENV POD_URL https://foundation-dev.symphony.com/pod
 ENV AGENT_URL https://foundation-dev-api.symphony.com/agent
 
-ADD /target/${project_path}-appassembler.zip /opt/assembler.zip
+# ADD /target/${project_path}-appassembler.zip /opt/assembler.zip
 
 # TODO - this should be a run, so certs don't stay in the image
-ADD /certs /opt/${project_path}/certs
+# ADD /certs /opt/${project_path}/certs
 
-RUN unzip /opt/assembler.zip -d /opt
+# RUN unzip /opt/assembler.zip -d /opt
 
-WORKDIR /opt/${project_path}
+# WORKDIR /opt/${project_path}
 
 ENTRYPOINT ["./bin/RunBot org.symphonyoss.simplebot.EchoBot"]
