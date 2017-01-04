@@ -1,8 +1,4 @@
 node {
-   // Define Maven coordinates
-   def pomVersion = version()
-   def artifactId = "symphony-java-sample-bots"
-
    // define Origin commands
    def ocCmd = "oc --token=`cat /var/run/secrets/kubernetes.io/serviceaccount/token` --server=https://openshift.default.svc.cluster.local --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt"
    def mvnCmd = "mvn"
@@ -11,14 +7,19 @@ node {
    def projectName = "cicd"
    def imageStream = "openjdk:8-jdk"
 
+   stage 'Checkout'
+   git branch: 'experimental', url: 'https://github.com/symphonyoss/symphony-java-sample-bots.git'
+   echo "Checkout done"
+
+   // Define Maven coordinates
+   def pomVersion = version()
+   def artifactId = "symphony-java-sample-bots"
+
    stage 'Build'
-   git branch: 'dev', url: 'https://github.com/symphonyoss/symphony-java-sample-bots.git'
 
-   String jdktool = tool name: "oracle-jdk8", type: 'hudson.model.JDK'
-   env.JAVA_HOME = "${jdktool}"
-
-   sh "echo JAVA_HOME is '$JAVA_HOME'"
-   sh "${mvnCmd} clean package -DskipTests=true"
+    withMavenEnv(["JAVA_OPTS=-Xmx1536m","MAVEN_OPTS=-Xmx1536m"]) {
+       sh "${mvnCmd} clean package -DskipTests=true"
+    }
 
    stage 'Deploy'
    sh "${ocCmd} delete bc,dc,svc,route -l app=${artifactId} -n ${projectName}"
@@ -36,27 +37,19 @@ def version() {
   matcher ? matcher[0][1] : null
 }
 
-// This method sets up the Maven and JDK tools, puts them in the environment along
-// with whatever other arbitrary environment variables we passed in, and runs the
-// body we passed in within that environment.
-void withMavenEnv(List envVars = [], def body) {
-    // The names here are currently hardcoded for my test environment. This needs
-    // to be made more flexible.
-    // Using the "tool" Workflow call automatically installs those tools on the
-    // node.
-    //String mvntool = tool name: "M3", type: 'hudson.tasks.Maven$MavenInstallation'
+void withMavenEnv(List envVars, def body) {
+    String mvntool = tool name: "maven-default", type: 'hudson.tasks.Maven$MavenInstallation'
     String jdktool = tool name: "oracle-jdk8", type: 'hudson.model.JDK'
     env.JAVA_HOME = "${jdktool}"
 
-    // Set JAVA_HOME, MAVEN_HOME and special PATH variables for the tools we're
-    // using.
-    //List mvnEnv = ["PATH+MVN=${mvntool}/bin", "PATH+JDK=${jdktool}/bin", "JAVA_HOME=${jdktool}", "MAVEN_HOME=${mvntool}"]
-
-    // Add any additional environment variables.
-    //mvnEnv.addAll(envVars)
+    envVars.add("PATH+MVN=${mvntool}/bin")
+    envVars.add("PATH+JDK=${jdktool}/bin")
+    envVars.add("JAVA_HOME=${jdktool}")
+    envVars.add("MAVEN_HOME=${mvntool}")
+    echo "envVars: ${envVars.toString()}"
 
     // Invoke the body closure we're passed within the environment we've created.
-    //withEnv(mvnEnv) {
+    withEnv(envVars) {
         body.call()
-    //}
+    }
 }
