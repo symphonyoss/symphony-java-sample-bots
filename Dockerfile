@@ -15,4 +15,4 @@ ENV AGENT_URL https://foundation-dev-api.symphony.com/agent
 
 ADD . /bot
 
-ENTRYPOINT ["/bot/bin/RunBot org.symphonyoss.simplebot.EchoBot"]
+CMD /bot/bin/RunBot org.symphonyoss.simplebot.EchoBot
