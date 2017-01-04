@@ -5,7 +5,7 @@ node {
 
    // Define Openshift coordinates
    def projectName = "cicd"
-   def imageStream = "openjdk:8-jdk"
+   def serviceName = "samplebots"
 
    stage 'Checkout'
    git branch: 'experimental', url: 'https://github.com/symphonyoss/symphony-java-sample-bots.git'
@@ -22,14 +22,13 @@ node {
     }
 
    stage 'Deploy'
-   sh "${ocCmd} delete bc,dc,svc,route -l app=${artifactId} -n ${projectName}"
-   // create build. override the exit code since it complains about exising imagestream
-   sh "${ocCmd} new-build --name=${artifactId} --image-stream=${imageStream} --binary=true --labels=app=${artifactId} -n ${projectName} || true"
+   sh "${ocCmd} delete bc,dc,svc,route -l app=${serviceName} -n ${projectName}"
+   // create build
+   sh "${ocCmd} new-build --name=${serviceName} --binary=true --labels=app=${serviceName} -n ${projectName} || true"
    // build image
-   sh "${ocCmd} start-build ${artifactId} --from-dir=target/${artifactId}-${pomVersion} --wait=true -n ${projectName}"
+   sh "${ocCmd} start-build ${serviceName} --from-dir=target/${artifactId}-${pomVersion} --wait=true -n ${projectName}"
    // deploy image
-   sh "${ocCmd} new-app ${artifactId}:latest -n ${projectName}"
-   sh "${ocCmd} expose svc/${artifactId} -n ${projectName}"
+   sh "${ocCmd} new-app ${serviceName}:latest -n ${projectName}"
 }
 
 def version() {
