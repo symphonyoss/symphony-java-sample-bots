@@ -12,6 +12,6 @@ ENV AGENT_URL https://foundation-dev-api.symphony.com/agent
 
 ADD . /bot
 
-ADD ./certs /certs
+CMD curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash
 
 CMD /bot/bin/RunBot org.symphonyoss.simplebot.EchoBot
