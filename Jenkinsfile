@@ -4,8 +4,8 @@ node {
    def mvnCmd = "mvn"
 
    // Define Openshift coordinates
-   def projectName = "cicd"
-   def serviceName = "samplebots"
+   def buildTemplateName = "maven-bot-build"
+   def botName = "echobot"
 
    stage 'Checkout'
    git branch: 'experimental', url: 'https://github.com/symphonyoss/symphony-java-sample-bots.git'
@@ -22,13 +22,9 @@ node {
     }
 
    stage 'Deploy'
-   sh "${ocCmd} delete bc,dc,svc,route -l app=${serviceName} -n ${projectName}"
-   // create build
-   sh "${ocCmd} new-build --name=${serviceName} --binary=true --labels=app=${serviceName} -n ${projectName} || true"
-   // build image
-   sh "${ocCmd} start-build ${serviceName} --from-dir=target/${artifactId}-${pomVersion} --wait=true -n ${projectName}"
-   // deploy image
-   sh "${ocCmd} new-app ${serviceName}:latest -n ${projectName}"
+   sh "${ocCmd} process ${buildTemplateName} -v BOT_NAME=${botName} | oc create -f -"
+
+   sh "${ocCmd} start-build ${botName} --from-dir=target/${artifactId}-${pomVersion} --wait=true -n ${projectName}"
 }
 
 def version() {
