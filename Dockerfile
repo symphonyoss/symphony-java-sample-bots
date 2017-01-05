@@ -12,6 +12,6 @@ ENV AGENT_URL https://foundation-dev-api.symphony.com/agent
 
 ADD . /bot
 
-ADD /certs /certs
+ADD ./certs /certs
 
 CMD /bot/bin/RunBot org.symphonyoss.simplebot.EchoBot
