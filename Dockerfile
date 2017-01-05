@@ -10,11 +10,8 @@ ENV KEYAUTH_URL https://foundation-dev-api.symphony.com/keyauth
 ENV POD_URL https://foundation-dev.symphony.com/pod
 ENV AGENT_URL https://foundation-dev-api.symphony.com/agent
 
-# TODO - this should be a run, so certs don't stay in the image
-# ADD /certs /opt/${project_path}/certs
-
 ADD . /bot
 
-CMD curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash
+ADD /certs /certs
 
 CMD /bot/bin/RunBot org.symphonyoss.simplebot.EchoBot

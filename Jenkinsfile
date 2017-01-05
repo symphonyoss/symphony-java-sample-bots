@@ -6,7 +6,8 @@ node {
    // Define Openshift coordinates
    def buildTemplateName = "maven-bot-build"
    def botName = "echobot"
-
+   def projectName = "cicd"
+   
    stage 'Checkout'
    git branch: 'experimental', url: 'https://github.com/symphonyoss/symphony-java-sample-bots.git'
    echo "Checkout done"
@@ -22,7 +23,9 @@ node {
     }
 
    stage 'Deploy'
-   sh "${ocCmd} process ${buildTemplateName} -v BOT_NAME=${botName} | oc create -f -"
+   // Manually managed for now via oc commands
+   // sh "${ocCmd} delete all -l app=${botName} || true"
+   // sh "${ocCmd} process ${buildTemplateName} -v BOT_NAME=${botName} | oc create -f -"
 
    sh "${ocCmd} start-build ${botName} --from-dir=target/${artifactId}-${pomVersion} --wait=true -n ${projectName}"
 }
