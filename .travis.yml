@@ -50,7 +50,7 @@ env:
    - RSS_URL=https://twitrss.me/twitter_user_to_rss/?user=symphonyoss
    - RSS_LIMIT=3
 
-# TODO - temporary, to check doc publishing
+# Coverity scan can be enabled for demo purposes
 # addons:
 #   coverity_scan:
 #     project:
