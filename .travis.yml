@@ -50,12 +50,13 @@ env:
    - RSS_URL=https://twitrss.me/twitter_user_to_rss/?user=symphonyoss
    - RSS_LIMIT=3
 
-addons:
-  coverity_scan:
-    project:
-      name: "symphonyoss/symphony-java-sample-bots"
-      description: "Build submitted via Travis CI"
-    notification_email: maoo@symphony.foundation
-    build_command_prepend: "mvn clean"
-    build_command: "mvn package"
-    branch_pattern: master
+# TODO - temporary, to check doc publishing
+# addons:
+#   coverity_scan:
+#     project:
+#       name: "symphonyoss/symphony-java-sample-bots"
+#       description: "Build submitted via Travis CI"
+#     notification_email: maoo@symphony.foundation
+#     build_command_prepend: "mvn clean"
+#     build_command: "mvn package"
+#     branch_pattern: master
