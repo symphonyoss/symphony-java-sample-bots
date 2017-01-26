@@ -1,6 +1,9 @@
-# This Dockerfile creates a sample Docker image, using the EchoBot class as entry point; it expects that:
-# - a certs folder is present at the root project folder; you can use download-files.sh script in contrib-toolbox project to populate it
-# - a folder created by the Maven appassembler plugin as the current folder; invoke "mvn package" and check the target folder
+# This Dockerfile creates a sample Docker image, using the EchoBot class as entry point
+# To use it:
+# - checkout this project
+# - run "mvn package"
+# - cd target/symphony-java-sample-bots-${version}/
+# - docker build ...
 
 FROM openjdk:8-jdk
 
@@ -10,6 +13,7 @@ ENV KEYAUTH_URL https://foundation-dev-api.symphony.com/keyauth
 ENV POD_URL https://foundation-dev.symphony.com/pod
 ENV AGENT_URL https://foundation-dev-api.symphony.com/agent
 
+# Mounts the target/symphony-java-sample-bots-${version}/ folder
 ADD . /bot
 
 # Certs are now managed via volumes
