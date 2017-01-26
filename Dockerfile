@@ -5,7 +5,8 @@
 # - cd target/symphony-java-sample-bots-${version}/
 # - docker build ...
 
-FROM openjdk:8-jdk
+# FROM openjdk:8-jdk
+FROM java:oracle-java8
 
 # Runtime variables, to connect to ODP
 ENV SESSIONAUTH_URL https://foundation-dev-api.symphony.com/sessionauth
@@ -23,8 +24,8 @@ ENV AGENT_URL https://foundation-dev-api.symphony.com/agent
 ADD . /bot
 
 # DNS debugging
-RUN echo "104.16.104.33	foundation-dev.symphony.com" >> /etc/hosts
-RUN echo "54.152.95.26	foundation-dev-api.symphony.com" >> /etc/hosts
+# RUN echo "104.16.104.33	foundation-dev.symphony.com" >> /etc/hosts
+# RUN echo "54.152.95.26	foundation-dev-api.symphony.com" >> /etc/hosts
 
 # Certs are now managed via volumes
 # CMD curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash
