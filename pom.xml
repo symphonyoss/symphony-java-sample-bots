@@ -118,6 +118,19 @@
   </dependencies>
 
   <build>
+    <!-- TODO - this could be moved up to ssf-parent-pom -->
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.github.github</groupId>
+          <artifactId>site-maven-plugin</artifactId>
+          <configuration>
+            <oauth2Token>${env.GITHUB_TOKEN}</oauth2Token>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
