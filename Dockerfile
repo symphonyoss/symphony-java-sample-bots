@@ -6,7 +6,7 @@
 # - docker build ...
 
 # FROM openjdk:8-jdk
-FROM java:oracle-java8
+FROM ubuntu:14.04
 
 # Runtime variables, to connect to ODP
 ENV SESSIONAUTH_URL https://foundation-dev-api.symphony.com/sessionauth
