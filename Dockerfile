@@ -22,6 +22,10 @@ ENV AGENT_URL https://foundation-dev-api.symphony.com/agent
 # Mounts the target/symphony-java-sample-bots-${version}/ folder
 ADD . /bot
 
+# DNS debugging
+RUN echo "104.16.104.33	foundation-dev.symphony.com" >> /etc/hosts
+RUN echo "54.152.95.26	foundation-dev-api.symphony.com" >> /etc/hosts
+
 # Certs are now managed via volumes
 # CMD curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash
 
