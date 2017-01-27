@@ -87,7 +87,7 @@ public class Utils {
         for (String initParam : initParamNames) {
             String initParamValue = System.getProperty(initParam);
 
-            if (initParamValue == null) {
+            if (isEmpty(initParamValue)) {
                 throw new IllegalArgumentException("Cannot find required property; make sure you're using -D" + initParam + " to run HelloWorldBot");
             } else {
                 initParams.put(initParam, initParamValue);
@@ -101,6 +101,10 @@ public class Utils {
             log.debug("{}={}", initParam,initParamValue);
         }
         return initParams;
+    }
+
+    private boolean isEmpty(String str) {
+        return str == null || str.trim().isEmpty();
     }
 
     public void sendMessage(SymphonyClient client, Chat chat, String message, SymMessage.Format messageFormat)
