@@ -8,6 +8,7 @@
 # This is ignored apparently, as it's overruled by Openshift BuildConfig
 # FROM ubuntu:14.04
 # FROM null:null
+FROM ubuntu-openjdk-8-jdk:latest
 
 # Runtime variables, to connect to ODP
 ENV SESSIONAUTH_URL https://foundation-dev-api.symphony.com/sessionauth
