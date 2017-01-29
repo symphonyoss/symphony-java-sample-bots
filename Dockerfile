@@ -10,11 +10,11 @@
 # FROM null:null
 FROM ubuntu-openjdk-8-jdk:latest
 
-# Runtime variables, to connect to ODP
-ENV SESSIONAUTH_URL https://foundation-dev-api.symphony.com/sessionauth
-ENV KEYAUTH_URL https://foundation-dev-api.symphony.com/keyauth
-ENV POD_URL https://foundation-dev.symphony.com/pod
-ENV AGENT_URL https://foundation-dev-api.symphony.com/agent
+# Runtime variables, to connect to ODP (now defined in Openshift BuildConfig template)
+# ENV SESSIONAUTH_URL https://foundation-dev-api.symphony.com/sessionauth
+# ENV KEYAUTH_URL https://foundation-dev-api.symphony.com/keyauth
+# ENV POD_URL https://foundation-dev.symphony.com/pod
+# ENV AGENT_URL https://foundation-dev-api.symphony.com/agent
 
 # Mounts the target/symphony-java-sample-bots-${version}/ folder
 ADD . /bot
