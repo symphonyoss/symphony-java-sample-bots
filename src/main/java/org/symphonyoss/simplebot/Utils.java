@@ -46,7 +46,7 @@ public class Utils {
     public SymphonyClient getSymphonyClient(Map<String,String> initParams) {
         SymphonyClient symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
 
-        log.debug("{} {}", System.getProperty("sessionauth.url"),
+        log.debug("Instanciating Symphony client: Session auth '{}' and Keyauth '{}'", System.getProperty("sessionauth.url"),
                 System.getProperty("keyauth.url"));
 
         AuthorizationClient authClient = new AuthorizationClient(
@@ -79,17 +79,32 @@ public class Utils {
     }
 
     public Map<String,String> readInitParams(Set<String> initParamNames) {
+
+        // TODO - remove this!
+        log.debug("Printing out init params...");
+
         Map<String,String> initParams = new HashMap<>();
         for (String initParam : initParamNames) {
             String initParamValue = System.getProperty(initParam);
 
-            if (initParamValue == null) {
+            if (isEmpty(initParamValue)) {
                 throw new IllegalArgumentException("Cannot find required property; make sure you're using -D" + initParam + " to run HelloWorldBot");
             } else {
                 initParams.put(initParam, initParamValue);
             }
+            
+            // Logging debug statements for each param
+            // TODO - remove this!
+            if (initParam.contains("password")) {
+              initParamValue = "not null";
+            }
+            log.debug("{}={}", initParam,initParamValue);
         }
         return initParams;
+    }
+
+    private boolean isEmpty(String str) {
+        return str == null || str.trim().isEmpty();
     }
 
     public void sendMessage(SymphonyClient client, Chat chat, String message, SymMessage.Format messageFormat)
