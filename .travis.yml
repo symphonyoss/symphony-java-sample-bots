@@ -27,11 +27,7 @@
 
 before_script: "curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash"
 
-deploy:
-  provider: script
-  script: "curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/oc-deploy.sh | bash"
-  on:
-    branch: experimental
+after_success: "if [[ $TRAVIS_BRANCH =~ experimental ]]; then curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/oc-deploy.sh | bash ; fi"
 
 language: java
 
