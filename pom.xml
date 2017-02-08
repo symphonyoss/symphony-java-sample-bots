@@ -146,12 +146,6 @@
               <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}</outputDirectory>
               <resources>
                 <resource>
-                  <directory>.</directory>
-                  <includes>
-                    <include>Dockerfile</include>
-                  </includes>
-                </resource>
-                <resource>
                   <directory>src/test/resources</directory>
                   <includes>
                     <include>log4j.properties</include>
@@ -247,38 +241,6 @@
                 <goals>
                   <goal>integration-test</goal>
                   <goal>verify</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>docker</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.spotify</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <version>0.4.13</version>
-            <configuration>
-              <dockerDirectory>.</dockerDirectory>
-              <imageName>symphony-echobot</imageName>
-              <baseImage>openjdk:8-jdk</baseImage>
-              <resources>
-                 <resource>
-                   <targetPath>/</targetPath>
-                   <directory>${project.build.directory}</directory>
-                   <include>${project.build.finalName}-appassembler.zip</include>
-                 </resource>
-              </resources>
-            </configuration>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>build</goal>
                 </goals>
               </execution>
             </executions>
