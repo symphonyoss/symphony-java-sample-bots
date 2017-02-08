@@ -21,9 +21,9 @@
 #
 
 # blocklist
-branches:
-  except:
-  - experimental
+# branches:
+#  except:
+#  - experimental
 
 before_script: "curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash"
 
