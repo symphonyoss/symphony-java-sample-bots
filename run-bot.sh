@@ -12,5 +12,5 @@ if [ -z "$1" ]; then
 fi
 
 mvn package
-cd target/symphony-java-sample-bots-0.9.0-SNAPSHOT
-./bin/RunBot $1
+# cd target/symphony-java-sample-bots-0.9.0-SNAPSHOT
+./target/symphony-java-sample-bots-0.9.0-SNAPSHOT/bin/RunBot $1
