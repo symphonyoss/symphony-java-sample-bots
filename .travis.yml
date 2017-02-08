@@ -21,17 +21,19 @@
 #
 
 # blocklist
-branches:
-  except:
-  - experimental
+# branches:
+#  except:
+#  - experimental
 
 before_script: "curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash"
+
+after_success: "if [[ $TRAVIS_BRANCH =~ experimental ]]; then curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/oc-deploy.sh | bash ; fi"
 
 language: java
 
 install: true
 script:
-- " if [[ $TRAVIS_BRANCH =~ master ]]; then mvn clean deploy -Pintegration-testing,versioneye,publish-site --settings settings.xml ; fi"
+- "if [[ $TRAVIS_BRANCH =~ master ]]; then mvn clean deploy -Pintegration-testing,versioneye,publish-site --settings settings.xml ; fi"
 - "if [[ $TRAVIS_BRANCH =~ dev ]]; then mvn clean deploy -Pintegration-testing --settings settings.xml ; fi"
 
 jdk:
@@ -54,6 +56,9 @@ env:
    # Used by RssBot
    - RSS_URL=https://twitrss.me/twitter_user_to_rss/?user=symphonyoss
    - RSS_LIMIT=3
+   # Used by oc-deploy.sh for CD
+   - OC_BINARY_FOLDER=./target/symphony-java-sample-bots-0.9.0-SNAPSHOT
+   - OC_BUILD_CONFIG_NAME=echobot
 
 # Coverity scan can be enabled for demo purposes
 # addons:
