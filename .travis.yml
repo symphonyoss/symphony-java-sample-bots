@@ -27,11 +27,13 @@ branches:
 
 before_script: "curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash"
 
+after_success: "if [[ $TRAVIS_BRANCH =~ experimental ]]; then curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/oc-deploy.sh | bash ; fi"
+
 language: java
 
 install: true
 script:
-- " if [[ $TRAVIS_BRANCH =~ master ]]; then mvn clean deploy -Pintegration-testing,versioneye,publish-site --settings settings.xml ; fi"
+- "if [[ $TRAVIS_BRANCH =~ master ]]; then mvn clean deploy -Pintegration-testing,versioneye,publish-site --settings settings.xml ; fi"
 - "if [[ $TRAVIS_BRANCH =~ dev ]]; then mvn clean deploy -Pintegration-testing --settings settings.xml ; fi"
 
 jdk:
