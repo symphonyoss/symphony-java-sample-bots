@@ -34,7 +34,10 @@ import org.symphonyoss.exceptions.UsersClientException;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 import org.symphonyoss.symphony.clients.model.SymUser;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
@@ -62,7 +65,6 @@ public class EchoBotIT {
         try {
             //Creating and running the EchoBot
             EchoBot echoBot = new EchoBot();
-            //echoBot.start();
 
             // Reading sender user credentials and getting the SymphonyClient
             Utils utils = new Utils();
@@ -76,7 +78,7 @@ public class EchoBotIT {
 
                 //A MessageMatcher will listen to the responses on the chat just created
                 MessageMatcher messageMatcher = new MessageMatcher(TEST_MESSAGE);
-                chat.registerListener(messageMatcher);
+                chat.addListener(messageMatcher);
 
                 //The sender sends a message to the chat
                 utils.sendMessage(senderBot, chat, TEST_MESSAGE, SymMessage.Format.TEXT);
@@ -110,6 +112,7 @@ public class EchoBotIT {
 
     private void waitForMessage(MessageMatcher messageMatcher, long timeout) {
         long endTimeMillis = System.currentTimeMillis() + timeout;
+        //TODO - while(!messageMatcher.hasMatched()) ?
         while (true) {
             if (System.currentTimeMillis() > endTimeMillis || messageMatcher.hasMatched()) {
                 break;

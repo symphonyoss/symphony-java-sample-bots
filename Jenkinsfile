@@ -23,10 +23,6 @@ node {
     }
 
    stage 'Deploy'
-   // Manually managed for now via oc commands
-   // sh "${ocCmd} delete all -l app=${botName} || true"
-   // sh "${ocCmd} process ${buildTemplateName} -v BOT_NAME=${botName} | oc create -f -"
-
    sh "${ocCmd} start-build ${botName} --from-dir=target/${artifactId}-${pomVersion} --wait=true -n ${projectName}"
 }
 

@@ -26,30 +26,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.symphonyoss.client.SymphonyClient;
-import org.symphonyoss.client.SymphonyClientFactory;
 import org.symphonyoss.client.model.Chat;
-import org.symphonyoss.client.model.SymAuth;
 import org.symphonyoss.client.services.ChatListener;
+import org.symphonyoss.client.services.ChatServiceListener;
 import org.symphonyoss.exceptions.*;
-import org.symphonyoss.symphony.agent.model.Message;
-import org.symphonyoss.symphony.agent.model.MessageSubmission;
-import org.symphonyoss.symphony.clients.AuthorizationClient;
 import org.symphonyoss.symphony.clients.model.SymMessage;
-import org.symphonyoss.symphony.clients.model.SymUser;
-import org.symphonyoss.symphony.pod.model.Stream;
-import org.symphonyoss.symphony.pod.model.User;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class EchoBot
-    implements ChatListener
-{
+    implements ChatListener, ChatServiceListener {
     private final static Logger log = LoggerFactory.getLogger(EchoBot.class);
 
     private SymphonyClient     symClient;
     private Map<String,String> initParams = new HashMap<>();
-    private Chat               chat;
     private Utils              utils = new Utils();
 
     private static Set<String> initParamNames = new HashSet<>();
@@ -68,70 +58,39 @@ public class EchoBot
         initParamNames.add("sender.user.email");
     }
 
-    public static void main(String[] args)
-    {
-        int returnCode = 0;
-
-        try
-        {
-            EchoBot bot = new EchoBot();
-            bot.start();
-        }
-        catch (Exception e)
-        {
-            returnCode = -1;
-            log.error("Unexpected exception.", e);
-        }
-
-        System.exit(returnCode);
+    public EchoBot() {
+        this.initParams = utils.readInitParams(initParamNames);
+        this.symClient = utils.getSymphonyClient(initParams);
+        this.symClient.getChatService().addListener(this);
     }
 
-    public EchoBot()
-        throws Exception
-    {
-        initParams = utils.readInitParams(initParamNames);
-        symClient = utils.getSymphonyClient(initParams);
-        initChat();
-    }
 
-    public void start()
-        throws Exception
-    {
-        Thread.sleep(TimeUnit.MILLISECONDS.convert(5, TimeUnit.MINUTES));
-    }
+  public String getUserEmail() {
+    return initParams.get("sender.user.email");
+  }
 
-    private void initChat()
-        throws SymException
-    {
-        this.chat = new Chat();
-        chat.setLocalUser(symClient.getLocalUser());
-        Set<SymUser> remoteUsers = new HashSet<>();
+  @Override
+    public void onChatMessage(SymMessage message) {
+        System.out.println("on chat message");
+        String messageText = message.getMessage();
 
-        remoteUsers.add(symClient.getUsersClient().getUserFromEmail(initParams.get("sender.user.email")));
-        chat.setRemoteUsers(remoteUsers);
-        chat.setStream(symClient.getStreamsClient().getStream(remoteUsers));
-
-        chat.registerListener(this);
-        symClient.getChatService().addChat(chat);
-        System.out.println("chat initialised");
-    }
-
-    @Override
-    public void onChatMessage(SymMessage message)
-    {
-        try
-        {
-            System.out.println("on chat message");
-            String messageText = message.getMessage();
-            utils.sendMessage(symClient, chat, messageText, SymMessage.Format.MESSAGEML);
-        }
-        catch (Exception e)
-        {
-            log.error("Unexpected exception.", e);
+        try {
+          Chat chat = symClient.getChatService().getChatByStream(message.getStreamId());
+          utils.sendMessage(symClient, chat, messageText, SymMessage.Format.MESSAGEML);
+        } catch (MessagesException e) {
+          e.printStackTrace();
+          log.error("Error sending message",e);
         }
     }
 
-    public String getUserEmail() {
-        return initParams.get("sender.user.email");
-    }
+  @Override
+  public void onNewChat(Chat chat) {
+    log.debug("on new chat invoked; registering listener, so messages get parsed");
+    chat.addListener(this);
+  }
+
+  @Override
+  public void onRemovedChat(Chat chat) {
+    log.debug("on removed chat invoked; nothing to do for EchoBot");
+  }
 }
