@@ -34,6 +34,8 @@ import org.symphonyoss.symphony.clients.model.SymMessage;
 
 import java.util.*;
 
+import static java.lang.Thread.sleep;
+
 public class EchoBot
     implements ChatListener, ChatServiceListener {
     private final static Logger log = LoggerFactory.getLogger(EchoBot.class);
@@ -62,6 +64,13 @@ public class EchoBot
         this.initParams = utils.readInitParams(initParamNames);
         this.symClient = utils.getSymphonyClient(initParams);
         this.symClient.getChatService().addListener(this);
+        while (true) {
+          try {
+            sleep(5000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
     }
 
 
