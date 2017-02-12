@@ -32,12 +32,21 @@ import org.symphonyoss.client.services.ChatServiceListener;
 import org.symphonyoss.exceptions.*;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 
+import static spark.Spark.*;
 import static java.lang.Thread.sleep;
 
 public class EchoBot
     implements ChatListener, ChatServiceListener {
+
+    private final static String CHECK_URL_PATH = "/status";
+
     private final static Logger log = LoggerFactory.getLogger(EchoBot.class);
 
     private SymphonyClient     symClient;
@@ -64,6 +73,9 @@ public class EchoBot
         this.initParams = utils.readInitParams(initParamNames);
         this.symClient = utils.getSymphonyClient(initParams);
         this.symClient.getChatService().addListener(this);
+
+        runHealthCheckServer();
+
         while (true) {
           try {
             sleep(5000);
@@ -73,6 +85,37 @@ public class EchoBot
         }
     }
 
+  private void runHealthCheckServer() {
+      List<String> urls = Arrays.asList(symClient.getAgentUrl(), symClient.getServiceUrl());
+      log.debug("Running health check server; monitoring urls: " + urls);
+      boolean result = checkUrls(urls);
+      log.debug("Check passed: " + result);
+      if (result) {
+        get(CHECK_URL_PATH, (req, res) -> "ok");
+      } else {
+        get(CHECK_URL_PATH, (req, res) -> "fail");
+      }
+  }
+
+  private boolean checkUrls(List<String> urls) {
+    for(String url : urls) {
+      try (Socket socket = new Socket()) {
+        String domain = new URI(url).getHost();
+        log.debug("connecting to "+domain);
+        socket.connect(new InetSocketAddress(domain, 443), 1000);
+        log.debug("connected to "+domain);
+      } catch (IOException e) {
+        log.error("i/o error checking urls "+urls,e);
+        return false;
+      } catch (URISyntaxException e) {
+        e.printStackTrace();
+        log.error("uri syntax error checking urls "+urls,e);
+        return false;
+      }
+    }
+    return true;
+  }
+
 
   public String getUserEmail() {
     return initParams.get("sender.user.email");
@@ -80,7 +123,7 @@ public class EchoBot
 
   @Override
     public void onChatMessage(SymMessage message) {
-        System.out.println("on chat message");
+        log.debug("on chat message");
         String messageText = message.getMessage();
 
         try {
@@ -100,6 +143,7 @@ public class EchoBot
 
   @Override
   public void onRemovedChat(Chat chat) {
-    log.debug("on removed chat invoked; nothing to do for EchoBot");
+    log.debug("on removed chat invoked; removing EchoBot as chat listener");
+    chat.removeListener(this);
   }
 }
