@@ -49,9 +49,9 @@ public class EchoBot
 
     private final static Logger log = LoggerFactory.getLogger(EchoBot.class);
 
-    private SymphonyClient     symClient;
+    private SymphonyClient symClient;
     private Map<String,String> initParams = new HashMap<>();
-    private Utils              utils = new Utils();
+    private Utils utils = new Utils();
 
     private static Set<String> initParamNames = new HashSet<>();
 
@@ -87,14 +87,18 @@ public class EchoBot
 
   private void runHealthCheckServer() {
       List<String> urls = Arrays.asList(symClient.getAgentUrl(), symClient.getServiceUrl());
-      log.debug("Running health check server; monitoring urls: " + urls);
-      boolean result = checkUrls(urls);
-      log.debug("Check passed: " + result);
-      if (result) {
-        get(CHECK_URL_PATH, (req, res) -> "ok");
-      } else {
-        get(CHECK_URL_PATH, (req, res) -> "fail");
-      }
+      get(CHECK_URL_PATH, (req, res) -> {
+        log.debug("Running health check server; monitoring urls: " + urls);
+        boolean result = checkUrls(urls);
+        log.debug("Check passed: " + result);
+        if (result) {
+          res.type("application/json");
+          return "ok";
+        } else {
+          res.status(500);
+          return "fail";
+        }
+      });
   }
 
   private boolean checkUrls(List<String> urls) {
