@@ -69,14 +69,14 @@ public class EchoBot
         initParamNames.add("sender.user.email");
     }
 
-    public EchoBot() {
+    public EchoBot(boolean busyWait) {
         this.initParams = utils.readInitParams(initParamNames);
         this.symClient = utils.getSymphonyClient(initParams);
         this.symClient.getChatService().addListener(this);
 
         runHealthCheckServer();
 
-        while (true) {
+        while (busyWait) {
           try {
             sleep(5000);
           } catch (InterruptedException e) {
@@ -84,6 +84,10 @@ public class EchoBot
           }
         }
     }
+
+  public EchoBot() {
+      this(true);
+  }
 
   private void runHealthCheckServer() {
       List<String> urls = Arrays.asList(symClient.getAgentUrl(), symClient.getServiceUrl());

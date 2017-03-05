@@ -64,7 +64,7 @@ public class EchoBotIT {
     public void sendAndReceiveEcho() {
         try {
             //Creating and running the EchoBot
-            EchoBot echoBot = new EchoBot();
+            EchoBot echoBot = new EchoBot(false);
 
             // Reading sender user credentials and getting the SymphonyClient
             Utils utils = new Utils();
