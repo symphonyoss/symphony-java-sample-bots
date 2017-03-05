@@ -1,1 +1,12 @@
+org.symphonyoss.examples.attachment
+org.symphonyoss.examples.botit
+org.symphonyoss.examples.chatsession
+org.symphonyoss.examples.connections
+org.symphonyoss.examples.hashtagbot
+org.symphonyoss.examples.multiclient
+org.symphonyoss.examples.presenceservice
+org.symphonyoss.examples.roomsearch
+org.symphonyoss.examples.roomsession
+org.symphonyoss.examples.setpresence
+org.symphonyoss.examples.shareexample
 org.symphonyoss.simplebot
