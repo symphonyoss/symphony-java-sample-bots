@@ -88,43 +88,25 @@ public class BotIt {
 
     }
 
+    //Start it up..
     public void init() {
 
 
         try {
 
-            //Create a basic client instance.
-            symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
-
             logger.debug("{} {}", System.getProperty("sessionauth.url"),
                     System.getProperty("keyauth.url"));
 
 
-            //Init the Symphony authorization client, which requires both the key and session URL's.  In most cases,
-            //the same fqdn but different URLs.
-            AuthorizationClient authClient = new AuthorizationClient(
-                    System.getProperty("sessionauth.url"),
-                    System.getProperty("keyauth.url"));
+            //Create an initialized client
+            symClient = SymphonyClientFactory.getClient(
+                    SymphonyClientFactory.TYPE.BASIC,
+                    System.getProperty("bot.user") + System.getProperty("bot.domain"), //bot email
+                    System.getProperty("certs.dir") + System.getProperty("bot.user") + ".p12", //bot cert
+                    System.getProperty("keystore.password"), //bot cert/keystore pass
+                    System.getProperty("truststore.file"), //truststore file
+                    System.getProperty("truststore.password"));  //truststore password
 
-
-            //Set the local keystores that hold the server CA and client certificates
-            authClient.setKeystores(
-                    System.getProperty("truststore.file"),
-                    System.getProperty("truststore.password"),
-                    System.getProperty("certs.dir") + System.getProperty("bot.user") + ".p12",
-                    System.getProperty("keystore.password"));
-
-            //Create a SymAuth which holds both key and session tokens.  This will call the external service.
-            SymAuth symAuth = authClient.authenticate();
-
-
-            //With a valid SymAuth we can now init our client.
-            symClient.init(
-                    symAuth,
-                    System.getProperty("bot.user") + System.getProperty("bot.domain"),
-                    System.getProperty("symphony.agent.agent.url"),
-                    System.getProperty("symphony.agent.pod.url")
-            );
 
 
             //A message to send when the BOT comes online.
@@ -140,6 +122,7 @@ public class BotIt {
             remoteUsers.add(symClient.getUsersClient().getUserFromEmail(System.getProperty("user.call.home")));
             chat.setRemoteUsers(remoteUsers);
 
+            //***********************************************
             //Add a command listener as part of AI framework
             chat.addListener(new CommandManager(symClient));
 
@@ -153,24 +136,26 @@ public class BotIt {
 
 
 
-
-        } catch (AuthorizationException ae) {
-
-            logger.error(ae.getMessage(), ae);
-
-        } catch (MessagesException | UsersClientException | InitException e) {
+        } catch (MessagesException | UsersClientException  e) {
             logger.error("error", e);
         }
 
     }
 
 
+    /**
+     * Command manager for registering commands that the bot can action.
+     *
+     * The AiCommandListener extends ChatListener
+     */
     class CommandManager extends AiCommandListener implements  AiPermission {
 
         public CommandManager(SymphonyClient symphonyClient) {
             super(symphonyClient);
 
 
+            ///////////////////
+            //Register commands
 
             AiCommand testCommand = new AiCommand("command", 1, "Command Usage");
             testCommand.setArgument(0, "arg");
@@ -185,14 +170,12 @@ public class BotIt {
             addCommand(testCommand2);
 
             AiCommand testCommand3 = new AiCommand("command", 0, "Command Usage no args..");
-            //testCommand3.setArgument(0, "arg");
             testCommand3.addAction(new commandAction());
             testCommand3.addPermission(this);
             addCommand(testCommand3);
 
 
         }
-
 
 
 
@@ -203,8 +186,19 @@ public class BotIt {
     }
 
 
+    /**
+     * An action associated with command.  Action will be called if command is detected.  Action will requires a
+     * response.
+     */
     class commandAction implements AiAction{
 
+        /**
+         * AiAction requires respond method, which responds to matched command
+         * @param mlMessageParser  The parser pre-loaded with message
+         * @param message Incoming message
+         * @param command The matching command
+         * @return Response to the sending user based on the matching command.
+         */
         @Override
         public AiResponseSequence respond(MlMessageParser mlMessageParser, SymMessage message, AiCommand command) {
 
