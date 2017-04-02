@@ -25,7 +25,7 @@
 #  except:
 #  - experimental
 
-before_script: "curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash"
+before_script: "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" ]]; then curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/download-files.sh | bash ; fi"
 
 after_success: "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" ]]; then curl -s https://raw.githubusercontent.com/symphonyoss/contrib-toolbox/master/scripts/oc-deploy.sh | bash ; fi"
 
