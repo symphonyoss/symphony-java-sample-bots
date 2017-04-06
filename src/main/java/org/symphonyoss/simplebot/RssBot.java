@@ -68,11 +68,6 @@ public class RssBot {
         initParamNames.add("receiver.user.email");
     }
 
-    public static void main(String[] args) {
-        new RssBot();
-        System.exit(0);
-    }
-
     public RssBot() {
         initParams();
         initAuth();

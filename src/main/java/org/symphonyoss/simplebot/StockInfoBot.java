@@ -79,24 +79,6 @@ public class StockInfoBot
         initParamNames.add("receiver.user.email");
     }
 
-    public static void main(String[] args)
-    {
-        int returnCode = 0;
-
-        try
-        {
-            StockInfoBot bot = new StockInfoBot();
-            bot.start();
-        }
-        catch (Exception e)
-        {
-            returnCode = -1;
-            log.error("Unexpected exception.", e);
-        }
-
-        System.exit(returnCode);
-    }
-
     public StockInfoBot()
         throws Exception
     {
