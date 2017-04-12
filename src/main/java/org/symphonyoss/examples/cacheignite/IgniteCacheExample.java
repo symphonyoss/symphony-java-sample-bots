@@ -39,9 +39,12 @@ import java.util.Set;
 
 
 /**
- * BotIt is an example of creating an interactive Bot with use of SJC services and AI framework
+ * Example of a custom SymUserCache implementation using Apache Ignite (IgniteUserCache).
  *
- * Will highlight command line framework as part of AI package.
+ * The use of ignite is one of many cache solutions to select from.
+ *
+ * This implementation supports USER level cache only.
+ *
  *
  * <p>
  * REQUIRED VM Arguments or System Properties:
