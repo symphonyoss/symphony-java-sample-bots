@@ -52,8 +52,10 @@ public class IgniteUserCache implements SymUserCache {
     private  IgniteCache<String, SymUser> symUserByEmail;
     private  IgniteCache<String, SymUser> symUserByName;
     private  IgniteCache<String, Set<SymUser>> symUserByStream;
-    private  boolean ENABLED = new Boolean(System.getProperty(Constants.SYMUSERS_CACHE_ENABLED, "true"));
+    private  boolean ENABLED = new Boolean(System.getProperty("sym.cache.enabled", "true"));
     private SymphonyClient symClient;
+
+
 
 
     public IgniteUserCache( SymphonyClient symClient) {
@@ -65,22 +67,22 @@ public class IgniteUserCache implements SymUserCache {
 
 
             // Get an instance of named cache.
-            symUserById = ignite.getOrCreateCache(Constants.SYMUSERS_BY_ID_CACHE);
+            symUserById = ignite.getOrCreateCache("symuserbyid");
             symUserById = symUserById.withExpiryPolicy(
                     new AccessedExpiryPolicy(new Duration(TimeUnit.SECONDS, new Long(System.getProperty(Constants.SYMUSERS_CACHE_ACCESSEDEXPIRY, "86400")))));
 
 
-            symUserByEmail = ignite.getOrCreateCache(Constants.SYMUSERS_BY_EMAIL_CACHE);
+            symUserByEmail = ignite.getOrCreateCache("symuserbyemail");
             symUserByEmail = symUserByEmail.withExpiryPolicy(
                     new AccessedExpiryPolicy(new Duration(TimeUnit.SECONDS, new Long(System.getProperty(Constants.SYMUSERS_CACHE_ACCESSEDEXPIRY, "86400")))));
 
 
-            symUserByName = ignite.getOrCreateCache(Constants.SYMUSERS_BY_NAME_CACHE);
+            symUserByName = ignite.getOrCreateCache("symuserbyname");
             symUserByName = symUserByName.withExpiryPolicy(
                     new AccessedExpiryPolicy(new Duration(TimeUnit.SECONDS, new Long(System.getProperty(Constants.SYMUSERS_CACHE_ACCESSEDEXPIRY, "86400")))));
 
 
-            symUserByStream = ignite.getOrCreateCache(Constants.SYMUSERS_BY_STREAM_CACHE);
+            symUserByStream = ignite.getOrCreateCache("symuserbystream");
             symUserByStream = symUserByStream.withExpiryPolicy(
                     new AccessedExpiryPolicy(new Duration(TimeUnit.SECONDS, new Long(System.getProperty(Constants.SYMUSERS_CACHE_ACCESSEDEXPIRY, "86400")))));
 
