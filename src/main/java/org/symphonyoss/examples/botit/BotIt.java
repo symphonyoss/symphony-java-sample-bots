@@ -102,7 +102,7 @@ public class BotIt {
             symClient = SymphonyClientFactory.getClient(
                     SymphonyClientFactory.TYPE.BASIC,
                     System.getProperty("bot.user") + System.getProperty("bot.domain"), //bot email
-                    System.getProperty("certs.dir") + System.getProperty("bot.user") + ".p12", //bot cert
+                    "/Users/frank/dev/certs/" + System.getProperty("bot.user") + ".p12", //bot cert
                     System.getProperty("keystore.password"), //bot cert/keystore pass
                     System.getProperty("truststore.file"), //truststore file
                     System.getProperty("truststore.password"));  //truststore password
