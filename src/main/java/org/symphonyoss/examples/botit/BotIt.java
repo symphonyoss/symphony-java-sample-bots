@@ -94,6 +94,7 @@ public class BotIt {
 
         try {
 
+
             logger.debug("{} {}", System.getProperty("sessionauth.url"),
                     System.getProperty("keyauth.url"));
 
@@ -102,7 +103,7 @@ public class BotIt {
             symClient = SymphonyClientFactory.getClient(
                     SymphonyClientFactory.TYPE.BASIC,
                     System.getProperty("bot.user") + System.getProperty("bot.domain"), //bot email
-                    "/Users/frank/dev/certs/" + System.getProperty("bot.user") + ".p12", //bot cert
+                    System.getProperty("certs.dir") + System.getProperty("bot.user") + ".p12", //bot cert
                     System.getProperty("keystore.password"), //bot cert/keystore pass
                     System.getProperty("truststore.file"), //truststore file
                     System.getProperty("truststore.password"));  //truststore password
