@@ -56,6 +56,7 @@ public class RunBot
         String clazzName = args[0];
 
         try {
+            // TODO: use an interface for this, rather than reflection magic
             Class clazz = Class.forName(clazzName);
             Object ojb = clazz.newInstance();
             Method methodToFind = clazz.getMethod("start", (Class<?>[]) null);

@@ -84,6 +84,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <jvm.args>-Dlog4j.configurationFile=$LOG4J_FILE -Xmx1024m -Dsessionauth.url=$SESSIONAUTH_URL -Dkeyauth.url=$KEYAUTH_URL -Dpod.url=$POD_URL -Dagent.url=$AGENT_URL -Dtruststore.file=$TRUSTSTORE_FILE -Dtruststore.password=$TRUSTSTORE_PASSWORD -Dbot.user.cert.file=$BOT_USER_CERT_FILE -Dbot.user.cert.password=$BOT_USER_CERT_PASSWORD -Dbot.user.email=$BOT_USER_EMAIL -Dsender.user.email=$SENDER_USER_EMAIL -Dreceiver.user.email=$RECEIVER_USER_EMAIL -Drss.url=$RSS_URL -Drss.limit=$RSS_LIMIT</jvm.args>
     <failsafe.jvm.args>-Dlog4j.configurationFile=src/test/resources/log4j.properties -Xmx1024m -Dsessionauth.url=${env.SESSIONAUTH_URL} -Dkeyauth.url=${env.KEYAUTH_URL} -Dpod.url=${env.POD_URL} -Dagent.url=${env.AGENT_URL} -Dtruststore.file=${env.TRUSTSTORE_FILE} -Dtruststore.password=${env.TRUSTSTORE_PASSWORD} -Dbot.user.cert.file=${env.BOT_USER_CERT_FILE} -Dbot.user.cert.password=${env.BOT_USER_CERT_PASSWORD} -Dbot.user.email=${env.BOT_USER_EMAIL} -Dsender.user.email=${env.SENDER_USER_EMAIL} -Dsender.user.cert.file=${env.SENDER_USER_CERT_FILE} -Dsender.user.cert.password=${env.SENDER_USER_CERT_PASSWORD} -Dreceiver.user.email=${env.RECEIVER_USER_EMAIL} -Drss.url=${env.RSS_URL} -Drss.limit=${env.RSS_LIMIT}</failsafe.jvm.args>
+    <ignite.version>1.9.0</ignite.version>
   </properties>
 
     <repositories>
@@ -103,7 +104,7 @@
     <dependency>
       <groupId>org.symphonyoss.symphony</groupId>
       <artifactId>symphony-client</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
     <dependency>
       <groupId>com.rometools</groupId>
@@ -119,6 +120,16 @@
       <groupId>com.sparkjava</groupId>
       <artifactId>spark-core</artifactId>
       <version>2.5.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.ignite</groupId>
+      <artifactId>ignite-core</artifactId>
+      <version>${ignite.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.ignite</groupId>
+      <artifactId>ignite-indexing</artifactId>
+      <version>${ignite.version}</version>
     </dependency>
   </dependencies>
 
