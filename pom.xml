@@ -154,7 +154,7 @@
           <artifactId>whitesource-maven-plugin</artifactId>
           <version>3.2.5</version>
           <configuration>
-              <orgToken>fe311101-c77e-4f4e-b44d-1ade9447f290</orgToken>
+              <orgToken></orgToken>
           </configuration>
           <!-- <executions>
             <execution>
