@@ -40,12 +40,12 @@ import java.util.Set;
 
 /**
  * Example of a custom SymUserCache implementation using Apache Ignite (IgniteUserCache).
- *
+ * <p>
  * The use of ignite is one of many cache solutions to select from.
- *
+ * <p>
  * This implementation supports USER level cache only.
- *
- *
+ * <p>
+ * <p>
  * <p>
  * REQUIRED VM Arguments or System Properties:
  * <p>
@@ -61,7 +61,7 @@ import java.util.Set;
  * -Dbot.domain=@domain.com
  * -Duser.call.home=frank.tarsillo@markit.com
  *
- * @author  Frank Tarsillo
+ * @author Frank Tarsillo
  */
 //NOSONAR
 public class IgniteCacheExample {
@@ -99,7 +99,7 @@ public class IgniteCacheExample {
             symClient = SymphonyClientFactory.getClient(
                     SymphonyClientFactory.TYPE.BASIC,
                     System.getProperty("bot.user") + System.getProperty("bot.domain"), //bot email
-                    "/Users/frank/dev/certs/" + System.getProperty("bot.user") + ".p12", //bot cert
+                    System.getProperty("certs.dir") + System.getProperty("bot.user") + ".p12", //bot cert
                     System.getProperty("keystore.password"), //bot cert/keystore pass
                     System.getProperty("truststore.file"), //truststore file
                     System.getProperty("truststore.password"));  //truststore password
@@ -129,11 +129,10 @@ public class IgniteCacheExample {
             symClient.getMessageService().sendMessage(chat, aMessage);
 
 
-
-        } catch (MessagesException | UsersClientException  e) {
+        } catch (MessagesException | UsersClientException e) {
             logger.error("error", e);
         } catch (SymCacheException e) {
-           logger.error("could not set cache",e);
+            logger.error("could not set cache", e);
         }
 
     }
