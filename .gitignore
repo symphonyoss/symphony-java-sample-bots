@@ -5,3 +5,6 @@
 certs/
 target/
 env.sh
+/.classpath
+/.project
+/.settings/
