@@ -327,7 +327,7 @@ public class HashtagBot implements ChatListener, ChatServiceListener, PresenceLi
 
                 ArrayList<HashtagDef> defs = cHashtag.getDefinitions();
 
-                if (defs != null) {
+                if (defs == null) {
                     sendUsage(message);
                     return;
                 }
@@ -339,7 +339,7 @@ public class HashtagBot implements ChatListener, ChatServiceListener, PresenceLi
                 try {
                     HashtagDef hashtagDef = defs.get(Integer.parseInt(hNum.getName()) - 1);
 
-                    if (hashtagDef != null) {
+                    if (hashtagDef == null) {
                         sendUsage(message);
                         return;
                     }
@@ -598,10 +598,18 @@ public class HashtagBot implements ChatListener, ChatServiceListener, PresenceLi
 
     private void loadAllHashtags() {
 
-        File[] files = new File(System.getProperty("files.json")).listFiles();
+	String fileName = System.getProperty("files.json");
+	
+        if (fileName == null) {
+            logger.error("Set the directory containing config files as -Dfiles.json=path");
+            
+            System.exit(1);
+        }
+        
+        File[] files = new File(fileName).listFiles();
 
         if (files == null) {
-            logger.error("Failed to load locate directory [{}] for json pre-load..exiting", System.getProperty("files.json"));
+            logger.error("Failed to load locate directory [{}] for json pre-load..exiting", fileName);
             System.exit(1);
         }
         Gson gson = new Gson();
