@@ -30,11 +30,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientFactory;
+import org.symphonyoss.client.exceptions.AuthorizationException;
+import org.symphonyoss.client.exceptions.InitException;
+import org.symphonyoss.client.exceptions.ShareException;
+import org.symphonyoss.client.exceptions.StreamsException;
 import org.symphonyoss.client.model.SymShareArticle;
-import org.symphonyoss.exceptions.AuthorizationException;
-import org.symphonyoss.exceptions.InitException;
-import org.symphonyoss.exceptions.ShareException;
-import org.symphonyoss.exceptions.StreamsException;
 
 
 /**

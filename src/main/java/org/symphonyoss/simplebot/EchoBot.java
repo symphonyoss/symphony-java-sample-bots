@@ -26,10 +26,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.symphonyoss.client.SymphonyClient;
+import org.symphonyoss.client.SymphonyClientConfig;
+import org.symphonyoss.client.SymphonyClientConfigID;
+import org.symphonyoss.client.SymphonyClientFactory;
+import org.symphonyoss.client.exceptions.*;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.client.services.ChatListener;
 import org.symphonyoss.client.services.ChatServiceListener;
-import org.symphonyoss.exceptions.*;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 
 import java.io.IOException;
@@ -49,29 +52,15 @@ public class EchoBot
 
     private final static Logger log = LoggerFactory.getLogger(EchoBot.class);
 
-    private SymphonyClient symClient;
-    private Map<String,String> initParams = new HashMap<>();
+	private SymphonyClientConfig	config			= new SymphonyClientConfig();
+	private SymphonyClient			symClient;
     private Utils utils = new Utils();
 
-    private static Set<String> initParamNames = new HashSet<>();
 
-    static
-    {
-        initParamNames.add("sessionauth.url");
-        initParamNames.add("keyauth.url");
-        initParamNames.add("pod.url");
-        initParamNames.add("agent.url");
-        initParamNames.add("truststore.file");
-        initParamNames.add("truststore.password");
-        initParamNames.add("bot.user.cert.file");
-        initParamNames.add("bot.user.cert.password");
-        initParamNames.add("bot.user.email");
-        initParamNames.add("sender.user.email");
-    }
+    public EchoBot(boolean busyWait) throws AuthorizationException, InitException, NetworkException {
+    	symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
 
-    public EchoBot(boolean busyWait) {
-        this.initParams = utils.readInitParams(initParamNames);
-        this.symClient = utils.getSymphonyClient(initParams);
+        symClient.init(config);
         this.symClient.getChatService().addListener(this);
 
         runHealthCheckServer();
@@ -85,7 +74,7 @@ public class EchoBot
         }
     }
 
-  public EchoBot() {
+  public EchoBot() throws AuthorizationException, InitException, NetworkException {
       this(true);
   }
 
@@ -126,7 +115,7 @@ public class EchoBot
 
 
   public String getUserEmail() {
-    return initParams.get("sender.user.email");
+    return config.get(SymphonyClientConfigID.USER_EMAIL);
   }
 
   @Override
