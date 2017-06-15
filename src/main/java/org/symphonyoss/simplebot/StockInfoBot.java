@@ -27,13 +27,13 @@ import org.slf4j.LoggerFactory;
 
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientFactory;
+import org.symphonyoss.client.exceptions.AuthorizationException;
+import org.symphonyoss.client.exceptions.InitException;
+import org.symphonyoss.client.exceptions.MessagesException;
+import org.symphonyoss.client.exceptions.SymException;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.client.model.SymAuth;
 import org.symphonyoss.client.services.ChatListener;
-import org.symphonyoss.exceptions.AuthorizationException;
-import org.symphonyoss.exceptions.InitException;
-import org.symphonyoss.exceptions.MessagesException;
-import org.symphonyoss.exceptions.SymException;
 import org.symphonyoss.symphony.agent.model.Message;
 import org.symphonyoss.symphony.agent.model.MessageSubmission;
 import org.symphonyoss.symphony.clients.AuthorizationClient;

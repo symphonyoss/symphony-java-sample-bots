@@ -8,3 +8,4 @@ env.sh
 /.classpath
 /.project
 /.settings/
+/symphony.properties

@@ -22,27 +22,11 @@
 
 package org.symphonyoss.simplebot;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.symphonyoss.client.SymphonyClient;
-import org.symphonyoss.client.SymphonyClientFactory;
-import org.symphonyoss.client.model.Chat;
-import org.symphonyoss.client.model.SymAuth;
-import org.symphonyoss.client.services.ChatListener;
-import org.symphonyoss.exceptions.*;
-import org.symphonyoss.symphony.agent.model.Message;
-import org.symphonyoss.symphony.agent.model.MessageSubmission;
-import org.symphonyoss.symphony.clients.AuthorizationClient;
-import org.symphonyoss.symphony.clients.model.SymMessage;
-import org.symphonyoss.symphony.clients.model.SymUser;
-import org.symphonyoss.symphony.pod.model.Stream;
-import org.symphonyoss.symphony.pod.model.User;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RunBot
 {
@@ -72,6 +56,5 @@ public class RunBot
         } catch (ClassNotFoundException e) {
             throw new IllegalArgumentException(e);
         }
-        System.exit(0);
     }
 }
