@@ -82,8 +82,14 @@ This project uses the following libraries:
 - [ ] Busy wait logic and command-based bot interaction (check symphony-java-client listeners)
 
 ## Project team
-- Maurizio (maoo) Pillitu - Devops Director at the Symphony Software Foundation ; Project leader and main developer of the project
+- Maurizio (maoo) Pillitu - Devops Director at the Symphony Software Foundation ; Project leader, Administrator and main developer of the project
 - Frank (ftbb) Tarsillo - MD at IHS MarkIT ; Administrator and support developer of the project; he's also the Project leader of the [Symphony Java Client](github.com/symphonyoss/symphony-java-client)
+
+All Administrators can:
+- Access to the project build settings (on [Travis CI](https://travis-ci.org/symphonyoss/symphony-java-sample-bots))
+- Access SonarCloud, Coverity, VersionEye, WhiteSource (or any other reporting system) to manage authentication keys connected with CI build
+- Deploy artifacts (nightly build snapshots) on Sonatype and (releases on) Maven Central
+The OpenShift Online environment, used for Continuous Delivery (against the Symphony Foundation Developer pod), can is managed by the [Foundation Infra team](infra@symphony.foundation)
 
 ## Governance model
 This project is largely self-governed; to know more, please read on https://symphonyoss.atlassian.net/wiki/display/FM/Project+Governance
