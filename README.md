@@ -80,3 +80,6 @@ This project uses the following libraries:
 - [ ] Separate out main() function and parameter handling from individual bot classes, and allow bot impl to be specified via command line arg - HIGH PRIORITY
 - [ ] Exception handling
 - [ ] Busy wait logic and command-based bot interaction (check symphony-java-client listeners)
+
+## Governance model
+This project is largely self-governed; to know more, please read on https://symphonyoss.atlassian.net/wiki/display/FM/Project+Governance
