@@ -1,6 +1,8 @@
 # Symphony Java Sample Bots
 
 [![Symphony Software Foundation - Long Term Maintenance](https://cdn.rawgit.com/symphonyoss/contrib-toolbox/master/images/ssf-badge-long-term-maintenance.svg)](https://symphonyoss.atlassian.net/wiki/display/FM/Long+Term+Maintenance)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/990/badge)](https://bestpractices.coreinfrastructure.org/projects/990)
+
 [![Build Status](https://travis-ci.org/symphonyoss/symphony-java-sample-bots.svg)](https://travis-ci.org/symphonyoss/symphony-java-sample-bots)
 [![Dependencies](https://www.versioneye.com/user/projects/57cada12939fc60037ebd03c/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57cada12939fc60037ebd03c)
 [![Validation Status](https://scan.coverity.com/projects/10072/badge.svg)](https://scan.coverity.com/projects/symphonyoss-symphony-java-sample-bots)
