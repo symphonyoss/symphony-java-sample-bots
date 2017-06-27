@@ -83,6 +83,9 @@ This project uses the following libraries:
 - [ ] Exception handling
 - [ ] Busy wait logic and command-based bot interaction (check symphony-java-client listeners)
 
+## Contribute
+Please read our [Contribution guidelines](https://github.com/symphonyoss/symphony-java-sample-bots/blob/develop/.github/CONTRIBUTING.md) and access our [issue tracker on Github](https://github.com/symphonyoss/symphony-java-sample-bots/issues).
+
 ## Project team
 - Maurizio (maoo) Pillitu - Devops Director at the Symphony Software Foundation ; Project leader, Administrator and main developer of the project
 - Frank (ftbb) Tarsillo - MD at IHS MarkIT ; Administrator and support developer of the project; he's also the Project leader of the [Symphony Java Client](github.com/symphonyoss/symphony-java-client)
