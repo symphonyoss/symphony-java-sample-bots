@@ -282,29 +282,5 @@
  -->        </plugins>
       </build>
     </profile>
-    <profile>
-      <id>whitesource</id>
-      <build>
-        <plugins>
-          <plugin>
-              <groupId>org.whitesource</groupId>
-              <artifactId>whitesource-maven-plugin</artifactId>
-              <version>3.2.5</version>
-              <configuration>
-                  <orgToken>${env.WHITESOURCE_TOKEN}</orgToken>
-              </configuration>
-              <executions>
-                <execution>
-                  <id>run-whitesource</id>
-                  <phase>validate</phase>
-                  <goals>
-                    <goal>update</goal>
-                  </goals>
-                </execution>
-              </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
 </project>
