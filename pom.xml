@@ -100,6 +100,15 @@
     </repositories>
 
   <dependencies>
+    <!-- 
+      Forcing new version of javassist to avoid vulnerability on version 3.18.0-GA
+      see https://issues.jboss.org/browse/JASSIST-227 
+    -->
+    <dependency>
+      <groupId>org.javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.21.0-GA</version>
+    </dependency>
     <dependency>
       <groupId>org.symphonyoss.symphony</groupId>
       <artifactId>symphony-client</artifactId>
@@ -125,11 +134,20 @@
       <artifactId>ignite-core</artifactId>
       <version>2.0.0</version>
     </dependency>
+    <!-- not needed for now, so commenting the dependency -->
+    <!-- make sure to update commons-codec to latest version, as 1.6 has a high risk bug -->
+    <!--     
     <dependency>
       <groupId>org.apache.ignite</groupId>
       <artifactId>ignite-indexing</artifactId>
       <version>2.0.0</version>
     </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.10</version>
+    </dependency>
+    -->  
   </dependencies>
 
   <build>
