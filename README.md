@@ -1,6 +1,8 @@
 # Symphony Java Sample Bots
 
 [![Symphony Software Foundation - Long Term Maintenance](https://cdn.rawgit.com/symphonyoss/contrib-toolbox/master/images/ssf-badge-long-term-maintenance.svg)](https://symphonyoss.atlassian.net/wiki/display/FM/Long+Term+Maintenance)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/990/badge)](https://bestpractices.coreinfrastructure.org/projects/990)
+
 [![Build Status](https://travis-ci.org/symphonyoss/symphony-java-sample-bots.svg)](https://travis-ci.org/symphonyoss/symphony-java-sample-bots)
 [![Dependencies](https://www.versioneye.com/user/projects/57cada12939fc60037ebd03c/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57cada12939fc60037ebd03c)
 [![Validation Status](https://scan.coverity.com/projects/10072/badge.svg)](https://scan.coverity.com/projects/symphonyoss-symphony-java-sample-bots)
@@ -80,3 +82,19 @@ This project uses the following libraries:
 - [ ] Separate out main() function and parameter handling from individual bot classes, and allow bot impl to be specified via command line arg - HIGH PRIORITY
 - [ ] Exception handling
 - [ ] Busy wait logic and command-based bot interaction (check symphony-java-client listeners)
+
+## Contribute
+Please read our [Contribution guidelines](https://github.com/symphonyoss/symphony-java-sample-bots/blob/develop/.github/CONTRIBUTING.md) and access our [issue tracker on Github](https://github.com/symphonyoss/symphony-java-sample-bots/issues).
+
+## Project team
+- Maurizio (maoo) Pillitu - Devops Director at the Symphony Software Foundation ; Project leader, Administrator and main developer of the project
+- Frank (ftbb) Tarsillo - MD at IHS MarkIT ; Administrator and support developer of the project; he's also the Project leader of the [Symphony Java Client](github.com/symphonyoss/symphony-java-client)
+
+All Administrators can:
+- Access to the project build settings (on [Travis CI](https://travis-ci.org/symphonyoss/symphony-java-sample-bots))
+- Access SonarCloud, Coverity, VersionEye, WhiteSource (or any other reporting system) to manage authentication keys connected with CI build
+- Deploy artifacts (nightly build snapshots) on Sonatype and (releases on) Maven Central
+The OpenShift Online environment, used for Continuous Delivery (against the Symphony Foundation Developer pod), can is managed by the [Foundation Infra team](infra@symphony.foundation)
+
+## Governance model
+This project is largely self-governed; to know more, please read on https://symphonyoss.atlassian.net/wiki/display/FM/Project+Governance

@@ -29,9 +29,9 @@ import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.common.Constants;
+import org.symphonyoss.client.exceptions.UsersClientException;
 import org.symphonyoss.client.model.CacheType;
 import org.symphonyoss.client.services.SymUserCache;
-import org.symphonyoss.exceptions.UsersClientException;
 import org.symphonyoss.symphony.clients.model.SymUser;
 
 import javax.cache.expiry.AccessedExpiryPolicy;

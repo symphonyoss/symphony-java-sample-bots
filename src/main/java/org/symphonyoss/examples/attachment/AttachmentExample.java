@@ -27,13 +27,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientFactory;
+import org.symphonyoss.client.exceptions.AttachmentsException;
+import org.symphonyoss.client.exceptions.MessagesException;
+import org.symphonyoss.client.exceptions.SymException;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.client.model.SymAuth;
 import org.symphonyoss.client.services.ChatListener;
 import org.symphonyoss.client.services.ChatServiceListener;
-import org.symphonyoss.exceptions.AttachmentsException;
-import org.symphonyoss.exceptions.MessagesException;
-import org.symphonyoss.exceptions.SymException;
 import org.symphonyoss.symphony.clients.AuthorizationClient;
 import org.symphonyoss.symphony.clients.model.SymAttachmentInfo;
 import org.symphonyoss.symphony.clients.model.SymMessage;
@@ -100,37 +100,20 @@ public class AttachmentExample implements ChatListener, ChatServiceListener {
 
             logger.info("Attachment example starting...");
 
-            //Create a basic client instance.
-            symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
 
             logger.debug("{} {}", System.getProperty("sessionauth.url"),
                     System.getProperty("keyauth.url"));
 
 
-            //Init the Symphony authorization client, which requires both the key and session URL's.  In most cases,
-            //the same fqdn but different URLs.
-            AuthorizationClient authClient = new AuthorizationClient(
-                    System.getProperty("sessionauth.url"),
-                    System.getProperty("keyauth.url"));
+            //Create an initialized client
+            symClient = SymphonyClientFactory.getClient(
+                    SymphonyClientFactory.TYPE.BASIC,
+                    System.getProperty("bot.user") + System.getProperty("bot.domain"), //bot email
+                    System.getProperty("certs.dir") + System.getProperty("bot.user") + ".p12", //bot cert
+                    System.getProperty("keystore.password"), //bot cert/keystore pass
+                    System.getProperty("truststore.file"), //truststore file
+                    System.getProperty("truststore.password"));  //truststore password
 
-
-            //Set the local keystores that hold the server CA and client certificates
-            authClient.setKeystores(
-                    System.getProperty("truststore.file"),
-                    System.getProperty("truststore.password"),
-                    System.getProperty("certs.dir") + System.getProperty("bot.user") + ".p12",
-                    System.getProperty("keystore.password"));
-
-            //Create a SymAuth which holds both key and session tokens.  This will call the external service.
-            SymAuth symAuth = authClient.authenticate();
-
-            //With a valid SymAuth we can now init our client.
-            symClient.init(
-                    symAuth,
-                    System.getProperty("bot.user") + System.getProperty("bot.domain"),
-                    System.getProperty("symphony.agent.agent.url"),
-                    System.getProperty("symphony.agent.pod.url")
-            );
 
             //Will notify the bot of new Chat conversations.
             symClient.getChatService().addListener(this);

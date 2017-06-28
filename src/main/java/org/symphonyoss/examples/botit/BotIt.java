@@ -28,12 +28,12 @@ import org.slf4j.LoggerFactory;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientFactory;
 import org.symphonyoss.client.ai.*;
+import org.symphonyoss.client.exceptions.*;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.client.model.SymAuth;
 import org.symphonyoss.client.services.ChatListener;
 import org.symphonyoss.client.services.ChatServiceListener;
 import org.symphonyoss.client.util.MlMessageParser;
-import org.symphonyoss.exceptions.*;
 import org.symphonyoss.symphony.clients.AuthorizationClient;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 import org.symphonyoss.symphony.clients.model.SymUser;
@@ -94,6 +94,7 @@ public class BotIt {
 
         try {
 
+
             logger.debug("{} {}", System.getProperty("sessionauth.url"),
                     System.getProperty("keyauth.url"));
 
@@ -102,7 +103,7 @@ public class BotIt {
             symClient = SymphonyClientFactory.getClient(
                     SymphonyClientFactory.TYPE.BASIC,
                     System.getProperty("bot.user") + System.getProperty("bot.domain"), //bot email
-                    "/Users/frank/dev/certs/" + System.getProperty("bot.user") + ".p12", //bot cert
+                    System.getProperty("certs.dir") + System.getProperty("bot.user") + ".p12", //bot cert
                     System.getProperty("keystore.password"), //bot cert/keystore pass
                     System.getProperty("truststore.file"), //truststore file
                     System.getProperty("truststore.password"));  //truststore password

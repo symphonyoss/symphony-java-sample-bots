@@ -27,10 +27,10 @@ package org.symphonyoss.simplebot;
 
 import org.junit.Test;
 import org.symphonyoss.client.SymphonyClient;
+import org.symphonyoss.client.exceptions.StreamsException;
+import org.symphonyoss.client.exceptions.UsersClientException;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.client.services.ChatListener;
-import org.symphonyoss.exceptions.StreamsException;
-import org.symphonyoss.exceptions.UsersClientException;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 import org.symphonyoss.symphony.clients.model.SymUser;
 

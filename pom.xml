@@ -35,7 +35,7 @@
   <parent>
     <groupId>org.symphonyoss</groupId>
     <artifactId>symphonyoss</artifactId>
-    <version>3</version>
+    <version>6-SNAPSHOT</version>
   </parent>
 
   <licenses>
@@ -82,9 +82,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <jvm.args>-Dlog4j.configurationFile=$LOG4J_FILE -Xmx1024m -Dsessionauth.url=$SESSIONAUTH_URL -Dkeyauth.url=$KEYAUTH_URL -Dpod.url=$POD_URL -Dagent.url=$AGENT_URL -Dtruststore.file=$TRUSTSTORE_FILE -Dtruststore.password=$TRUSTSTORE_PASSWORD -Dbot.user.cert.file=$BOT_USER_CERT_FILE -Dbot.user.cert.password=$BOT_USER_CERT_PASSWORD -Dbot.user.email=$BOT_USER_EMAIL -Dsender.user.email=$SENDER_USER_EMAIL -Dreceiver.user.email=$RECEIVER_USER_EMAIL -Drss.url=$RSS_URL -Drss.limit=$RSS_LIMIT</jvm.args>
-    <failsafe.jvm.args>-Dlog4j.configurationFile=src/test/resources/log4j.properties -Xmx1024m -Dsessionauth.url=${env.SESSIONAUTH_URL} -Dkeyauth.url=${env.KEYAUTH_URL} -Dpod.url=${env.POD_URL} -Dagent.url=${env.AGENT_URL} -Dtruststore.file=${env.TRUSTSTORE_FILE} -Dtruststore.password=${env.TRUSTSTORE_PASSWORD} -Dbot.user.cert.file=${env.BOT_USER_CERT_FILE} -Dbot.user.cert.password=${env.BOT_USER_CERT_PASSWORD} -Dbot.user.email=${env.BOT_USER_EMAIL} -Dsender.user.email=${env.SENDER_USER_EMAIL} -Dsender.user.cert.file=${env.SENDER_USER_CERT_FILE} -Dsender.user.cert.password=${env.SENDER_USER_CERT_PASSWORD} -Dreceiver.user.email=${env.RECEIVER_USER_EMAIL} -Drss.url=${env.RSS_URL} -Drss.limit=${env.RSS_LIMIT}</failsafe.jvm.args>
-    <ignite.version>1.9.0</ignite.version>
+    <jvm.args>-Dlog4j.configurationFile=$LOG4J_FILE -Xmx1024m -Dsessionauth.url=$SESSIONAUTH_URL -Dkeyauth.url=$KEYAUTH_URL -Dpod.url=$POD_URL -Dagent.url=$AGENT_URL -Dtruststore.file=$TRUSTSTORE_FILE -Dtruststore.password=$TRUSTSTORE_PASSWORD -Duser.cert.file=$BOT_USER_CERT_FILE -Duser.cert.password=$BOT_USER_CERT_PASSWORD -Duser.email=$BOT_USER_EMAIL -Dsender.user.email=$SENDER_USER_EMAIL -Dreceiver.user.email=$RECEIVER_USER_EMAIL -Drss.url=$RSS_URL -Drss.limit=$RSS_LIMIT</jvm.args>
+    <failsafe.jvm.args>-Dlog4j.configurationFile=src/test/resources/log4j.properties -Xmx1024m -Dsessionauth.url=${env.SESSIONAUTH_URL} -Dkeyauth.url=${env.KEYAUTH_URL} -Dpod.url=${env.POD_URL} -Dagent.url=${env.AGENT_URL} -Dtruststore.file=${env.TRUSTSTORE_FILE} -Dtruststore.password=${env.TRUSTSTORE_PASSWORD} -Duser.cert.file=${env.BOT_USER_CERT_FILE} -Duser.cert.password=${env.BOT_USER_CERT_PASSWORD} -Duser.email=${env.BOT_USER_EMAIL} -Dsender.user.email=${env.SENDER_USER_EMAIL} -Dsender.user.cert.file=${env.SENDER_USER_CERT_FILE} -Dsender.user.cert.password=${env.SENDER_USER_CERT_PASSWORD} -Dreceiver.user.email=${env.RECEIVER_USER_EMAIL} -Drss.url=${env.RSS_URL} -Drss.limit=${env.RSS_LIMIT}</failsafe.jvm.args>
   </properties>
 
     <repositories>
@@ -104,32 +103,32 @@
     <dependency>
       <groupId>org.symphonyoss.symphony</groupId>
       <artifactId>symphony-client</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.rometools</groupId>
       <artifactId>rome</artifactId>
-      <version>1.7.1</version>
+      <version>1.7.3</version>
     </dependency>
     <dependency>
       <groupId>com.yahoofinance-api</groupId>
       <artifactId>YahooFinanceAPI</artifactId>
-      <version>3.6.0</version>
+      <version>3.8.0</version>
     </dependency>
     <dependency>
       <groupId>com.sparkjava</groupId>
       <artifactId>spark-core</artifactId>
-      <version>2.5.5</version>
+      <version>2.6.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.ignite</groupId>
       <artifactId>ignite-core</artifactId>
-      <version>${ignite.version}</version>
+      <version>2.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.ignite</groupId>
       <artifactId>ignite-indexing</artifactId>
-      <version>${ignite.version}</version>
+      <version>2.0.0</version>
     </dependency>
   </dependencies>
 
@@ -245,10 +244,11 @@
       <id>integration-testing</id>
       <build>
         <plugins>
-          <plugin>
+<!-- commenting out IT until issue https://github.com/symphonyoss/symphony-java-client/issues/57 is fixed -->
+<!--           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
-            <version>2.19.1</version>
+            <version>2.20</version>
             <configuration>
               <argLine>${failsafe.jvm.args}</argLine>
             </configuration>
@@ -261,7 +261,7 @@
               </execution>
             </executions>
           </plugin>
-        </plugins>
+ -->        </plugins>
       </build>
     </profile>
     <profile>

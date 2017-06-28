@@ -22,54 +22,44 @@
 
 package org.symphonyoss.simplebot;
 
-import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.io.FeedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.symphonyoss.client.SymphonyClient;
-import org.symphonyoss.client.SymphonyClientFactory;
-import org.symphonyoss.client.model.Chat;
-import org.symphonyoss.client.model.SymAuth;
-import org.symphonyoss.exceptions.MessagesException;
-import org.symphonyoss.symphony.agent.model.MessageSubmission;
-import org.symphonyoss.symphony.clients.AuthorizationClient;
-import org.symphonyoss.symphony.clients.model.SymMessage;
-import org.symphonyoss.symphony.clients.model.SymUser;
-import org.symphonyoss.symphony.pod.model.User;
-import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.io.SyndFeedInput;
-import com.rometools.rome.io.XmlReader;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.symphonyoss.client.SymphonyClient;
+import org.symphonyoss.client.SymphonyClientConfig;
+import org.symphonyoss.client.SymphonyClientConfigID;
+import org.symphonyoss.client.SymphonyClientFactory;
+import org.symphonyoss.client.exceptions.MessagesException;
+import org.symphonyoss.client.exceptions.ProgramFault;
+import org.symphonyoss.client.exceptions.SymException;
+import org.symphonyoss.client.model.Chat;
+import org.symphonyoss.symphony.clients.model.SymMessage;
+import org.symphonyoss.symphony.clients.model.SymUser;
+
+import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.io.FeedException;
+import com.rometools.rome.io.SyndFeedInput;
+import com.rometools.rome.io.XmlReader;
 
 public class RssBot {
 
-    private final Logger logger = LoggerFactory.getLogger(RssBot.class);
-    private SymphonyClient symClient;
-    private Map<String,String> initParams = new HashMap<String,String>();
-    private Chat chat;
+	private final Logger			logger			= LoggerFactory.getLogger(RssBot.class);
 
-    private static Set<String> initParamNames = new HashSet<String>();
-    static {
-        initParamNames.add("sessionauth.url");
-        initParamNames.add("keyauth.url");
-        initParamNames.add("pod.url");
-        initParamNames.add("agent.url");
-        initParamNames.add("rss.url");
-        initParamNames.add("rss.limit");
-        initParamNames.add("truststore.file");
-        initParamNames.add("truststore.password");
-        initParamNames.add("bot.user.cert.file");
-        initParamNames.add("bot.user.cert.password");
-        initParamNames.add("bot.user.email");
-        initParamNames.add("receiver.user.email");
-    }
+	private SymphonyClientConfig	config	= new SymphonyClientConfig();
+	private SymphonyClient			symClient;
+	private Chat					chat;
+	private URL						feedUrl;
+	private Integer					limit;
 
-    public RssBot() {
-        initParams();
+    public RssBot() throws SymException {
+    	initConfig();
         initAuth();
         initChat();
         sendMessage("Hey there! I'm the RSS Bot!");
@@ -77,48 +67,21 @@ public class RssBot {
         sendMessage("All done here, bye!");
     }
 
-    private void initParams() {
-        for(String initParam : initParamNames) {
-            String systemProperty = System.getProperty(initParam);
-            if (systemProperty == null) {
-                throw new IllegalArgumentException("Cannot find system property; make sure you're using -D" + systemProperty + " to run RssBot");
-            } else {
-                initParams.put(initParam,systemProperty);
-            }
-        }
-    }
+    private void initConfig() {
+    	String s = config.getRequired("rss.url");
+		
+    	try {
+    		feedUrl = new URL(s);
+		} catch (MalformedURLException e) {
+			throw new ProgramFault("Invalid RSS URL \"" + s + "\"", e);
+		}
+        limit = new Integer(config.getRequired("rss.limit"));
+	}
 
-    private void initAuth() {
-        try {
-            symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
+	private void initAuth() throws SymException {
+    	symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
 
-            logger.debug("{} {}", System.getProperty("sessionauth.url"),
-                    System.getProperty("keyauth.url"));
-
-
-            AuthorizationClient authClient = new AuthorizationClient(
-                    initParams.get("sessionauth.url"),
-                    initParams.get("keyauth.url"));
-
-
-            authClient.setKeystores(
-                    initParams.get("truststore.file"),
-                    initParams.get("truststore.password"),
-                    initParams.get("bot.user.cert.file"),
-                    initParams.get("bot.user.cert.password"));
-
-            SymAuth symAuth = authClient.authenticate();
-
-
-            symClient.init(
-                    symAuth,
-                    initParams.get("bot.user.email"),
-                    initParams.get("agent.url"),
-                    initParams.get("pod.url")
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        symClient.init(config);
     }
 
     private void initChat() {
@@ -127,7 +90,7 @@ public class RssBot {
         Set<SymUser> remoteUsers = new HashSet<>();
 
         try {
-            remoteUsers.add(symClient.getUsersClient().getUserFromEmail(initParams.get("receiver.user.email")));
+            remoteUsers.add(symClient.getUsersClient().getUserFromEmail(config.getRequired(SymphonyClientConfigID.RECEIVER_EMAIL)));
             chat.setRemoteUsers(remoteUsers);
             chat.setStream(symClient.getStreamsClient().getStream(remoteUsers));
         } catch (Exception e) {
@@ -158,14 +121,12 @@ public class RssBot {
 
     private void sendRssFeeds() {
         try {
-            sendMessage("Fetching "+initParams.get("rss.url"));
-            URL feedUrl = new URL(initParams.get("rss.url"));
+            sendMessage("Fetching "+feedUrl);
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(feedUrl));
             List<SyndEntry> entries = feed.getEntries();
-            sendMessage("Found " + feed.getEntries().size() + " items in the feed; printing the first "+ initParams.get("rss.limit"));
-            Integer limit = new Integer(initParams.get("rss.limit"));
-
+            sendMessage("Found " + feed.getEntries().size() + " items in the feed; printing the first "+ limit);
+            
             for (int i=0; i<limit; i++) {
                 SyndEntry entry = entries.get(i);
                 sendMessage(entry.getTitle() + "-" + entry.getLink());

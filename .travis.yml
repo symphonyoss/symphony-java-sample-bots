@@ -33,8 +33,8 @@ language: java
 
 install: true
 script:
-- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ master ]]; then mvn clean deploy whitesource:update -Pintegration-testing,versioneye,whitesource,publish-site --settings settings.xml ; fi"
-- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then mvn clean deploy -Pintegration-testing,whitesource --settings settings.xml ; fi"
+- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ master ]]; then mvn clean deploy -Pintegration-testing,versioneye,whitesource,publish-site --settings settings.xml ; fi"
+- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ develop ]]; then mvn clean deploy -Pintegration-testing --settings settings.xml ; fi"
 - "if [[ \"$TRAVIS_PULL_REQUEST\" != \"false\" ]]; then mvn clean install ; fi"
 
 jdk:
@@ -53,7 +53,7 @@ env:
    - SESSIONAUTH_URL=$FOUNDATION_API_URL/sessionauth
    - KEYAUTH_URL=$FOUNDATION_API_URL/keyauth
    - POD_URL=$FOUNDATION_POD_URL/pod
-   - AGENT_URL=$FOUNDATION_API_URL/agent
+   - AGENT_URL=$FOUNDATION_POD_URL/agent
    # Used by RssBot
    - RSS_URL=https://twitrss.me/twitter_user_to_rss/?user=symphonyoss
    - RSS_LIMIT=3
