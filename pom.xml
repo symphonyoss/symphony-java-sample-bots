@@ -151,19 +151,6 @@
   </dependencies>
 
   <build>
-    <!-- TODO - this could be moved up to ssf-parent-pom -->
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>com.github.github</groupId>
-          <artifactId>site-maven-plugin</artifactId>
-          <configuration>
-            <oauth2Token>${env.GITHUB_TOKEN}</oauth2Token>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-
     <plugins>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
@@ -262,8 +249,9 @@
       <id>integration-testing</id>
       <build>
         <plugins>
-<!-- commenting out IT until issue https://github.com/symphonyoss/symphony-java-client/issues/57 is fixed -->
-<!--           <plugin>
+          <!-- commenting out IT until issue https://github.com/symphonyoss/symphony-java-client/issues/57 is fixed -->
+          <!--
+           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
             <version>2.20</version>
@@ -279,7 +267,8 @@
               </execution>
             </executions>
           </plugin>
- -->        </plugins>
+          -->
+        </plugins>
       </build>
     </profile>
   </profiles>
