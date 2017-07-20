@@ -33,7 +33,7 @@ language: java
 
 install: true
 script:
-- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ master ]]; then mvn clean deploy -Pintegration-testing,versioneye,publish-site --settings settings.xml ; fi"
+- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ master ]]; then mvn clean deploy -Pintegration-testing,versioneye,whitesource,publish-site --settings settings.xml ; fi"
 - "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ develop ]]; then mvn clean deploy -Pintegration-testing --settings settings.xml ; fi"
 - "if [[ \"$TRAVIS_PULL_REQUEST\" != \"false\" ]]; then mvn clean install ; fi"
 
@@ -60,6 +60,9 @@ env:
    # Used by oc-deploy.sh for CD
    - OC_BINARY_FOLDER=./target/symphony-java-sample-bots-0.9.0-SNAPSHOT
    - OC_BUILD_CONFIG_NAME=echobot
+
+notifications:
+  webhooks: https://app.fossa.io/hooks/travisci
 
 # Coverity scan can be enabled for demo purposes
 # addons:
