@@ -1,10 +1,11 @@
 # Symphony Java Sample Bots
 
-[![Symphony Software Foundation - Long Term Maintenance](https://cdn.rawgit.com/symphonyoss/contrib-toolbox/master/images/ssf-badge-long-term-maintenance.svg)](https://symphonyoss.atlassian.net/wiki/display/FM/Long+Term+Maintenance)
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/990/badge)](https://bestpractices.coreinfrastructure.org/projects/990)
-
 [![Build Status](https://travis-ci.org/symphonyoss/symphony-java-sample-bots.svg)](https://travis-ci.org/symphonyoss/symphony-java-sample-bots)
+[![Open Issues](https://img.shields.io/github/issues/symphonyoss/symphony-java-sample-bots.svg)](https://github.com/symphonyoss/symphony-java-sample-bots/issues)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/symphonyoss/symphony-java-sample-bots.svg)](http://isitmaintained.com/project/symphonyoss/symphony-java-sample-bots "Average time to resolve an issue")
+[![License](https://img.shields.io/github/license/symphonyoss/symphony-java-sample-bots.svg)](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/LICENSE)
 [![Dependencies](https://www.versioneye.com/user/projects/57cada12939fc60037ebd03c/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57cada12939fc60037ebd03c)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/990/badge)](https://bestpractices.coreinfrastructure.org/projects/990)
 [![Validation Status](https://scan.coverity.com/projects/10072/badge.svg)](https://scan.coverity.com/projects/symphonyoss-symphony-java-sample-bots)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fsymphonyoss%2Fsymphony-java-sample-bots.svg?size=small)](https://app.fossa.io/reports/ae98d965-2431-4e7f-84bd-40d67678014c)
 
