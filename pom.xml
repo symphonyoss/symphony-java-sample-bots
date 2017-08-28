@@ -122,7 +122,7 @@
     <dependency>
       <groupId>com.yahoofinance-api</groupId>
       <artifactId>YahooFinanceAPI</artifactId>
-      <version>3.8.0</version>
+      <version>3.9.0</version>
     </dependency>
     <dependency>
       <groupId>com.sparkjava</groupId>
