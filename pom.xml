@@ -100,9 +100,9 @@
     </repositories>
 
   <dependencies>
-    <!-- 
+    <!--
       Forcing new version of javassist to avoid vulnerability on version 3.18.0-GA
-      see https://issues.jboss.org/browse/JASSIST-227 
+      see https://issues.jboss.org/browse/JASSIST-227
     -->
     <dependency>
       <groupId>org.javassist</groupId>
@@ -136,7 +136,7 @@
     </dependency>
     <!-- not needed for now, so commenting the dependency -->
     <!-- make sure to update commons-codec to latest version, as 1.6 has a high risk bug -->
-    <!--     
+    <!--
     <dependency>
       <groupId>org.apache.ignite</groupId>
       <artifactId>ignite-indexing</artifactId>
@@ -147,7 +147,7 @@
       <artifactId>commons-codec</artifactId>
       <version>1.10</version>
     </dependency>
-    -->  
+    -->
   </dependencies>
 
   <build>
