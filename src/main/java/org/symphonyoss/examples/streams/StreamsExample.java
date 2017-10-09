@@ -74,6 +74,7 @@ public class StreamsExample {
 //            symAdminStreamFilter.setStreamTypes(symStreamTypes);
 
 
+
             SymAdminStreamList symAdminStreamList = symClient.getStreamsClient().getStreams(null, null, symAdminStreamFilter);
 
             for (SymAdminStreamInfo symAdminStreamInfo : symAdminStreamList.getStreams()) {
