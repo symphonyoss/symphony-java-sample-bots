@@ -35,7 +35,7 @@
   <parent>
     <groupId>org.symphonyoss</groupId>
     <artifactId>symphonyoss</artifactId>
-    <version>7-SNAPSHOT</version>
+    <version>9-SNAPSHOT</version>
   </parent>
 
   <licenses>
@@ -117,12 +117,12 @@
     <dependency>
       <groupId>com.rometools</groupId>
       <artifactId>rome</artifactId>
-      <version>1.7.3</version>
+      <version>1.8.0</version>
     </dependency>
     <dependency>
       <groupId>com.yahoofinance-api</groupId>
       <artifactId>YahooFinanceAPI</artifactId>
-      <version>3.9.0</version>
+      <version>3.11.0</version>
     </dependency>
     <dependency>
       <groupId>com.sparkjava</groupId>
@@ -132,7 +132,7 @@
     <dependency>
       <groupId>org.apache.ignite</groupId>
       <artifactId>ignite-core</artifactId>
-      <version>2.1.0</version>
+      <version>2.2.0</version>
     </dependency>
     <!-- not needed for now, so commenting the dependency -->
     <!-- make sure to update commons-codec to latest version, as 1.6 has a high risk bug -->
