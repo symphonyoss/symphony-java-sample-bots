@@ -35,7 +35,7 @@
   <parent>
     <groupId>org.symphonyoss</groupId>
     <artifactId>symphonyoss</artifactId>
-    <version>9-SNAPSHOT</version>
+    <version>9</version>
   </parent>
 
   <licenses>
@@ -79,6 +79,7 @@
   </developers>
 
   <properties>
+    <whitesource.product>Symphony Java Client</whitesource.product>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -100,6 +101,13 @@
     </repositories>
 
   <dependencies>
+    <!-- Adding a GPL-3.0 dependency for WhiteSource Policy testing -->
+    <!-- <dependency>
+      <groupId>com.github.lalyos</groupId>
+      <artifactId>jfiglet</artifactId>
+      <version>0.0.8</version>
+    </dependency> -->
+
     <!--
       Forcing new version of javassist to avoid vulnerability on version 3.18.0-GA
       see https://issues.jboss.org/browse/JASSIST-227
