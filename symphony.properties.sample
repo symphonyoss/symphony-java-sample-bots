@@ -22,3 +22,6 @@ sender.email=your.other.name@YOURNAME.com
 # Used by RssBot
 rss.url=https://twitrss.me/twitter_user_to_rss/?user=symphonyoss
 rss.limit=3
+
+# Use it to setup a proxy
+# proxy.url=http://localhost:3128
