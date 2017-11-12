@@ -8,19 +8,20 @@
 [![Validation Status](https://scan.coverity.com/projects/10072/badge.svg)](https://scan.coverity.com/projects/symphonyoss-symphony-java-sample-bots)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fsymphonyoss%2Fsymphony-java-sample-bots.svg?size=small)](https://app.fossa.io/reports/ae98d965-2431-4e7f-84bd-40d67678014c)
 
-A series of sample Java bots that use the [symphony-java-client](https://github.com/symphonyoss/symphony-java-client/) (SJC) to interact with the Symphony platform.
-the main goal of this repository is to help developers moving their first steps with SJC, including the initial Maven project and integration testing setup.
+A series of sample Java bots that use the [symphony-java-client](https://github.com/symphonyoss/symphony-java-client/) (SJC) to interact with the Symphony platform. The main goal of this repository is to help developers moving their first steps with SJC, including the initial and minimum Maven project setup.
 
-The code is intentionally kept simple (sometimes redundant and not production-ready) in order to keep a clear focus on SJC usage and use cases.
+The code structure is intentionally kept simple, to improve code readability; no advanced use cases will be hosted in
+ this project, since SJC already includes a [long collection of examples](https://github.com/symphonyoss/symphony-java-client/tree/develop/examples)
 
-Below are listed the sample bots currently hosted.
+Below are listed the 4 sample bots currently hosted; 2 bots (`HelloWorldBot` and `RssBot`) run and terminate, while 2
+ others (`EchoBot` and `StockInfoBot`) run in background continuously and respond to messages under certain conditions.
+
+[Browse the code](src/main/java/org/symphonyoss/samples) to check the differences.
 
 - Hello World Bot - `org.symphonyoss.samples.HelloWorldBot`; sends a hello world message to a given Symphony user (specified via `receiver.email` in `symphony.properties`) in a 1:1 chat, then terminates
 - Echo Bot - `org.symphonyoss.samples.EchoBot`; listens and posts back messages on 1:1 and group Symphony chats
 - Stock Info Bot - `org.symphonyoss.samples.StockInfoBot`; listens to 1:1 and group Symphony chats, checks messages for cashtags and posts related data extracted from [Yahoo Finance API](http://financequotes-api.com/)
 - RSS Bot - `org.symphonyoss.samples.RssBot`; fetches RSS feed data from given url (`rss.url` in `symphony.properties`) and sends some (`rss.limit` in `symphony.properties`) of them to a given Symphony user (`user.email` in `symphony.properties`) in a 1:1 chat.
-
-For more articulated examples, checkout [symphony-java-client](https://github.com/symphonyoss/symphony-java-client/tree/develop/examples).
 
 ## Project setup
 Follow these instructions to get started with this project and run your first java application using the Symphony Java client.
