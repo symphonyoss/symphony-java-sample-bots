@@ -63,9 +63,9 @@ public class EchoBotIT {
             System.setProperty("symphony.config.file", "symphony.properties.it");
         } else {
             //Setting up properties for Travis CI environment variable setup
-            System.setProperty("user.cert.file", System.getProperty("SENDER_USER_CERT_FILE"));
-            System.setProperty("user.cert.password", System.getProperty("SENDER_USER_CERT_PASSWORD"));
-            System.setProperty("user.email", System.getProperty("SENDER_USER_EMAIL"));
+            System.setProperty("user.cert.file", System.getenv("SENDER_USER_CERT_FILE"));
+            System.setProperty("user.cert.password", System.getenv("SENDER_USER_CERT_PASSWORD"));
+            System.setProperty("user.email", System.getenv("SENDER_USER_EMAIL"));
         }
         SymphonyClientConfig receiverConfig = new SymphonyClientConfig();
         receiverBot.init(receiverConfig);
