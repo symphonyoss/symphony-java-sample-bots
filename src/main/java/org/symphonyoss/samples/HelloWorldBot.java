@@ -20,20 +20,18 @@
  * under the License.
  */
 
-package org.symphonyoss.simplebot;
+package org.symphonyoss.samples;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.symphonyoss.Utils;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientConfig;
 import org.symphonyoss.client.SymphonyClientConfigID;
 import org.symphonyoss.client.SymphonyClientFactory;
-import org.symphonyoss.client.exceptions.AuthorizationException;
-import org.symphonyoss.client.exceptions.InitException;
-import org.symphonyoss.client.exceptions.NetworkException;
 import org.symphonyoss.client.exceptions.SymException;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.symphony.clients.model.SymMessage;
@@ -43,51 +41,33 @@ public class HelloWorldBot
 {
     private final static Logger log = LoggerFactory.getLogger(HelloWorldBot.class);
 
-	private SymphonyClientConfig	config;
-	private SymphonyClient			symClient;
-	private Chat					chat;
-	
+    private SymphonyClientConfig config = new SymphonyClientConfig();
+    private SymphonyClient symClient;
+	private Chat chat;
+
+    public static void main(String[] args) throws Exception {
+        new HelloWorldBot();
+        System.exit(0);
+    }
+
     public HelloWorldBot() throws SymException
     {
-    	initAuth();
-        initChat();
-    }
+        // Get SJC instance
+        this.symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
+        this.symClient.init(config);
 
-    private void initAuth() throws AuthorizationException, InitException, NetworkException {
-    	config = new SymphonyClientConfig();
-	
-        symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
-
-        symClient.init(config);
-    }
-    
-	public void start() throws SymException
-    {
-    	log.info("Say hello");
-        sendMessage("Hello " + config.get(SymphonyClientConfigID.RECEIVER_EMAIL) + "!");
-    }
-
-    private void initChat() throws SymException
-    {
+        // Init chat
         this.chat = new Chat();
         chat.setLocalUser(symClient.getLocalUser());
-        Set<SymUser> remoteUsers = new HashSet<>();
 
-        
-		remoteUsers.add(symClient.getUsersClient().getUserFromEmail(config.get(SymphonyClientConfigID.RECEIVER_EMAIL)));
-		chat.setRemoteUsers(remoteUsers);
+        // Add users to chat
+        Set<SymUser> remoteUsers = new HashSet<>();
+        remoteUsers.add(symClient.getUsersClient().getUserFromEmail(config.get(SymphonyClientConfigID.RECEIVER_EMAIL)));
+        chat.setRemoteUsers(remoteUsers);
         chat.setStream(symClient.getStreamsClient().getStream(remoteUsers));
 
+        // Send a message
+        String message = "Hello " + config.get(SymphonyClientConfigID.RECEIVER_EMAIL) + "!";
+        Utils.sendMessage(symClient, chat,message,SymMessage.Format.TEXT);
     }
-
-    private void sendMessage(String message)
-        throws SymException
-    {
-        SymMessage messageSubmission = new SymMessage();
-        messageSubmission.setFormat(SymMessage.Format.TEXT);
-        messageSubmission.setMessage(message);
-
-        symClient.getMessageService().sendMessage(chat, messageSubmission);
-    }
-
 }

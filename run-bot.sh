@@ -1,16 +1,15 @@
 #!/bin/sh
 
-. ./env.sh
-
 if [ -z "$1" ]; then
   echo "Please run one of the following commands:"
-  echo "./run-bot.sh org.symphonyoss.simplebot.HelloWorldBot"
-  echo "./run-bot.sh org.symphonyoss.simplebot.EchoBot"
-  echo "./run-bot.sh org.symphonyoss.simplebot.StockInfoBot"
-  echo "./run-bot.sh org.symphonyoss.simplebot.RssBot"
+  echo "./run-bot.sh org.symphonyoss.samples.HelloWorldBot"
+  echo "./run-bot.sh org.symphonyoss.samples.EchoBot"
+  echo "./run-bot.sh org.symphonyoss.samples.StockInfoBot"
+  echo "./run-bot.sh org.symphonyoss.samples.RssBot"
   exit -1
 fi
 
-mvn package
-# cd target/symphony-java-sample-bots-0.9.0-SNAPSHOT
-./target/symphony-java-sample-bots-0.9.0-SNAPSHOT/bin/RunBot $1
+export SYMPHONY_CONFIG_FILE=symphony.properties
+
+java -Xmx1024m \
+-classpath target/symphony-java-sample-bots-0.9.0-SNAPSHOT.jar "$1"

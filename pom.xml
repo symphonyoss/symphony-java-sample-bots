@@ -27,7 +27,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>symphony-java-sample-bots</artifactId>
-  <version>0.9.0-SNAPSHOT</version>
+  <version>0.9.1-SNAPSHOT</version>
   <name>Symphony Sample Java Bots</name>
   <description>Symphony Sample Java Bots</description>
   <url>https://github.com/symphonyoss/symphony-java-sample-bots</url>
@@ -79,175 +79,71 @@
   </developers>
 
   <properties>
+    <symphony.java.client.version>1.0.3</symphony.java.client.version>
     <whitesource.product>Symphony Java Client</whitesource.product>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <jvm.args>-Dlog4j.configurationFile=$LOG4J_FILE -Xmx1024m -Dsessionauth.url=$SESSIONAUTH_URL -Dkeyauth.url=$KEYAUTH_URL -Dpod.url=$POD_URL -Dagent.url=$AGENT_URL -Dtruststore.file=$TRUSTSTORE_FILE -Dtruststore.password=$TRUSTSTORE_PASSWORD -Duser.cert.file=$BOT_USER_CERT_FILE -Duser.cert.password=$BOT_USER_CERT_PASSWORD -Duser.email=$BOT_USER_EMAIL -Dsender.user.email=$SENDER_USER_EMAIL -Dreceiver.user.email=$RECEIVER_USER_EMAIL -Drss.url=$RSS_URL -Drss.limit=$RSS_LIMIT</jvm.args>
-    <failsafe.jvm.args>-Dlog4j.configurationFile=src/test/resources/log4j.properties -Xmx1024m -Dsessionauth.url=${env.SESSIONAUTH_URL} -Dkeyauth.url=${env.KEYAUTH_URL} -Dpod.url=${env.POD_URL} -Dagent.url=${env.AGENT_URL} -Dtruststore.file=${env.TRUSTSTORE_FILE} -Dtruststore.password=${env.TRUSTSTORE_PASSWORD} -Duser.cert.file=${env.BOT_USER_CERT_FILE} -Duser.cert.password=${env.BOT_USER_CERT_PASSWORD} -Duser.email=${env.BOT_USER_EMAIL} -Dsender.user.email=${env.SENDER_USER_EMAIL} -Dsender.user.cert.file=${env.SENDER_USER_CERT_FILE} -Dsender.user.cert.password=${env.SENDER_USER_CERT_PASSWORD} -Dreceiver.user.email=${env.RECEIVER_USER_EMAIL} -Drss.url=${env.RSS_URL} -Drss.limit=${env.RSS_LIMIT}</failsafe.jvm.args>
+    <!--<jvm.args>-Dlog4j.configurationFile=$LOG4J_FILE -Xmx1024m -Dsessionauth.url=$SESSIONAUTH_URL -Dkeyauth.url=$KEYAUTH_URL -Dpod.url=$POD_URL -Dagent.url=$AGENT_URL -Dtruststore.file=$TRUSTSTORE_FILE -Dtruststore.password=$TRUSTSTORE_PASSWORD -Duser.cert.file=$BOT_USER_CERT_FILE -Duser.cert.password=$BOT_USER_CERT_PASSWORD -Duser.email=$BOT_USER_EMAIL -Dsender.user.email=$SENDER_USER_EMAIL -Dreceiver.user.email=$RECEIVER_USER_EMAIL -Drss.url=$RSS_URL -Drss.limit=$RSS_LIMIT</jvm.args>-->
+    <!--<failsafe.jvm.args>-Dlog4j.configurationFile=src/test/resources/log4j.properties -Xmx1024m -Dsessionauth.url=${env.SESSIONAUTH_URL} -Dkeyauth.url=${env.KEYAUTH_URL} -Dpod.url=${env.POD_URL} -Dagent.url=${env.AGENT_URL} -Dtruststore.file=${env.TRUSTSTORE_FILE} -Dtruststore.password=${env.TRUSTSTORE_PASSWORD} -Duser.cert.file=${env.BOT_USER_CERT_FILE} -Duser.cert.password=${env.BOT_USER_CERT_PASSWORD} -Duser.email=${env.BOT_USER_EMAIL} -Dsender.user.email=${env.SENDER_USER_EMAIL} -Dsender.user.cert.file=${env.SENDER_USER_CERT_FILE} -Dsender.user.cert.password=${env.SENDER_USER_CERT_PASSWORD} -Dreceiver.user.email=${env.RECEIVER_USER_EMAIL} -Drss.url=${env.RSS_URL} -Drss.limit=${env.RSS_LIMIT}</failsafe.jvm.args>-->
   </properties>
 
-    <repositories>
-        <repository>
-            <id>sonatype-oss-public</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+  <repositories>
+      <repository>
+          <id>sonatype-oss-public</id>
+          <url>https://oss.sonatype.org/content/groups/public/</url>
+          <releases>
+              <enabled>true</enabled>
+          </releases>
+          <snapshots>
+              <enabled>true</enabled>
+          </snapshots>
+      </repository>
+  </repositories>
 
   <dependencies>
-    <!-- Adding a GPL-3.0 dependency for WhiteSource Policy testing -->
-    <!-- <dependency>
-      <groupId>com.github.lalyos</groupId>
-      <artifactId>jfiglet</artifactId>
-      <version>0.0.8</version>
-    </dependency> -->
-
-    <!--
-      Forcing new version of javassist to avoid vulnerability on version 3.18.0-GA
-      see https://issues.jboss.org/browse/JASSIST-227
-    -->
     <dependency>
-      <groupId>org.javassist</groupId>
-      <artifactId>javassist</artifactId>
-      <version>3.21.0-GA</version>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.9.1</version>
     </dependency>
     <dependency>
       <groupId>org.symphonyoss.symphony</groupId>
       <artifactId>symphony-client</artifactId>
-      <version>1.0.3-SNAPSHOT</version>
+      <version>${symphony.java.client.version}</version>
     </dependency>
+    <!--Used by RssBot to parse RSS feeds-->
     <dependency>
       <groupId>com.rometools</groupId>
       <artifactId>rome</artifactId>
       <version>1.8.0</version>
     </dependency>
+    <!--Used by StockInfoBot to fetch stock data-->
     <dependency>
       <groupId>com.yahoofinance-api</groupId>
       <artifactId>YahooFinanceAPI</artifactId>
       <version>3.11.0</version>
     </dependency>
-    <dependency>
-      <groupId>com.sparkjava</groupId>
-      <artifactId>spark-core</artifactId>
-      <version>2.6.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.ignite</groupId>
-      <artifactId>ignite-core</artifactId>
-      <version>2.2.0</version>
-    </dependency>
-    <!-- not needed for now, so commenting the dependency -->
-    <!-- make sure to update commons-codec to latest version, as 1.6 has a high risk bug -->
-    <!--
-    <dependency>
-      <groupId>org.apache.ignite</groupId>
-      <artifactId>ignite-indexing</artifactId>
-      <version>2.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.10</version>
-    </dependency>
-    -->
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.0.2</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.1.0</version>
         <executions>
           <execution>
-            <id>copy-resources</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>src/test/resources</directory>
-                  <includes>
-                    <include>log4j.properties</include>
-                  </includes>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>appassembler-maven-plugin</artifactId>
-        <version>2.0.0</version>
-        <executions>
-          <execution>
-            <id>build-assembled-folder</id>
             <phase>package</phase>
             <goals>
-              <goal>assemble</goal>
+              <goal>shade</goal>
             </goals>
           </execution>
         </executions>
-
-        <configuration>
-            <repositoryName>lib</repositoryName>
-            <repositoryLayout>flat</repositoryLayout>
-            <useWildcardClassPath>true</useWildcardClassPath>
-            <!-- Set the target configuration directory to be used in the bin scripts -->
-            <configurationDirectory>conf</configurationDirectory>
-            <logsDirectory>logs</logsDirectory>
-            <!-- Copy the contents from "/src/main/config" to the target
-                 configuration directory in the assembled application -->
-            <copyConfigurationDirectory>true</copyConfigurationDirectory>
-            <!-- Include the target configuration directory in the beginning of
-                 the classpath declaration in the bin scripts -->
-            <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
-            <!-- set alternative assemble directory -->
-            <assembleDirectory>${project.build.directory}/${project.artifactId}-${project.version}</assembleDirectory>
-            <!-- Extra JVM arguments that will be included in the bin scripts -->
-            <extraJvmArguments>${jvm.args}</extraJvmArguments>
-
-            <!-- Generate bin scripts for windows and unix pr default -->
-            <!-- <platforms>
-                <platform>unix</platform>
-            </platforms> -->
-            <programs>
-                <program>
-                    <mainClass>org.symphonyoss.simplebot.RunBot</mainClass>
-                    <id>RunBot</id>
-                    <platforms>
-                        <platform>unix</platform>
-                    </platforms>
-                </program>
-            </programs>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.0.0</version>
-        <configuration>
-          <descriptors>
-            <descriptor>src/main/assembly/appassembler.xml</descriptor>
-          </descriptors>
-        </configuration>
-        <executions>
-          <execution>
-            <id>build-assembled-zip</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
+      <configuration>
+          <shadedArtifactAttached>false</shadedArtifactAttached>
+          <createDependencyReducedPom>false</createDependencyReducedPom>
+      </configuration>
       </plugin>
     </plugins>
   </build>
@@ -257,8 +153,6 @@
       <id>integration-testing</id>
       <build>
         <plugins>
-          <!-- commenting out IT until issue https://github.com/symphonyoss/symphony-java-client/issues/57 is fixed -->
-          <!--
            <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
@@ -275,7 +169,6 @@
               </execution>
             </executions>
           </plugin>
-          -->
         </plugins>
       </build>
     </profile>

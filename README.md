@@ -4,85 +4,121 @@
 [![Open Issues](https://img.shields.io/github/issues/symphonyoss/symphony-java-sample-bots.svg)](https://github.com/symphonyoss/symphony-java-sample-bots/issues)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/symphonyoss/symphony-java-sample-bots.svg)](http://isitmaintained.com/project/symphonyoss/symphony-java-sample-bots "Average time to resolve an issue")
 [![License](https://img.shields.io/github/license/symphonyoss/symphony-java-sample-bots.svg)](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/LICENSE)
-[![Dependencies](https://www.versioneye.com/user/projects/57cada12939fc60037ebd03c/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57cada12939fc60037ebd03c)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/990/badge)](https://bestpractices.coreinfrastructure.org/projects/990)
 [![Validation Status](https://scan.coverity.com/projects/10072/badge.svg)](https://scan.coverity.com/projects/symphonyoss-symphony-java-sample-bots)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fsymphonyoss%2Fsymphony-java-sample-bots.svg?size=small)](https://app.fossa.io/reports/ae98d965-2431-4e7f-84bd-40d67678014c)
 
-A series of sample Java bots that use the [symphony-java-client](https://github.com/symphonyoss/symphony-java-client/) to interact with the Symphony platform.
+A series of sample Java bots that use the [symphony-java-client](https://github.com/symphonyoss/symphony-java-client/) (SJC) to interact with the Symphony platform.
+the main goal of this repository is to help developers moving their first steps with SJC, including the initial Maven project and integration testing setup.
 
-## Hello World Bot
-This bot says hello world to a given Symphony user (specified via `-Dreceiver.user.email`), then terminates.
+The code is intentionally kept simple (sometimes redundant and not production-ready) in order to keep a clear focus on SJC usage and use cases.
 
-## Echo Bot
-This bot initiates a chat with a given Symphony user (specified via `-sender.user.email`), and echoes back every message in that chat.  Terminates automatically after 5 minutes.
+Below are listed the sample bots currently hosted.
 
-## Stock Info Bot
-This bot initiates a chat with a given Symphony user (specified via `-Dreceiver.user.email`), looks for cashtags in any messages in that chat, then responds with a message containing information on those stocks (obtained from the free [Yahoo Finance API](http://financequotes-api.com/), which is 20 minutes delayed).  Terminates automatically after 5 minutes.
+- Hello World Bot - `org.symphonyoss.samples.HelloWorldBot`; sends a hello world message to a given Symphony user (specified via `receiver.email` in `symphony.properties`) in a 1:1 chat, then terminates
+- Echo Bot - `org.symphonyoss.samples.EchoBot`; listens and posts back messages on 1:1 and group Symphony chats
+- Stock Info Bot - `org.symphonyoss.samples.StockInfoBot`; listens to 1:1 and group Symphony chats, checks messages for cashtags and posts related data extracted from [Yahoo Finance API](http://financequotes-api.com/)
+- RSS Bot - `org.symphonyoss.samples.RssBot`; fetches RSS feed data from given url (`rss.url` in `symphony.properties`) and sends some (`rss.limit` in `symphony.properties`) of them to a given Symphony user (`user.email` in `symphony.properties`) in a 1:1 chat.
 
-## RSS Bot
-This bot fetches feed items from given url (`-Drss.url`) and sends an X amount (`-Drss.limit`) of them to a given Symphony user (`-Dreceiver.user.email`); check the other parameters needed in the following example.
+For more articulated examples, checkout [symphony-java-client](https://github.com/symphonyoss/symphony-java-client/tree/develop/examples).
 
-The java command runs and exit, there is no daemon running and waiting for incoming messages; for more complex bots, checkout the [symphony-java-client-examples](https://github.com/symphonyoss/symphony-java-client/tree/develop/symphony-client-examples)
+## Project setup
+Follow these instructions to get started with this project and run your first java application using the Symphony Java client.
+
+1. Make sure [Apache Maven 3.x](maven.apache.org) is installed in your workstation; run `which mvn` on your console
+to check
+2. Clone this repo - `git clone https://github.com/symphonyoss/symphony-java-sample-bots.git ; cd
+symphony-java-sample-bots`
+3. Create a `symphony.properties` file in the project root - `cp symphony.properties.sample symphony.properties`
+4. Follow the instructions below to put the right configuration
+
+## Bot configuration
+Open `symphony.properties` and edit the properties documented below.
+
+### Symphony API endpoints
+```
+sessionauth.url=https://foundation-dev-api.symphony.com/sessionauth
+keyauth.url=https://foundation-dev-api.symphony.com/keyauth
+pod.url=https://foundation-dev.symphony.com/pod
+agent.url=https://foundation-dev.symphony.com/agent
+```
+The Symphony API endpoints, defaulting to the [Foundation Developer Pod](https://symphonyoss.atlassian
+.net/wiki/display/FM/Foundation+Open+Developer+Platform) values; make sure that you have access to these endpoints,
+using `curl` or similar commands.
+
+### SSL endpoints truststore
+```
+truststore.file=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/security/cacerts
+truststore.password=changeit
+```
+The certificate truststore to validate SSL certificates of the Symphony API endpoints; if the server is using
+certificates that are not included in the default JVM bundle, you can specify the location of a custom truststore to
+use.
+
+Make sure to locate the `cacert` file of your JVM; in OSX, the command is `$(/usr/libexec/java_home)
+/jre/lib/security/cacerts`, check [this article](https://stackoverflow.com/a/11937940) for other platforms.
+
+### Symphony service account
+```
+user.cert.file=./certs/bot.user.p12
+user.cert.password=changeit
+user.email=bot.user@YOURNAME.com
+```
+These properties identify the Symphony service account that will impersonate the bot; to authenticate, it needs a P12
+ certificate released by the Symphony pod administrator (and its related password).
+
+If you don't have a Symphony pod, you can apply for a [14 day trial of the Foundation Developer Pod](symphony
+.foundation/odp).
+
+To validate your p12 certificate, try `openssl pkcs12 -info -in <file-name>.p12`.
+
+### Other bot configurations
+
+```
+receiver.email=your.name@YOURNAME.com
+```
+Specifies the email of the Symphony user that should receive the message; it is only used by `HelloWorldBot` and
+`RssBot`.
+
+```
+rss.url=https://twitrss.me/twitter_user_to_rss/?user=symphonyoss
+rss.limit=3
+```
+Specifies the source and limit of the RSS feed used by `RssBot`
+
+## Building the project
+Simply type `mvn package` and a uberjar will be created in the `./target` folder.
 
 ## Running the Bots
-- Obtain the coordinates (URLs) of your Symphony pod and agent from your Symphony administrator.  If you wish to use the Foundation's Open Developer Platform (ODP) instead, see [this link](https://symphonyoss.atlassian.net/wiki/display/FM/Foundation+Open+Developer+Platform)
-- Obtain a service account certificate from your Symphony administrator (you should have already received this from the Foundation if using the ODP).
-- Generate an "empty" Java truststore ([this StackOverflow post](http://stackoverflow.com/questions/6340918/trust-store-vs-key-store-creating-with-keytool) may help with this step).
-  - Note that Java doesn't support empty truststores - they have to contain at least one public certificate.  This could be a dummy certificate, one from your own organisation, or one from a certificate authority you trust, for example.
-  - You can also copy the default Java truststore (`$JAVA_HOME/jre/lib/security/cacerts`, password `changeit`) and use that as the base truststore for these bots.
-- Checkout and build the project:
+Assuming the Maven is executed, you can run each sample bot using the following Java command:
 ```
-git clone https://github.com/symphonyoss/symphony-java-sample-bots.git
-cd symphony-java-sample-bots
-mvn clean package
+export SYMPHONY_CONFIG_FILE=symphony.properties
+java -Xmx1024m -classpath target/symphony-java-sample-bots-0.9.0-SNAPSHOT.jar org.symphonyoss.samples.HelloWorldBot
 ```
-- Copy [`env.sh.sample`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/env.sh.sample) to `env.sh`
-- Make `env.sh` executable
-```
-chmod u+x env.sh
-```
-- Review and edit the [relevant configuration settings in `env.sh`](https://github.com/symphonyoss/symphony-java-sample-bots/blob/master/env.sh.sample) to match the information and certificates obtained above.
-  - `RECEIVER_USER_EMAIL` should be set to your email address as registered in the pod you're using (all of the sample bots initiate a conversation with the user identified by this email address - you won't see anything if this is not your registered email address)
-- Run `run-bot.sh`, providing the fully qualified classname of the bot you wish to run. e.g.
-```
-./run-bot.sh org.symphonyoss.simplebot.HelloWorldBot
-```
-Type `./run-bot.sh` to check how to run the other bot samples.
+You can replace `HelloWorldBot` with the other samples mentioned before.
+For OSX/Linux users, a [run-bot.sh](run-bot.sh) is provided.
+
+If you're running on Windows, you should use `set` instead of `export`.
 
 ## Integration testing
-This project ships with [EchoBotIT](src/test/java/org/symphonyoss/simplebot/EchoBotIT.java), a simple example of integration testing using the Symphony Java client.
+This project ships with [EchoBotIT](src/test/java/org/symphonyoss/samples/EchoBotIT.java), a simple example of integration testing using the Symphony Java client.
 
-The test runs through the following steps:
-1. instanciates the [EchoBot](src/main/java/org/symphonyoss/simplebot/EchoBot.java) using one `SymphonyClient` instance (the bot user)
-2. sends a message from another `SymphonyClient` (the sender user), to the bot user (email)
-3. registers a `ChatListener` on the sender user `SymphonyClient` and waits 10 seconds for the message to come back (as effect of the echo)
-4. asserts that the message have been received back and is the same message previously sent
+To configure it, you must create a `symphony.properties.it` configuration file (checkout [symphony.properties.it
+.sample](symphony.properties.it.sample)), which will be used to instanciate a second client that listens to the
+sender's messages.
 
-### Prerequisites
-To run this test, you must:
-1. Create `./certs` folder containing `server.truststore`, a `bot.p12` and a `sender.p12` file
-2. Edit `env.sh` and adjust Symphony endpoints and certificate file locations
+Make sure that `user.email` in `symphony.properties.it` matches with `sender.email` defined in `symphony.properties`.
 
-### Run IT
-Just run `./run-it.sh` from the project root; the script will invoke Maven, specifically the Maven Failsafe Plugin
-
-The available sample bots are:
-- Hello World Bot: `org.symphonyoss.simplebot.HelloWorldBot`
-- Echo Bot: `org.symphonyoss.simplebot.EchoBot`
-- Stock Info Bot: `org.symphonyoss.simplebot.StockInfoBot`
-- RSS Bot: `org.symphonyoss.simplebot.RssBot`
+To run it, simply type:
+```
+mvn clean install -Pintegration-testing
+```
 
 ## Dependencies
 This project uses the following libraries:
 - [Symphony Java Client](https://github.com/symphonyoss/symphony-java-client)
 - [Rome](https://rometools.github.io/rome/) (a Java framework for RSS and Atom feeds)
 - [Quotes API for Yahoo Finance](http://financequotes-api.com/)
-
-## Roadmap
-- [ ] Separate out main() function and parameter handling from individual bot classes, and allow bot impl to be specified via command line arg - HIGH PRIORITY
-- [ ] Exception handling
-- [ ] Busy wait logic and command-based bot interaction (check symphony-java-client listeners)
 
 ## Contribute
 Please read our [Contribution guidelines](https://github.com/symphonyoss/symphony-java-sample-bots/blob/develop/.github/CONTRIBUTING.md) and access our [issue tracker on Github](https://github.com/symphonyoss/symphony-java-sample-bots/issues).
@@ -93,7 +129,7 @@ Please read our [Contribution guidelines](https://github.com/symphonyoss/symphon
 
 All Administrators can:
 - Access to the project build settings (on [Travis CI](https://travis-ci.org/symphonyoss/symphony-java-sample-bots))
-- Access SonarCloud, Coverity, VersionEye, WhiteSource (or any other reporting system) to manage authentication keys connected with CI build
+- Access SonarCloud, Coverity, WhiteSource (or any other reporting system) to manage authentication keys connected with CI build
 - Deploy artifacts (nightly build snapshots) on Sonatype and (releases on) Maven Central
 The OpenShift Online environment, used for Continuous Delivery (against the Symphony Foundation Developer pod), can is managed by the [Foundation Infra team](infra@symphony.foundation)
 
