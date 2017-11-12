@@ -36,6 +36,7 @@ import org.symphonyoss.client.services.ChatListener;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 import org.symphonyoss.symphony.clients.model.SymUser;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,7 +59,14 @@ public class EchoBotIT {
 
         // Getting SJC for the receiver bot
         SymphonyClient receiverBot = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
-        System.setProperty("symphony.config.file", "symphony.properties.it");
+        if (new File("symphony.properties.it").exists()) {
+            System.setProperty("symphony.config.file", "symphony.properties.it");
+        } else {
+            //Setting up properties for Travis CI environment variable setup
+            System.setProperty("user.cert.file", System.getProperty("SENDER_USER_CERT_FILE"));
+            System.setProperty("user.cert.password", System.getProperty("SENDER_USER_CERT_PASSWORD"));
+            System.setProperty("user.email", System.getProperty("SENDER_USER_EMAIL"));
+        }
         SymphonyClientConfig receiverConfig = new SymphonyClientConfig();
         receiverBot.init(receiverConfig);
 
