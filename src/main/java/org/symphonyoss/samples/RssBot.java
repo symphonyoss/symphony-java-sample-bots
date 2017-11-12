@@ -22,34 +22,34 @@
 
 package org.symphonyoss.samples;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.io.FeedException;
+import com.rometools.rome.io.SyndFeedInput;
+import com.rometools.rome.io.XmlReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.symphonyoss.Utils;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientConfig;
 import org.symphonyoss.client.SymphonyClientConfigID;
-import org.symphonyoss.client.SymphonyClientFactory;
-import org.symphonyoss.client.exceptions.*;
+import org.symphonyoss.client.exceptions.MessagesException;
+import org.symphonyoss.client.exceptions.StreamsException;
+import org.symphonyoss.client.exceptions.SymException;
+import org.symphonyoss.client.exceptions.UsersClientException;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 import org.symphonyoss.symphony.clients.model.SymUser;
 
-import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.io.FeedException;
-import com.rometools.rome.io.SyndFeedInput;
-import com.rometools.rome.io.XmlReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class RssBot {
 
-	private final Logger logger	= LoggerFactory.getLogger(RssBot.class);
+    private final Logger logger = LoggerFactory.getLogger(RssBot.class);
 
     private SymphonyClientConfig config = new SymphonyClientConfig();
     private SymphonyClient symClient;
@@ -64,8 +64,7 @@ public class RssBot {
 
     public RssBot() throws SymException, IOException, FeedException {
         // Get SJC instance
-        this.symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
-        this.symClient.init(config);
+        this.symClient = Utils.getSymphonyClient(config);
 
         // Read bot configuration
         this.feedUrl = new URL(config.getRequired("rss.url"));
@@ -88,19 +87,19 @@ public class RssBot {
     }
 
     private void sendRssFeeds() throws MessagesException, IOException, FeedException {
-        sendMessage("Fetching "+feedUrl);
+        sendMessage("Fetching " + feedUrl);
         SyndFeedInput input = new SyndFeedInput();
         SyndFeed feed = input.build(new XmlReader(feedUrl));
         List<SyndEntry> entries = feed.getEntries();
-        sendMessage("Found " + feed.getEntries().size() + " items in the feed; printing the first "+ limit);
+        sendMessage("Found " + feed.getEntries().size() + " items in the feed; printing the first " + limit);
 
-        for (int i=0; i<limit; i++) {
+        for (int i = 0; i < limit; i++) {
             SyndEntry entry = entries.get(i);
             sendMessage(entry.getTitle() + "-" + entry.getLink());
         }
     }
 
     private void sendMessage(String message) throws MessagesException {
-        Utils.sendMessage(symClient, chat,message,SymMessage.Format.TEXT);
+        Utils.sendMessage(symClient, chat, message, SymMessage.Format.TEXT);
     }
 }

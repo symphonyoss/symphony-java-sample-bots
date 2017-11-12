@@ -72,6 +72,10 @@ If you don't have a Symphony pod, you can apply for a [14 day trial of the Found
 
 To validate your p12 certificate, try `openssl pkcs12 -info -in <file-name>.p12`.
 
+### Running behind an HTTP proxy
+The bot configuration allows to define a `proxy.url` parameter that will configure SJC accordingly; the code is part
+of [Utils.java](src/main/java/org/symphonyoss/Utils.java)
+
 ### Other bot configurations
 
 ```
@@ -93,7 +97,7 @@ Simply type `mvn package` and a uberjar will be created in the `./target` folder
 Assuming the Maven is executed, you can run each sample bot using the following Java command:
 ```
 export SYMPHONY_CONFIG_FILE=symphony.properties
-java -Xmx1024m -classpath target/symphony-java-sample-bots-0.9.0-SNAPSHOT.jar org.symphonyoss.samples.HelloWorldBot
+java -Xmx1024m -classpath target/symphony-java-sample-bots-0.9.1-SNAPSHOT.jar org.symphonyoss.samples.HelloWorldBot
 ```
 You can replace `HelloWorldBot` with the other samples mentioned before.
 For OSX/Linux users, a [run-bot.sh](run-bot.sh) is provided.

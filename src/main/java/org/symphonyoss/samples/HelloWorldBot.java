@@ -22,39 +22,35 @@
 
 package org.symphonyoss.samples;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.symphonyoss.Utils;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientConfig;
 import org.symphonyoss.client.SymphonyClientConfigID;
-import org.symphonyoss.client.SymphonyClientFactory;
 import org.symphonyoss.client.exceptions.SymException;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 import org.symphonyoss.symphony.clients.model.SymUser;
 
-public class HelloWorldBot
-{
+import java.util.HashSet;
+import java.util.Set;
+
+public class HelloWorldBot {
     private final static Logger log = LoggerFactory.getLogger(HelloWorldBot.class);
 
     private SymphonyClientConfig config = new SymphonyClientConfig();
     private SymphonyClient symClient;
-	private Chat chat;
+    private Chat chat;
 
     public static void main(String[] args) throws Exception {
         new HelloWorldBot();
         System.exit(0);
     }
 
-    public HelloWorldBot() throws SymException
-    {
+    public HelloWorldBot() throws SymException {
         // Get SJC instance
-        this.symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
-        this.symClient.init(config);
+        this.symClient = Utils.getSymphonyClient(config);
 
         // Init chat
         this.chat = new Chat();
@@ -68,6 +64,6 @@ public class HelloWorldBot
 
         // Send a message
         String message = "Hello " + config.get(SymphonyClientConfigID.RECEIVER_EMAIL) + "!";
-        Utils.sendMessage(symClient, chat,message,SymMessage.Format.TEXT);
+        Utils.sendMessage(symClient, chat, message, SymMessage.Format.TEXT);
     }
 }

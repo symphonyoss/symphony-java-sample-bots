@@ -58,7 +58,7 @@ public class EchoBotIT {
 
         // Getting SJC for the receiver bot
         SymphonyClient receiverBot = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
-        System.setProperty("symphony.config.file","symphony.properties.it");
+        System.setProperty("symphony.config.file", "symphony.properties.it");
         SymphonyClientConfig receiverConfig = new SymphonyClientConfig();
         receiverBot.init(receiverConfig);
 
@@ -98,7 +98,7 @@ public class EchoBotIT {
 
         @Override
         public void onChatMessage(SymMessage symMessage) {
-            if (symMessage.getMessage().equals("<messageML>"+messageTest+"</messageML>")) {
+            if (symMessage.getMessage().equals("<messageML>" + messageTest + "</messageML>")) {
                 this.matched = true;
             }
         }
@@ -120,8 +120,8 @@ public class EchoBotIT {
             }
             try {
                 Thread.sleep(500);
+            } catch (InterruptedException t) {
             }
-            catch (InterruptedException t) {}
         }
     }
 }

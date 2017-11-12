@@ -24,153 +24,163 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>symphony-java-sample-bots</artifactId>
-  <version>0.9.1-SNAPSHOT</version>
-  <name>Symphony Sample Java Bots</name>
-  <description>Symphony Sample Java Bots</description>
-  <url>https://github.com/symphonyoss/symphony-java-sample-bots</url>
-
-  <parent>
-    <groupId>org.symphonyoss</groupId>
-    <artifactId>symphonyoss</artifactId>
-    <version>9</version>
-  </parent>
-
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-    </license>
-  </licenses>
-
-  <scm>
-    <connection>scm:git:git://github.com/symphonyoss/symphony-java-sample-bots.git</connection>
-    <developerConnection>scm:git:git@github.com:symphonyoss/symphony-java-sample-bots.git</developerConnection>
+    <artifactId>symphony-java-sample-bots</artifactId>
+    <version>0.9.1-SNAPSHOT</version>
+    <name>Symphony Sample Java Bots</name>
+    <description>Symphony Sample Java Bots</description>
     <url>https://github.com/symphonyoss/symphony-java-sample-bots</url>
-  </scm>
 
-  <developers>
-    <developer>
-        <id>maoo</id>
-        <name>Maurizio Pillitu</name>
-        <email>maoo@symphony.foundation</email>
-        <url>http://github.com/maoo</url>
-        <organization>Symphony Software Foundation</organization>
-        <organizationUrl>http://symphony.foundation</organizationUrl>
-        <timezone>+1</timezone>
-        <roles>
-            <role>Developer</role>
-        </roles>
-    </developer>
-    <developer>
-      <id>pmonks</id>
-      <name>Peter Monks</name>
-      <email>peter@symphony.foundation</email>
-      <url>http://github.com/pmonks</url>
-      <organization>Symphony Software Foundation</organization>
-      <organizationUrl>http://symphony.foundation</organizationUrl>
-      <timezone>-8</timezone>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-  </developers>
+    <parent>
+        <groupId>org.symphonyoss</groupId>
+        <artifactId>symphonyoss</artifactId>
+        <version>9</version>
+    </parent>
 
-  <properties>
-    <symphony.java.client.version>1.0.3</symphony.java.client.version>
-    <whitesource.product>Symphony Java Client</whitesource.product>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <!--<jvm.args>-Dlog4j.configurationFile=$LOG4J_FILE -Xmx1024m -Dsessionauth.url=$SESSIONAUTH_URL -Dkeyauth.url=$KEYAUTH_URL -Dpod.url=$POD_URL -Dagent.url=$AGENT_URL -Dtruststore.file=$TRUSTSTORE_FILE -Dtruststore.password=$TRUSTSTORE_PASSWORD -Duser.cert.file=$BOT_USER_CERT_FILE -Duser.cert.password=$BOT_USER_CERT_PASSWORD -Duser.email=$BOT_USER_EMAIL -Dsender.user.email=$SENDER_USER_EMAIL -Dreceiver.user.email=$RECEIVER_USER_EMAIL -Drss.url=$RSS_URL -Drss.limit=$RSS_LIMIT</jvm.args>-->
-    <!--<failsafe.jvm.args>-Dlog4j.configurationFile=src/test/resources/log4j.properties -Xmx1024m -Dsessionauth.url=${env.SESSIONAUTH_URL} -Dkeyauth.url=${env.KEYAUTH_URL} -Dpod.url=${env.POD_URL} -Dagent.url=${env.AGENT_URL} -Dtruststore.file=${env.TRUSTSTORE_FILE} -Dtruststore.password=${env.TRUSTSTORE_PASSWORD} -Duser.cert.file=${env.BOT_USER_CERT_FILE} -Duser.cert.password=${env.BOT_USER_CERT_PASSWORD} -Duser.email=${env.BOT_USER_EMAIL} -Dsender.user.email=${env.SENDER_USER_EMAIL} -Dsender.user.cert.file=${env.SENDER_USER_CERT_FILE} -Dsender.user.cert.password=${env.SENDER_USER_CERT_PASSWORD} -Dreceiver.user.email=${env.RECEIVER_USER_EMAIL} -Drss.url=${env.RSS_URL} -Drss.limit=${env.RSS_LIMIT}</failsafe.jvm.args>-->
-  </properties>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
 
-  <repositories>
-      <repository>
-          <id>sonatype-oss-public</id>
-          <url>https://oss.sonatype.org/content/groups/public/</url>
-          <releases>
-              <enabled>true</enabled>
-          </releases>
-          <snapshots>
-              <enabled>true</enabled>
-          </snapshots>
-      </repository>
-  </repositories>
+    <scm>
+        <connection>scm:git:git://github.com/symphonyoss/symphony-java-sample-bots.git</connection>
+        <developerConnection>scm:git:git@github.com:symphonyoss/symphony-java-sample-bots.git</developerConnection>
+        <url>https://github.com/symphonyoss/symphony-java-sample-bots</url>
+    </scm>
 
-  <dependencies>
-    <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-annotations</artifactId>
-        <version>2.9.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.symphonyoss.symphony</groupId>
-      <artifactId>symphony-client</artifactId>
-      <version>${symphony.java.client.version}</version>
-    </dependency>
-    <!--Used by RssBot to parse RSS feeds-->
-    <dependency>
-      <groupId>com.rometools</groupId>
-      <artifactId>rome</artifactId>
-      <version>1.8.0</version>
-    </dependency>
-    <!--Used by StockInfoBot to fetch stock data-->
-    <dependency>
-      <groupId>com.yahoofinance-api</groupId>
-      <artifactId>YahooFinanceAPI</artifactId>
-      <version>3.11.0</version>
-    </dependency>
-  </dependencies>
+    <developers>
+        <developer>
+            <id>maoo</id>
+            <name>Maurizio Pillitu</name>
+            <email>maoo@symphony.foundation</email>
+            <url>http://github.com/maoo</url>
+            <organization>Symphony Software Foundation</organization>
+            <organizationUrl>http://symphony.foundation</organizationUrl>
+            <timezone>+1</timezone>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>pmonks</id>
+            <name>Peter Monks</name>
+            <email>peter@symphony.foundation</email>
+            <url>http://github.com/pmonks</url>
+            <organization>Symphony Software Foundation</organization>
+            <organizationUrl>http://symphony.foundation</organizationUrl>
+            <timezone>-8</timezone>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-          </execution>
-        </executions>
-      <configuration>
-          <shadedArtifactAttached>false</shadedArtifactAttached>
-          <createDependencyReducedPom>false</createDependencyReducedPom>
-      </configuration>
-      </plugin>
-    </plugins>
-  </build>
+    <properties>
+        <symphony.java.client.version>1.0.3</symphony.java.client.version>
+        <whitesource.product>Symphony Java Client</whitesource.product>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
-  <profiles>
-    <profile>
-      <id>integration-testing</id>
-      <build>
+    <repositories>
+        <repository>
+            <id>sonatype-oss-public</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- The Symphony Java Client -->
+        <dependency>
+            <groupId>org.symphonyoss.symphony</groupId>
+            <artifactId>symphony-client</artifactId>
+            <version>${symphony.java.client.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.1</version>
+        </dependency>
+        <!--Used by RssBot to parse RSS feeds-->
+        <dependency>
+            <groupId>com.rometools</groupId>
+            <artifactId>rome</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+        <!--Used by StockInfoBot to fetch stock data-->
+        <dependency>
+            <groupId>com.yahoofinance-api</groupId>
+            <artifactId>YahooFinanceAPI</artifactId>
+            <version>3.11.0</version>
+        </dependency>
+        <!-- Used for SJC proxy configuration -->
+        <dependency>
+            <groupId>org.glassfish.jersey.connectors</groupId>
+            <artifactId>jersey-apache-connector</artifactId>
+            <version>2.23.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
         <plugins>
-           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <version>2.20</version>
-            <configuration>
-              <argLine>${failsafe.jvm.args}</argLine>
-            </configuration>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>integration-test</goal>
-                  <goal>verify</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                </configuration>
+            </plugin>
         </plugins>
-      </build>
-    </profile>
-  </profiles>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>integration-testing</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.20</version>
+                        <configuration>
+                            <argLine>${failsafe.jvm.args}</argLine>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

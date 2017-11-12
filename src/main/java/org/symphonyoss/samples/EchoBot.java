@@ -24,23 +24,24 @@ package org.symphonyoss.samples;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.symphonyoss.Utils;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientConfig;
-import org.symphonyoss.client.SymphonyClientFactory;
-import org.symphonyoss.client.exceptions.*;
+import org.symphonyoss.client.exceptions.AuthorizationException;
+import org.symphonyoss.client.exceptions.InitException;
+import org.symphonyoss.client.exceptions.MessagesException;
+import org.symphonyoss.client.exceptions.NetworkException;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.client.services.ChatListener;
 import org.symphonyoss.client.services.ChatServiceListener;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 
 public class EchoBot
-    implements ChatListener, ChatServiceListener {
+        implements ChatListener, ChatServiceListener {
 
     private final static Logger log = LoggerFactory.getLogger(EchoBot.class);
 
-  	private SymphonyClientConfig config = new SymphonyClientConfig();
+    private SymphonyClientConfig config = new SymphonyClientConfig();
     private SymphonyClient symClient;
 
     public static void main(String[] args) throws Exception {
@@ -50,34 +51,33 @@ public class EchoBot
 
     public EchoBot() throws AuthorizationException, InitException, NetworkException {
         // Get SJC instance and register as listener
-        this.symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
-        this.symClient.init(config);
+        this.symClient = Utils.getSymphonyClient(config);
         this.symClient.getChatService().addListener(this);
     }
 
-  @Override
+    @Override
     public void onChatMessage(SymMessage message) {
         log.debug("on chat message");
         String messageText = message.getMessage();
 
         try {
-          Chat chat = this.symClient.getChatService().getChatByStream(message.getStreamId());
-          Utils.sendMessage(this.symClient, chat, messageText, SymMessage.Format.MESSAGEML);
+            Chat chat = this.symClient.getChatService().getChatByStream(message.getStreamId());
+            Utils.sendMessage(this.symClient, chat, messageText, SymMessage.Format.MESSAGEML);
         } catch (MessagesException e) {
-          e.printStackTrace();
-          log.error("Error sending message",e);
+            e.printStackTrace();
+            log.error("Error sending message", e);
         }
     }
 
-  @Override
-  public void onNewChat(Chat chat) {
-    log.debug("on new chat invoked; registering listener, so messages get parsed");
-    chat.addListener(this);
-  }
+    @Override
+    public void onNewChat(Chat chat) {
+        log.debug("on new chat invoked; registering listener, so messages get parsed");
+        chat.addListener(this);
+    }
 
-  @Override
-  public void onRemovedChat(Chat chat) {
-    log.debug("on removed chat invoked; removing EchoBot as chat listener");
-    chat.removeListener(this);
-  }
+    @Override
+    public void onRemovedChat(Chat chat) {
+        log.debug("on removed chat invoked; removing EchoBot as chat listener");
+        chat.removeListener(this);
+    }
 }

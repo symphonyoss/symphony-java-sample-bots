@@ -12,4 +12,4 @@ fi
 export SYMPHONY_CONFIG_FILE=symphony.properties
 
 java -Xmx1024m \
--classpath target/symphony-java-sample-bots-0.9.0-SNAPSHOT.jar "$1"
+-classpath target/symphony-java-sample-bots-0.9.1-SNAPSHOT.jar "$1"

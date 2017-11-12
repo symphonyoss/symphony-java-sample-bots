@@ -24,11 +24,9 @@ package org.symphonyoss.samples;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.symphonyoss.Utils;
 import org.symphonyoss.client.SymphonyClient;
 import org.symphonyoss.client.SymphonyClientConfig;
-import org.symphonyoss.client.SymphonyClientFactory;
 import org.symphonyoss.client.exceptions.AuthenticationException;
 import org.symphonyoss.client.exceptions.InitException;
 import org.symphonyoss.client.exceptions.MessagesException;
@@ -42,16 +40,17 @@ import yahoofinance.YahooFinance;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StockInfoBot
-    implements ChatListener, ChatServiceListener
-{
+        implements ChatListener, ChatServiceListener {
     private final static Logger log = LoggerFactory.getLogger(StockInfoBot.class);
 
-    private final static Pattern    CASHTAG_REGEX  = Pattern.compile("<cash tag=\"([^\"]+)\"/>");
+    private final static Pattern CASHTAG_REGEX = Pattern.compile("<cash tag=\"([^\"]+)\"/>");
     private final static DateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
 
     private SymphonyClientConfig config = new SymphonyClientConfig();
@@ -65,8 +64,7 @@ public class StockInfoBot
 
     public StockInfoBot() throws InitException, AuthenticationException {
         // Get SJC instance and register as listener
-        this.symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
-        this.symClient.init(config);
+        this.symClient = Utils.getSymphonyClient(config);
         this.symClient.getChatService().addListener(this);
     }
 
@@ -107,21 +105,21 @@ public class StockInfoBot
     }
 
     private void sendMessage(String message) throws MessagesException {
-        Utils.sendMessage(symClient, chat,message,SymMessage.Format.TEXT);
+        Utils.sendMessage(symClient, chat, message, SymMessage.Format.TEXT);
     }
 
     private String[] parseCashTags(String messageText) {
         String[] result = null;
-        List<String> temp   = new ArrayList<>();
+        List<String> temp = new ArrayList<>();
         if (messageText != null) {
             Matcher matcher = CASHTAG_REGEX.matcher(messageText);
-            while (matcher.find())  {
+            while (matcher.find()) {
                 temp.add(matcher.group(1));
             }
         }
         result = new String[temp.size()];
         result = temp.toArray(result);
-        return(result);
+        return (result);
     }
 
     private String buildStockMessage(Stock stock) {
@@ -134,6 +132,6 @@ public class StockInfoBot
         result.append("Quote: " + String.valueOf(stock.getQuote()) + "\n");
         result.append("Stats: " + String.valueOf(stock.getStats()) + "\n");
         result.append("Dividend: " + String.valueOf(stock.getDividend()) + "\n");
-        return(result.toString());
+        return (result.toString());
     }
 }

@@ -21,20 +21,56 @@
  */
 package org.symphonyoss;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.glassfish.jersey.apache.connector.ApacheConnectorProvider;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
 import org.symphonyoss.client.SymphonyClient;
-import org.symphonyoss.client.exceptions.*;
+import org.symphonyoss.client.SymphonyClientConfig;
+import org.symphonyoss.client.SymphonyClientConfigID;
+import org.symphonyoss.client.SymphonyClientFactory;
+import org.symphonyoss.client.exceptions.AuthenticationException;
+import org.symphonyoss.client.exceptions.InitException;
+import org.symphonyoss.client.exceptions.MessagesException;
+import org.symphonyoss.client.impl.CustomHttpClient;
 import org.symphonyoss.client.model.Chat;
 import org.symphonyoss.symphony.clients.model.SymMessage;
+
+import javax.ws.rs.client.Client;
 
 import static java.lang.Thread.sleep;
 
 public class Utils {
 
+    public static SymphonyClient getSymphonyClient(SymphonyClientConfig symphonyClientConfig) throws InitException, AuthenticationException {
+        SymphonyClient symClient = SymphonyClientFactory.getClient(SymphonyClientFactory.TYPE.BASIC);
+        String proxy = symphonyClientConfig.get("proxy.url");
+
+        if (proxy == null) {
+            symClient.init(symphonyClientConfig);
+            return symClient;
+        } else {
+            ClientConfig clientConfig = new ClientConfig();
+            clientConfig.connectorProvider(new ApacheConnectorProvider());
+            clientConfig.property(ClientProperties.PROXY_URI, proxy);
+
+            try {
+                Client httpClient = CustomHttpClient.getClient(
+                        symphonyClientConfig.get(SymphonyClientConfigID.USER_CERT_FILE),
+                        symphonyClientConfig.get(SymphonyClientConfigID.USER_CERT_PASSWORD),
+                        symphonyClientConfig.get(SymphonyClientConfigID.TRUSTSTORE_FILE),
+                        symphonyClientConfig.get(SymphonyClientConfigID.TRUSTSTORE_PASSWORD),
+                        clientConfig);
+                symClient.init(httpClient, symphonyClientConfig);
+                return symClient;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return symClient;
+    }
+
     public static void sendMessage(SymphonyClient client, Chat chat, String message, SymMessage.Format messageFormat)
-            throws MessagesException
-    {
+            throws MessagesException {
         SymMessage messageSubmission = new SymMessage();
         messageSubmission.setFormat(messageFormat);
         messageSubmission.setMessage(message);
