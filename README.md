@@ -74,7 +74,8 @@ To validate your p12 certificate, try `openssl pkcs12 -info -in <file-name>.p12`
 
 ### Running behind an HTTP proxy
 The bot configuration allows to define a `proxy.url` parameter that will configure SJC accordingly; the code is part
-of [Utils.java](src/main/java/org/symphonyoss/Utils.java)
+of [Utils.java](src/main/java/org/symphonyoss/Utils.java) and relies on `jersey-apache-connector-2.23.1` and `javax.ws
+.rs-api-2.1` libraries, defined in `pom.xml`
 
 ### Other bot configurations
 
