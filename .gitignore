@@ -9,3 +9,5 @@ env.sh
 /.project
 /.settings/
 /symphony.properties
+/symphony.properties.it
+/dependency-reduced-pom.xml

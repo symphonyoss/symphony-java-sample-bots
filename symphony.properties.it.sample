@@ -1,0 +1,14 @@
+# Only used by EchoBotIT
+
+sessionauth.url=https://foundation-dev-api.symphony.com/sessionauth
+keyauth.url=https://foundation-dev-api.symphony.com/keyauth
+pod.url=https://foundation-dev.symphony.com/pod
+agent.url=https://foundation-dev.symphony.com/agent
+
+truststore.file=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/security/cacerts
+truststore.password=changeit
+
+# This must match with sender.email specified in symphony.properties
+user.email=your.other.name@YOURNAME.com
+user.cert.file=./certs/other.bot.p12
+user.cert.password=changeit

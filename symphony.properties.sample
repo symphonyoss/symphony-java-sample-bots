@@ -1,10 +1,27 @@
-sessionauth.url=https://YOURNAME-api.symphony.com:8444/sessionauth
-keyauth.url=https://YOURNAME-api.symphony.com:8444/keyauth
-pod.url=https://YOURNAME.symphony.com/pod
-agent.url=https://YOURNAME.symphony.com/agent
-truststore.file=/your/path/server.truststore
+# Symphony API endpoints, defaults to Foundation Dev Pod
+sessionauth.url=https://foundation-dev-api.symphony.com/sessionauth
+keyauth.url=https://foundation-dev-api.symphony.com/keyauth
+pod.url=https://foundation-dev.symphony.com/pod
+agent.url=https://foundation-dev.symphony.com/agent
+
+# SSL endpoint certificate truststore
+truststore.file=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/security/cacerts
 truststore.password=changeit
-user.cert.file=/your/path/bot.user.p12
+
+# Symphony Service Account
+user.cert.file=./certs/bot.user.p12
 user.cert.password=changeit
 user.email=bot.user@YOURNAME.com
+
+# Used by HelloWorldBot and RssBot
 receiver.email=your.name@YOURNAME.com
+
+# Used by EchoBotIT
+sender.email=your.other.name@YOURNAME.com
+
+# Used by RssBot
+rss.url=https://twitrss.me/twitter_user_to_rss/?user=symphonyoss
+rss.limit=3
+
+# Use it to setup a proxy
+# proxy.url=http://localhost:3128
