@@ -1,0 +1,12 @@
+{
+  "organization": "Symphony Software Foundation",
+  "existingProjects": {
+    "symphony-java-sample-bots": {
+      "children": []
+    }
+  },
+  "newProjects": {},
+  "projectNewResources": {
+    "symphony-java-sample-bots": []
+  }
+}
