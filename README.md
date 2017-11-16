@@ -43,8 +43,7 @@ keyauth.url=https://foundation-dev-api.symphony.com/keyauth
 pod.url=https://foundation-dev.symphony.com/pod
 agent.url=https://foundation-dev.symphony.com/agent
 ```
-The Symphony API endpoints, defaulting to the [Foundation Developer Pod](https://symphonyoss.atlassian
-.net/wiki/display/FM/Foundation+Open+Developer+Platform) values; make sure that you have access to these endpoints,
+The Symphony API endpoints, defaulting to the [Foundation Developer Pod](https://symphonyoss.atlassian.net/wiki/display/FM/Foundation+Open+Developer+Platform) values; make sure that you have access to these endpoints,
 using `curl` or similar commands.
 
 ### SSL endpoints truststore
