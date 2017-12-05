@@ -78,7 +78,7 @@ public class EchoBotIT {
         chat.addListener(messageMatcher);
 
         //The sender sends a message to the chat
-        Utils.sendMessage(senderBot, chat, TEST_MESSAGE, SymMessage.Format.TEXT);
+        Utils.sendMessage(senderBot, chat, TEST_MESSAGE);
 
         //We ask the MessageMatcher if something have arrived every half second, until timeout hits
         waitForMessage(messageMatcher, TIMEOUT_MS);
