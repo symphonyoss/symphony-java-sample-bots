@@ -64,6 +64,6 @@ public class HelloWorldBot {
 
         // Send a message
         String message = "Hello " + config.get(SymphonyClientConfigID.RECEIVER_EMAIL) + "!";
-        Utils.sendMessage(symClient, chat, message, SymMessage.Format.TEXT);
+        Utils.sendMessage(symClient, chat, message);
     }
 }

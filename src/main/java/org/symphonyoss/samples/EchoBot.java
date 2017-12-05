@@ -62,7 +62,7 @@ public class EchoBot
 
         try {
             Chat chat = this.symClient.getChatService().getChatByStream(message.getStreamId());
-            Utils.sendMessage(this.symClient, chat, messageText, SymMessage.Format.MESSAGEML);
+            Utils.sendMessage(this.symClient, chat, messageText);
         } catch (MessagesException e) {
             e.printStackTrace();
             log.error("Error sending message", e);

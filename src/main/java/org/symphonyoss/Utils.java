@@ -69,10 +69,9 @@ public class Utils {
         return symClient;
     }
 
-    public static void sendMessage(SymphonyClient client, Chat chat, String message, SymMessage.Format messageFormat)
+    public static void sendMessage(SymphonyClient client, Chat chat, String message)
             throws MessagesException {
         SymMessage messageSubmission = new SymMessage();
-        messageSubmission.setFormat(messageFormat);
         messageSubmission.setMessage(message);
         client.getMessageService().sendMessage(chat, messageSubmission);
     }

@@ -105,7 +105,7 @@ public class StockInfoBot
     }
 
     private void sendMessage(String message) throws MessagesException {
-        Utils.sendMessage(symClient, chat, message, SymMessage.Format.TEXT);
+        Utils.sendMessage(symClient, chat, message);
     }
 
     private String[] parseCashTags(String messageText) {
