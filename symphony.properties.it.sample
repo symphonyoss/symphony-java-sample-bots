@@ -12,3 +12,7 @@ truststore.password=changeit
 user.email=your.other.name@YOURNAME.com
 user.cert.file=./certs/other.bot.p12
 user.cert.password=changeit
+
+sender.email=your.other.name@YOURNAME.com
+sender.cert.file=./certs/other.bot.p12
+sender.cert.password=changeit

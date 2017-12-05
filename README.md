@@ -116,6 +116,7 @@ Make sure that `user.email` in `symphony.properties.it` matches with `sender.ema
 
 To run it, simply type:
 ```
+export SYMPHONY_CONFIG_FILE=symphony.properties.it
 mvn clean install -Pintegration-testing
 ```
 
