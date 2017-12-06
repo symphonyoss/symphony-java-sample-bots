@@ -84,6 +84,8 @@
 
         <!-- WhiteSource configuration -->
         <whitesource.product>Symphony Java Client</whitesource.product>
+        <!-- TODO - remove me! this is just for Travis CI debugging -->
+        <whitesource.checkPolicies>false</whitesource.checkPolicies>
 
         <!--Used by ssf-parent-pom to configure maven-compiler-plugin-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
