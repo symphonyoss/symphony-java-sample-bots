@@ -132,13 +132,17 @@
             <artifactId>jersey-apache-connector</artifactId>
             <version>2.26</version>
         </dependency>
-        <!-- TODO - why is this needed? Where is it documented? Why it only fails at runtime? -->
+        <!-- TODO - why are these needed? Where is it documented? Why it only fails at runtime? -->
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
             <version>2.26</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
         <!-- Removing transitive deps coming from SJC, to keep the build simple -->
         <!-- <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
@@ -154,11 +158,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
         <dependency>
