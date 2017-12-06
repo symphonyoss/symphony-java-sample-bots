@@ -72,7 +72,7 @@ public class Utils {
     public static void sendMessage(SymphonyClient client, Chat chat, String message)
             throws MessagesException {
         SymMessage messageSubmission = new SymMessage();
-        messageSubmission.setMessage(message);
+        messageSubmission.setMessageText(message);
         client.getMessageService().sendMessage(chat, messageSubmission);
     }
 
