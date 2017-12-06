@@ -130,7 +130,9 @@
             <artifactId>jersey-apache-connector</artifactId>
             <version>2.26</version>
         </dependency>
-        <dependency>
+
+        <!-- Removing transitive deps coming from SJC, to keep the build simple -->
+        <!-- <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-common</artifactId>
             <version>2.26</version>
@@ -165,19 +167,13 @@
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
             <version>2.1</version>
-        </dependency>
+        </dependency> -->
         <!-- Fixing WhiteSource issues -->
-        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.22.0-GA</version>
-        </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
             <version>4.4.8</version>
-        </dependency> <!-- The Symphony Java Client -->
-
+        </dependency>
     </dependencies>
 
     <build>
