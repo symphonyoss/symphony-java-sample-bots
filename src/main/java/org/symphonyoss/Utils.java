@@ -73,6 +73,9 @@ public class Utils {
             throws MessagesException {
         SymMessage messageSubmission = new SymMessage();
         messageSubmission.setMessageText(message);
+
+        client.getChatService().addChat(chat);
+
         client.getMessageService().sendMessage(chat, messageSubmission);
     }
 
