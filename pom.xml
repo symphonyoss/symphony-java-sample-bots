@@ -130,16 +130,17 @@
             <artifactId>jersey-apache-connector</artifactId>
             <version>2.26</version>
         </dependency>
+        <!-- TODO - why is this needed? Where is it documented? Why it only fails at runtime? -->
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>2.26</version>
+        </dependency>
 
         <!-- Removing transitive deps coming from SJC, to keep the build simple -->
         <!-- <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-common</artifactId>
-            <version>2.26</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
             <version>2.26</version>
         </dependency>
         <dependency>
