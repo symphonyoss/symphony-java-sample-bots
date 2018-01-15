@@ -53,7 +53,7 @@ public class StockInfoBot
     private final static Pattern CASHTAG_REGEX = Pattern.compile("<cash tag=\"([^\"]+)\"/>");
     private final static DateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
 
-    private SymphonyClientConfig config = new SymphonyClientConfig();
+    private SymphonyClientConfig config = new SymphonyClientConfig(true);
     private SymphonyClient symClient;
     private Chat chat;
 

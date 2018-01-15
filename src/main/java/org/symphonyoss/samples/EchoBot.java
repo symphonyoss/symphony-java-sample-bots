@@ -41,7 +41,7 @@ public class EchoBot
 
     private final static Logger log = LoggerFactory.getLogger(EchoBot.class);
 
-    private SymphonyClientConfig config = new SymphonyClientConfig();
+    private SymphonyClientConfig config = new SymphonyClientConfig(true);
     private SymphonyClient symClient;
 
     public static void main(String[] args) throws Exception {

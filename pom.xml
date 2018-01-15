@@ -80,7 +80,7 @@
 
     <properties>
         <!-- The SJC version -->
-        <symphony.java.client.version>1.1.1-SNAPSHOT</symphony.java.client.version>
+        <symphony.java.client.version>1.1.2-SNAPSHOT</symphony.java.client.version>
 
         <!-- WhiteSource configuration -->
         <whitesource.product>Symphony Java Client</whitesource.product>

@@ -39,7 +39,7 @@ import java.util.Set;
 public class HelloWorldBot {
     private final static Logger log = LoggerFactory.getLogger(HelloWorldBot.class);
 
-    private SymphonyClientConfig config = new SymphonyClientConfig();
+    private SymphonyClientConfig config = new SymphonyClientConfig(true);
     private SymphonyClient symClient;
     private Chat chat;
 

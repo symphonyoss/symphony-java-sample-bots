@@ -51,7 +51,7 @@ public class RssBot {
 
     private final Logger logger = LoggerFactory.getLogger(RssBot.class);
 
-    private SymphonyClientConfig config = new SymphonyClientConfig();
+    private SymphonyClientConfig config = new SymphonyClientConfig(true);
     private SymphonyClient symClient;
     private Chat chat;
     private URL feedUrl;
