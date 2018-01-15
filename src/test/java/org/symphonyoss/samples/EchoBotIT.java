@@ -93,9 +93,13 @@ public class EchoBotIT {
         Chat chat = new Chat();
         chat.setLocalUser(senderClient.getLocalUser());
         Set<SymUser> remoteUsers = new HashSet<>();
+
+        //You need to add both users because you are using the same chat object for both sender and receiver.
         remoteUsers.add(receiverClient.getLocalUser());
+        remoteUsers.add(senderClient.getLocalUser());
         chat.setRemoteUsers(remoteUsers);
         chat.setStream(senderClient.getStreamsClient().getStream(remoteUsers));
+
         receiverClient.getChatService().addChat(chat);
         return chat;
     }
@@ -106,7 +110,9 @@ public class EchoBotIT {
 
         @Override
         public void onChatMessage(SymMessage symMessage) {
-            if (symMessage.getMessage().equals("<messageML>" + messageTest + "</messageML>")) {
+
+            //PresentationML now, so switched to getMessageText().trim()
+            if (symMessage.getMessageText().trim().equals(messageTest)) {
                 this.matched = true;
             }
         }
