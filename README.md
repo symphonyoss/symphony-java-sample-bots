@@ -105,6 +105,8 @@ For OSX/Linux users, a [run-bot.sh](run-bot.sh) is provided.
 
 If you're running on Windows, you should use `set` instead of `export`.
 
+If you're using Java 9 (check with `java -version`), please add `--add-modules java.activation` right after the `java` element in the commandline reported above.
+
 ## Integration testing
 This project ships with [EchoBotIT](src/test/java/org/symphonyoss/samples/EchoBotIT.java), a simple example of integration testing using the Symphony Java client.
 
