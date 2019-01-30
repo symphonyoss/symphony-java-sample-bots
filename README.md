@@ -1,5 +1,9 @@
 # Symphony Java Sample Bots
 
+**NOTE!** This repository [have been archived](https://finosfoundation.atlassian.net/wiki/spaces/SYM/pages/40697857/Meeting+Minutes); if you're looking for Symphony Java client samples, checkout https://github.com/symphonyoss/symphony-java-client/tree/master/examples
+
+---
+
 [![Build Status](https://travis-ci.org/symphonyoss/symphony-java-sample-bots.svg)](https://travis-ci.org/symphonyoss/symphony-java-sample-bots)
 [![Open Issues](https://img.shields.io/github/issues/symphonyoss/symphony-java-sample-bots.svg)](https://github.com/symphonyoss/symphony-java-sample-bots/issues)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/symphonyoss/symphony-java-sample-bots.svg)](http://isitmaintained.com/project/symphonyoss/symphony-java-sample-bots "Average time to resolve an issue")
